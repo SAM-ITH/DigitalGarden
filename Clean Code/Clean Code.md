@@ -1,0 +1,4 @@
+- [[Becoming a exceptional programmer]]
+- [[Coding Standrads]]
+- [[Design Principles]]
+- [[Design Patterns]]
