@@ -3,13 +3,12 @@ command = "rm -rf __obsidian __site && mkdir __obsidian && mv * __obsidian || tr
 publish = "public"
 
 [build.environment]
-FOOTER = "Proudly "
 GANALYTICS = "G-GXRDN10PHJ"
 GRAPH_LINK_REPLACE = "y"
 GRAPH_OPTIONS = """
         {
         	nodes: {
-        		shape: "circle",
+        		shape: "dot",
         		color: isDark() ? "#8c8e91" : "#dee2e6",
         		font: {
         			face: "Inter",
@@ -50,7 +49,7 @@ PAGE_GRAPH = "y"
 PYTHON_VERSION = "3.8"
 REPO_URL = "https://github.com/SAM-ITH/DigitalGarden"
 ROOT_SECTION_NAME = "root"
-SITE_TITLE = "Samith's Digital<sup>nd</sup> <span class='hvr-pulse'>🍃</span>"
+SITE_TITLE = "Samith's Digital <span class='hvr-pulse'>🍃</span>"
 SITE_TITLE_TAB = "Samith's Digital 🍃"
 SITE_URL = "https://notes.samith.me/"
 SLUGIFY = "y"
