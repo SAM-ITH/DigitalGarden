@@ -9,7 +9,7 @@ GRAPH_LINK_REPLACE = "y"
 GRAPH_OPTIONS = """
         {
         	nodes: {
-        		shape: "star",
+        		shape: "circle",
         		color: isDark() ? "#8c8e91" : "#dee2e6",
         		font: {
         			face: "Inter",
@@ -41,8 +41,8 @@ GRAPH_OPTIONS = """
         }
         """
 HOME_GRAPH = "y"
-LANDING_BUTTON = "<span class='shake-rotate shake-freeze'>Have a look?</span>"
-LANDING_DESCRIPTION = "<div style='margin-bottom: 1rem; margin-top: -3rem;'>My physical brain is <div style='font-size: 4rem; display: inline-block' class='animate__animated animate__pulse animate__infinite '>💤 </div> but my digital brain is active.</div>"
+LANDING_BUTTON = "<span class='shake-rotate shake-freeze'>Have a walk?</span>"
+LANDING_DESCRIPTION = "<div style='margin-bottom: 1rem; margin-top: -3rem;'>My physical brain is <div style='font-size: 4rem; display: inline-block' class='animate__animated animate__pulse animate__infinite '>💤 </div> but my digital garden is free to roam</div>"
 LANDING_PAGE = "home"
 LANDING_TITLE = "<span class='hvr-grow'>Hi, I'm Samith</span>"
 LOCAL_GRAPH = "y"
@@ -50,9 +50,9 @@ PAGE_GRAPH = "y"
 PYTHON_VERSION = "3.8"
 REPO_URL = "https://github.com/SAM-ITH/DigitalGarden"
 ROOT_SECTION_NAME = "root"
-SITE_TITLE = "Samith's 2<sup>nd</sup> <span class='hvr-pulse'>🧠</span>"
-SITE_TITLE_TAB = "Samith's Second 🧠"
-SITE_URL = "https://dulcet-malasada-730a38.netlify.app/"
+SITE_TITLE = "Samith's Digital<sup>nd</sup> <span class='hvr-pulse'>🍃</span>"
+SITE_TITLE_TAB = "Samith's Digital 🍃"
+SITE_URL = "https://notes.samith.me/"
 SLUGIFY = "y"
 STRICT_LINE_BREAKS = "y"
 TIMEZONE = "Asia/Hong_Kong"
@@ -64,7 +64,7 @@ package = "netlify-plugin-submit-sitemap"
 [plugins.inputs]
 
 # The base url of your site (optional, default = main URL set in Netlify)
-baseUrl = "https://dulcet-malasada-730a38.netlify.app/"
+baseUrl = "https://notes.samith.me/"
 
 # Path to the sitemap URL (optional, default = /sitemap.xml)
 sitemapPath = "/sitemap.xml"
