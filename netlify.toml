@@ -3,6 +3,7 @@ command = "rm -rf __obsidian __site && mkdir __obsidian && mv * __obsidian || tr
 publish = "public"
 
 [build.environment]
+FOOTER = "Landscaped "
 GANALYTICS = "G-GXRDN10PHJ"
 GRAPH_LINK_REPLACE = "y"
 GRAPH_OPTIONS = """
@@ -74,6 +75,5 @@ ignorePeriod = 0
 # Enabled providers to submit sitemap to (optional, default = 'google', 'bing', 'yandex'). Possible providers are currently only 'google', 'bing', 'yandex'.
 providers = [
   "google",
-  "bing",
   "yandex",
 ]
