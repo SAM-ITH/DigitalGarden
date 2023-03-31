@@ -1,0 +1,3 @@
+- protocols are bit like contract for our swift code. 
+- they let us define kind of functionality we let us out type to support. 
+- 

@@ -1,0 +1,3 @@
+- hash maps are built on arrays 
+- Arrays let you quickly look up the value for a given "key" . . . except the keys are called "indices," and we don't get to pick them—they're always sequential integers (0, 1, 2, 3, etc).
+- 

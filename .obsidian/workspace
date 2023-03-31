@@ -1,0 +1,136 @@
+{
+  "main": {
+    "id": "07063a78dd2ba8ee",
+    "type": "split",
+    "children": [
+      {
+        "id": "85fcb62612912879",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "ObjC/objC.md",
+            "mode": "source",
+            "source": true
+          }
+        },
+        "group": "2594896d042b41fd"
+      },
+      {
+        "id": "69db074848a845a9",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "ObjC/objC.md",
+            "mode": "preview",
+            "source": true
+          }
+        },
+        "group": "2594896d042b41fd"
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a60c00ad5cbf3654",
+    "type": "split",
+    "children": [
+      {
+        "id": "07cb50cb5e0cf2ab",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6ff3333e5d0c9ffe",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "600d75c6a2887bcd",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 225
+  },
+  "right": {
+    "id": "42e477e31d1edcfd",
+    "type": "split",
+    "children": [
+      {
+        "id": "4dd50f48c8bde251",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "544ad3de8d3f79ab",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "ObjC/objC.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "0c1cf9e1a3c3b6ca",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "ObjC/objC.md"
+              }
+            }
+          },
+          {
+            "id": "5009ead0359b56ff",
+            "type": "leaf",
+            "state": {
+              "type": "side-panel-control-view",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "85fcb62612912879",
+  "lastOpenFiles": [
+    "ObjC/Properties.md",
+    "ObjC/objC.md",
+    "ObjC/objc classes.md",
+    "ObjC/objc variables.md",
+    "ObjC/objc methods.md",
+    "Swift/Operators & conditions.md",
+    "SwiftUI/Learning more about swiftUI - Stanfrod.md",
+    "SwiftUI/SwiftUI.md",
+    "SwiftUI/View.md",
+    "SwiftUI/Live preview tools.md"
+  ]
+}

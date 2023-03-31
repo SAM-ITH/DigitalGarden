@@ -1,0 +1,3 @@
+- [gamedeveloperstudio.com](https://www.gamedeveloperstudio.com)
+- [zapsplat](https://www.zapsplat.com/) - free sound effects 
+- [Epic Stock Media](https://epicstockmedia.com)

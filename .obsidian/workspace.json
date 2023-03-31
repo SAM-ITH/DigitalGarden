@@ -1,0 +1,153 @@
+{
+  "main": {
+    "id": "07063a78dd2ba8ee",
+    "type": "split",
+    "children": [
+      {
+        "id": "a8da1a749fcbfae9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4156c52c2e661590",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a60c00ad5cbf3654",
+    "type": "split",
+    "children": [
+      {
+        "id": "07cb50cb5e0cf2ab",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6ff3333e5d0c9ffe",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "600d75c6a2887bcd",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 225
+  },
+  "right": {
+    "id": "42e477e31d1edcfd",
+    "type": "split",
+    "children": [
+      {
+        "id": "4dd50f48c8bde251",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "544ad3de8d3f79ab",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "0c1cf9e1a3c3b6ca",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          },
+          {
+            "id": "5009ead0359b56ff",
+            "type": "leaf",
+            "state": {
+              "type": "side-panel-control-view",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "command-palette:Open command palette": false,
+      "markdown-importer:Open format converter": false,
+      "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
+    }
+  },
+  "active": "4156c52c2e661590",
+  "lastOpenFiles": [
+    "ARkit/ARKit.md",
+    "Untitled 1.canvas",
+    "Untitled.md",
+    "UIkit/Auto Layout.md",
+    "Untitled.canvas",
+    "ObjC/Message Passing - how objc gets around.md",
+    "ObjC/objC.md",
+    "DAO - Data access object.md",
+    "ObjC/objc classes.md",
+    "Swift/Initializer/class designated initializers.md",
+    "Swift/Initializer/initializers.md",
+    "Swift/Visibility/Visibility.md",
+    "iOS dev/Application Life Cycle.md",
+    "iOS dev/iOS Dev.md",
+    "UIkit/Communication patterns.md",
+    "UIkit/completion handler (closure).md",
+    "UIkit/Delegate pattern.md",
+    "UIkit/Disclosure indicator.md",
+    "UIkit/Modal Presentation.md",
+    "UIkit/Navigation.md",
+    "UIkit/Tableview.md",
+    "UIkit/UI kit classes.md",
+    "UIkit/UIkit.md",
+    "iOS dev",
+    "ObjC/iOS dev",
+    "ObjC/Properties.md",
+    "ObjC/objc variables.md",
+    "ObjC/objc methods.md",
+    "ObjC/objc Functions.md",
+    "Swift/nil coalescing.md"
+  ]
+}

@@ -1,0 +1,2 @@
+[[Hash tables]]
+[[Hash Maps]]

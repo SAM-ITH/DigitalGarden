@@ -1,0 +1,2 @@
+- every time your application falls into one of these five categories 
+- 

@@ -1,0 +1,5 @@
+- this communication method is used to communicate between two view controllers. 
+- so this is a one to one communication method. 
+- best analogy to replicate this scenario to think about it as a boss and intern.
+	- intern doesn't know anything and boss know what need to be done 
+	- screen that has all the information is the boss screen. screen that get the data and act according to that is knows as the intern screen. 
