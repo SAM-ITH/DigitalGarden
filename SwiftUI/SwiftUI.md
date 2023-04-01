@@ -18,3 +18,4 @@
 [[Live preview tools]]
 [[modifier]]
 [[View]]
+[[Learning more about swiftUI - Stanfrod]]

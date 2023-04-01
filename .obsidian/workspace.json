@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "9881fa2022b1fb29",
+        "id": "f327caa4fa091f54",
         "type": "tabs",
         "children": [
           {
-            "id": "a20308e8aeff4eab",
+            "id": "07084dd823b72171",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "UIkit/UITableView.md",
-                "mode": "preview",
-                "source": true
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "UIkit/UITableView.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -93,9 +88,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "UIkit/UITableView.md"
-              }
+              "state": {}
             }
           },
           {
@@ -124,8 +117,20 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "6ff3333e5d0c9ffe",
+  "active": "07084dd823b72171",
   "lastOpenFiles": [
+    "SwiftUI/SwiftUI.md",
+    "Game_Dev/Game_Dev.md",
+    "Game_Dev/Apple Game Frameworks and Technologies.md",
+    "Game_Dev/Skaction Class.md",
+    "Game_Dev/Asset Creation.md",
+    "Game_Dev/animation in SpriteKit.md",
+    "Game_Dev/Pixel art tools and animators.md",
+    "Game_Dev/SpriteKit.md",
+    "Game_Dev/SKNode.md",
+    "Game_Dev/Royalty free assets.md",
+    "Game_Dev/Game Design Document.md",
+    "UIkit/UITableView.md",
     "UIkit/UIkit.md",
     "images/how the table view work.jpg",
     "images/how the table view work.JPG",
@@ -134,7 +139,6 @@
     "images/live_preview.png",
     "images/Untitled.md",
     "Swift/Collection types.md",
-    "UIkit/UITableView.md",
     "UIkit/Auto Layout.md",
     "UIkit/Communication patterns.md",
     "UIkit/completion handler (closure).md",
@@ -147,17 +151,7 @@
     "Swift/ViewControllers/Tableview - swift.md",
     "Swift/ViewControllers",
     "Swift/Swift.md",
-    "ObjC/objC.md",
-    "ObjC/TableView - ObjC.md",
-    "ObjC/ObjC Keywords/Objc - Keywords.md",
-    "swift_keywords/keywords.md",
     "Xcode",
-    "Swift/Looping.md",
-    "SwiftUI/Chapter - 01/Adding Buttons and navigating with them/Buttons and Navigation.md",
-    "SwiftUI/SwiftUI.md",
-    "SwiftUI/View.md",
-    "SwiftUI/modifier.md",
-    "SwiftUI/Chapter - 01/Basic Views and Controls.md",
     "ObjC/ObjC Keywords",
     "Clean Code",
     "Untitled 1.canvas",
