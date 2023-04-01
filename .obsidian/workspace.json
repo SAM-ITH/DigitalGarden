@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "a8da1a749fcbfae9",
+        "id": "9881fa2022b1fb29",
         "type": "tabs",
         "children": [
           {
-            "id": "4156c52c2e661590",
+            "id": "a20308e8aeff4eab",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "UIkit/UITableView.md",
+                "mode": "preview",
+                "source": true
+              }
             }
           }
         ]
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "UIkit/UITableView.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,7 +93,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "UIkit/UITableView.md"
+              }
             }
           },
           {
@@ -117,35 +124,41 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "4156c52c2e661590",
+  "active": "6ff3333e5d0c9ffe",
   "lastOpenFiles": [
+    "UIkit/UIkit.md",
+    "images/how the table view work.jpg",
+    "images/how the table view work.JPG",
+    "images/collections swift.png",
+    "images/uikit_classes.jpg",
+    "images/live_preview.png",
+    "images/Untitled.md",
+    "Swift/Collection types.md",
+    "UIkit/UITableView.md",
+    "UIkit/Auto Layout.md",
+    "UIkit/Communication patterns.md",
+    "UIkit/completion handler (closure).md",
+    "UIkit/Delegate pattern.md",
+    "UIkit/Disclosure indicator.md",
+    "UIkit/Modal Presentation.md",
+    "UIkit/Navigation.md",
+    "UIkit/UI kit classes.md",
+    "Swift/Tableview - swift.md",
+    "Swift/ViewControllers/Tableview - swift.md",
+    "Swift/ViewControllers",
+    "Swift/Swift.md",
+    "ObjC/objC.md",
+    "ObjC/TableView - ObjC.md",
+    "ObjC/ObjC Keywords/Objc - Keywords.md",
+    "swift_keywords/keywords.md",
+    "Xcode",
+    "Swift/Looping.md",
+    "SwiftUI/Chapter - 01/Adding Buttons and navigating with them/Buttons and Navigation.md",
     "SwiftUI/SwiftUI.md",
     "SwiftUI/View.md",
     "SwiftUI/modifier.md",
     "SwiftUI/Chapter - 01/Basic Views and Controls.md",
-    "SwiftUI/Chapter - 01/Dealing with texts/Getting user input.md",
-    "ObjC/Properties.md",
-    "SwiftUI/Chapter - 01/Laying out components/Offset.md",
-    "Swift/Swift.md",
-    "Swift/ENUM.md",
-    "ObjC/objC.md",
-    "ObjC/Message Passing - how objc gets around.md",
-    "ObjC/DAO - Data access object.md",
-    "ObjC/ObjC Keywords/Objc - Keywords.md",
     "ObjC/ObjC Keywords",
-    "ObjC/objc classes.md",
-    "ObjC/objc variables.md",
-    "Clean Code/Design patterns/Design Patterns.md",
-    "Clean Code/Clean Code.md",
-    "Clean Code/Design Principles.md",
-    "Clean Code/Coding Standrads.md",
-    "Clean Code/Design patterns/Adapter pattern.md",
-    "Clean Code/Design patterns/Factory Method.md",
-    "Clean Code/Becoming a exceptional programmer.md",
-    "Swift/typecasting.md",
-    "Game_Dev/Skaction Class.md",
-    "Road to Techlead.md",
-    "swift_keywords/Public.md",
     "Clean Code",
     "Untitled 1.canvas",
     "Untitled.canvas",
