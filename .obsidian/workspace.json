@@ -11,28 +11,11 @@
             "id": "4156c52c2e661590",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "ObjC/Properties.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "126967f5b8829a30",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "ObjC/ObjC Keywords/Objc - Keywords.md",
-                "mode": "source",
-                "source": true
-              }
+              "type": "graph",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -90,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ObjC/ObjC Keywords/Objc - Keywords.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,9 +88,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "ObjC/ObjC Keywords/Objc - Keywords.md"
-              }
+              "state": {}
             }
           },
           {
@@ -137,14 +117,22 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "6ff3333e5d0c9ffe",
+  "active": "4156c52c2e661590",
   "lastOpenFiles": [
+    "SwiftUI/SwiftUI.md",
+    "SwiftUI/View.md",
+    "SwiftUI/modifier.md",
+    "SwiftUI/Chapter - 01/Basic Views and Controls.md",
+    "SwiftUI/Chapter - 01/Dealing with texts/Getting user input.md",
     "ObjC/Properties.md",
+    "SwiftUI/Chapter - 01/Laying out components/Offset.md",
+    "Swift/Swift.md",
+    "Swift/ENUM.md",
+    "ObjC/objC.md",
+    "ObjC/Message Passing - how objc gets around.md",
+    "ObjC/DAO - Data access object.md",
     "ObjC/ObjC Keywords/Objc - Keywords.md",
     "ObjC/ObjC Keywords",
-    "ObjC/DAO - Data access object.md",
-    "ObjC/Message Passing - how objc gets around.md",
-    "ObjC/objC.md",
     "ObjC/objc classes.md",
     "ObjC/objc variables.md",
     "Clean Code/Design patterns/Design Patterns.md",
@@ -158,17 +146,9 @@
     "Game_Dev/Skaction Class.md",
     "Road to Techlead.md",
     "swift_keywords/Public.md",
-    "Swift/optional binding with if let.md",
-    "JSON.md",
-    "home.md",
-    "Grand central dispatch.md",
-    "Swift/Force Unwrapping.md",
     "Clean Code",
-    "ARkit/ARKit.md",
     "Untitled 1.canvas",
-    "UIkit/Auto Layout.md",
     "Untitled.canvas",
-    "Swift/Initializer/class designated initializers.md",
     "iOS dev",
     "ObjC/iOS dev"
   ]

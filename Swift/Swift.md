@@ -7,6 +7,7 @@
 [[Optionals]]
 [[Control flow]]
 [[Collection types]]
+[[ENUM]]
 
 ___
 ### Basic concepts
