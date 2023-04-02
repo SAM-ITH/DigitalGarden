@@ -8,4 +8,4 @@
 
 
 ### Tools 
-[[Pixel art tools and animators]]
+[[art tools and animators]]
