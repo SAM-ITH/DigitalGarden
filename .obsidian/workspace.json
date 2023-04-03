@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "07084dd823b72171",
+            "id": "765de68ca457160f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Game_Dev/art tools and animators.md",
+                "file": "Clean Code/Design patterns/Design Patterns.md",
                 "mode": "source",
                 "source": true
               }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Game_Dev/art tools and animators.md",
+                "file": "Clean Code/Design patterns/Design Patterns.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Game_Dev/art tools and animators.md"
+                "file": "Clean Code/Design patterns/Design Patterns.md"
               }
             }
           },
@@ -124,8 +124,24 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "07084dd823b72171",
+  "active": "765de68ca457160f",
   "lastOpenFiles": [
+    "Clean Code/Design patterns/Design Patterns.md",
+    "Clean Code/Design patterns/Behavioural Patterns/Behavioural Patterns.md",
+    "Clean Code/Design patterns/Behavioural Patterns/Observer.md",
+    "Clean Code/Design patterns/Behavioural Patterns",
+    "Clean Code/Design patterns/Structural Patterns/Structural Patterns.md",
+    "Clean Code/Design patterns/Structural Patterns/Adapter.md",
+    "Clean Code/Design patterns/Structural Patterns",
+    "Clean Code/Design patterns/Creational Patterns/Creational Patterns.md",
+    "Clean Code/Design patterns/Creational Patterns/Builder.md",
+    "Clean Code/Design patterns/Creational Patterns/Singleton.md",
+    "Clean Code/Design patterns/Creational Patterns/Prototype.md",
+    "Clean Code/Design patterns/Creational Patterns/Factories.md",
+    "Clean Code/Design patterns/Creational Patterns",
+    "Clean Code/Design patterns/SOLID Design Principles.md",
+    "Clean Code/Clean Code.md",
+    "Game_Dev/art tools and animators.md",
     "Game_Dev/Game_Dev.md",
     "swift_keywords/Public.md",
     "images/how the table view work.jpg",
@@ -144,29 +160,14 @@
     "ObjC/ObjC Keywords",
     "ObjC/DAO - Data access object.md",
     "Game_Dev/animation in SpriteKit.md",
-    "Game_Dev/Skaction Class.md",
-    "Game_Dev/art tools and animators.md",
-    "Clean Code/Design patterns/Factory Method.md",
-    "Clean Code/Design patterns/Design Patterns.md",
-    "Clean Code/Design patterns/Adapter pattern.md",
     "Clean Code/Design patterns",
-    "Clean Code/Design Principles.md",
-    "Clean Code/Coding Standrads.md",
-    "Clean Code/Clean Code.md",
-    "Clean Code/Becoming a exceptional programmer.md",
     "Clean Code",
-    "typecasting.md",
-    "optional binding with if let.md",
-    "animation in SpriteKit.md",
-    "UIkit/Tableview.md",
     "Debugging",
     "images/how the table view work.JPG",
     "images/collections swift.png",
     "images/uikit_classes.jpg",
     "images/live_preview.png",
     "Untitled 1.canvas",
-    "Untitled.canvas",
-    "iOS dev",
-    "ObjC/iOS dev"
+    "Untitled.canvas"
   ]
 }
