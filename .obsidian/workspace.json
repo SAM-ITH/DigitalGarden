@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md",
+                "file": "Clean Code/Design patterns/SOLID Design Principles.md",
                 "mode": "source",
                 "source": true
               }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md",
+                "file": "Clean Code/Design patterns/SOLID Design Principles.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md"
+                "file": "Clean Code/Design patterns/SOLID Design Principles.md"
               }
             }
           },
@@ -126,6 +126,8 @@
   },
   "active": "765de68ca457160f",
   "lastOpenFiles": [
+    "Swift/Classes.md",
+    "Swift/Swift.md",
     "Clean Code/Design patterns/Design Patterns.md",
     "Clean Code/Design patterns/Behavioural Patterns/Behavioural Patterns.md",
     "Clean Code/Design patterns/Behavioural Patterns/Observer.md",
@@ -158,8 +160,6 @@
     "ObjC/TableView - ObjC.md",
     "ObjC/ObjC Keywords/Objc - Keywords.md",
     "ObjC/ObjC Keywords",
-    "ObjC/DAO - Data access object.md",
-    "Game_Dev/animation in SpriteKit.md",
     "Clean Code/Design patterns",
     "Clean Code",
     "Debugging",
