@@ -1,4 +1,3 @@
-[[UIkit]]
 
 - adding table view to the storyboard. 
 

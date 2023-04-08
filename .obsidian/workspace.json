@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "a8da1a749fcbfae9",
+        "id": "f327caa4fa091f54",
         "type": "tabs",
         "children": [
           {
-            "id": "4156c52c2e661590",
+            "id": "765de68ca457160f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md",
+                "file": "Clean Code/Design patterns/SOLID Design Principles.md",
                 "mode": "source",
                 "source": true
               }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md",
+                "file": "Clean Code/Design patterns/SOLID Design Principles.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md"
+                "file": "Clean Code/Design patterns/SOLID Design Principles.md"
               }
             }
           },
@@ -124,38 +124,50 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "4156c52c2e661590",
+  "active": "765de68ca457160f",
   "lastOpenFiles": [
-    "Clean Code/Clean Code.md",
+    "Swift/Classes.md",
+    "Swift/Swift.md",
     "Clean Code/Design patterns/Design Patterns.md",
-    "Clean Code/Design Principles.md",
-    "Clean Code/Coding Standrads.md",
-    "Clean Code/Design patterns/Adapter pattern.md",
-    "Clean Code/Design patterns/Factory Method.md",
-    "Clean Code/Becoming a exceptional programmer.md",
-    "Swift/typecasting.md",
-    "Game_Dev/Skaction Class.md",
-    "Road to Techlead.md",
+    "Clean Code/Design patterns/Behavioural Patterns/Behavioural Patterns.md",
+    "Clean Code/Design patterns/Behavioural Patterns/Observer.md",
+    "Clean Code/Design patterns/Behavioural Patterns",
+    "Clean Code/Design patterns/Structural Patterns/Structural Patterns.md",
+    "Clean Code/Design patterns/Structural Patterns/Adapter.md",
+    "Clean Code/Design patterns/Structural Patterns",
+    "Clean Code/Design patterns/Creational Patterns/Creational Patterns.md",
+    "Clean Code/Design patterns/Creational Patterns/Builder.md",
+    "Clean Code/Design patterns/Creational Patterns/Singleton.md",
+    "Clean Code/Design patterns/Creational Patterns/Prototype.md",
+    "Clean Code/Design patterns/Creational Patterns/Factories.md",
+    "Clean Code/Design patterns/Creational Patterns",
+    "Clean Code/Design patterns/SOLID Design Principles.md",
+    "Clean Code/Clean Code.md",
+    "Game_Dev/art tools and animators.md",
+    "Game_Dev/Game_Dev.md",
     "swift_keywords/Public.md",
+    "images/how the table view work.jpg",
+    "Xcode/Debugging/Debugging.md",
+    "Xcode/Debugging/Breakpoints in Xcode.md",
+    "Xcode/Debugging",
+    "Xcode",
+    "UIkit/UITableView.md",
+    "Swift/typecasting.md",
     "Swift/optional binding with if let.md",
-    "JSON.md",
-    "home.md",
-    "Grand central dispatch.md",
+    "Swift/ViewControllers/Tableview - swift.md",
+    "Swift/ViewControllers",
     "Swift/Force Unwrapping.md",
-    "ObjC/DAO - Data access object.md",
+    "ObjC/TableView - ObjC.md",
+    "ObjC/ObjC Keywords/Objc - Keywords.md",
+    "ObjC/ObjC Keywords",
+    "Clean Code/Design patterns",
     "Clean Code",
-    "ARkit/ARKit.md",
+    "Debugging",
+    "images/how the table view work.JPG",
+    "images/collections swift.png",
+    "images/uikit_classes.jpg",
+    "images/live_preview.png",
     "Untitled 1.canvas",
-    "UIkit/Auto Layout.md",
-    "Untitled.canvas",
-    "ObjC/Message Passing - how objc gets around.md",
-    "ObjC/objC.md",
-    "ObjC/objc classes.md",
-    "Swift/Initializer/class designated initializers.md",
-    "Swift/Initializer/initializers.md",
-    "Swift/Visibility/Visibility.md",
-    "iOS dev/Application Life Cycle.md",
-    "iOS dev",
-    "ObjC/iOS dev"
+    "Untitled.canvas"
   ]
 }

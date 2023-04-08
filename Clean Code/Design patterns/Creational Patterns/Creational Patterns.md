@@ -1,0 +1,6 @@
+
+
+[[Builder]]
+[[Factories]]
+[[Prototype]]
+[[Singleton]]
