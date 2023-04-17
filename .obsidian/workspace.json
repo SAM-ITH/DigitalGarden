@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "765de68ca457160f",
+            "id": "d28c726f5cf2bbee",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Clean Code/Design patterns/SOLID Design Principles.md",
+                "file": "home.md",
                 "mode": "source",
                 "source": true
               }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Clean Code/Design patterns/SOLID Design Principles.md",
+                "file": "home.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Clean Code/Design patterns/SOLID Design Principles.md"
+                "file": "home.md"
               }
             }
           },
@@ -124,11 +124,19 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "765de68ca457160f",
+  "active": "d28c726f5cf2bbee",
   "lastOpenFiles": [
+    "Clean Code/Design patterns/Design Patterns.md",
+    "Notes for Myself/Note For My self.md",
+    "Notes for Myself/Why I am Failing?.md",
+    "Untitled.md",
+    "Clean Code/Design patterns/SOLID/Single Responsibility.md",
+    "Notes for Myself",
+    "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
+    "Clean Code/Clean Code.md",
+    "Clean Code/Design patterns/SOLID",
     "Swift/Classes.md",
     "Swift/Swift.md",
-    "Clean Code/Design patterns/Design Patterns.md",
     "Clean Code/Design patterns/Behavioural Patterns/Behavioural Patterns.md",
     "Clean Code/Design patterns/Behavioural Patterns/Observer.md",
     "Clean Code/Design patterns/Behavioural Patterns",
@@ -141,8 +149,6 @@
     "Clean Code/Design patterns/Creational Patterns/Prototype.md",
     "Clean Code/Design patterns/Creational Patterns/Factories.md",
     "Clean Code/Design patterns/Creational Patterns",
-    "Clean Code/Design patterns/SOLID Design Principles.md",
-    "Clean Code/Clean Code.md",
     "Game_Dev/art tools and animators.md",
     "Game_Dev/Game_Dev.md",
     "swift_keywords/Public.md",
@@ -154,15 +160,9 @@
     "UIkit/UITableView.md",
     "Swift/typecasting.md",
     "Swift/optional binding with if let.md",
-    "Swift/ViewControllers/Tableview - swift.md",
     "Swift/ViewControllers",
-    "Swift/Force Unwrapping.md",
-    "ObjC/TableView - ObjC.md",
-    "ObjC/ObjC Keywords/Objc - Keywords.md",
     "ObjC/ObjC Keywords",
     "Clean Code/Design patterns",
-    "Clean Code",
-    "Debugging",
     "images/how the table view work.JPG",
     "images/collections swift.png",
     "images/uikit_classes.jpg",
