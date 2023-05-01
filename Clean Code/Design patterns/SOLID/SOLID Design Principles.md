@@ -5,7 +5,8 @@
 
 #### Open/Closed principle 
 
- - design code ability add more functionalities 
+
+
 
 #### Liskov Substitution 
 

@@ -8,11 +8,15 @@
         "type": "tabs",
         "children": [
           {
-            "id": "b1dc590e9f2c09d8",
+            "id": "a987c9dc3faf114a",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
+                "mode": "source",
+                "source": true
+              }
             }
           }
         ]
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,7 +93,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Clean Code/Design patterns/SOLID/Open-closed Principle.md"
+              }
             }
           },
           {
@@ -117,22 +124,16 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "b1dc590e9f2c09d8",
+  "active": "a987c9dc3faf114a",
   "lastOpenFiles": [
-    "ARkit/ARKit.md",
-    "Importing 3D Models.md",
-    "ARkit/Importing 3D Models.md",
-    "SceneKit Scene Editor.md",
-    "ARkit/SceneKit Scene Editor.md",
-    "Road to Techlead.md",
-    "ARkit/Introduction to ARkit.md",
-    "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
     "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
+    "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
     "Clean Code/Design patterns/SOLID/Single Responsibility.md",
     "home.md",
     "Clean Code/Design patterns/Design Patterns.md",
     "Notes for Myself/Note For My self.md",
     "Notes for Myself/Why I am Failing?.md",
+    "Untitled.md",
     "Notes for Myself",
     "Clean Code/Clean Code.md",
     "Clean Code/Design patterns/SOLID",
@@ -153,6 +154,7 @@
     "images/how the table view work.jpg",
     "Xcode/Debugging",
     "Xcode",
+    "UIkit/UITableView.md",
     "Swift/ViewControllers",
     "ObjC/ObjC Keywords",
     "Clean Code/Design patterns",
