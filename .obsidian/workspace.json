@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "f327caa4fa091f54",
+        "id": "7083ec51b4844df7",
         "type": "tabs",
         "children": [
           {
@@ -151,12 +151,7 @@
     "Clean Code/Design patterns/Creational Patterns/Prototype.md",
     "Clean Code/Design patterns/Creational Patterns/Factories.md",
     "Clean Code/Design patterns/Creational Patterns",
-    "Game_Dev/art tools and animators.md",
-    "Game_Dev/Game_Dev.md",
-    "swift_keywords/Public.md",
     "images/how the table view work.jpg",
-    "Xcode/Debugging/Debugging.md",
-    "Xcode/Debugging/Breakpoints in Xcode.md",
     "Xcode/Debugging",
     "Xcode",
     "UIkit/UITableView.md",
