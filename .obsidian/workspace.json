@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "f327caa4fa091f54",
+        "id": "7083ec51b4844df7",
         "type": "tabs",
         "children": [
           {
-            "id": "d28c726f5cf2bbee",
+            "id": "b1dc590e9f2c09d8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "home.md",
-                "mode": "source",
-                "source": true
-              }
+              "type": "graph",
+              "state": {}
             }
           }
         ]
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "home.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -93,9 +88,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "home.md"
-              }
+              "state": {}
             }
           },
           {
@@ -124,15 +117,23 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "d28c726f5cf2bbee",
+  "active": "b1dc590e9f2c09d8",
   "lastOpenFiles": [
+    "ARkit/ARKit.md",
+    "Importing 3D Models.md",
+    "ARkit/Importing 3D Models.md",
+    "SceneKit Scene Editor.md",
+    "ARkit/SceneKit Scene Editor.md",
+    "Road to Techlead.md",
+    "ARkit/Introduction to ARkit.md",
+    "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
+    "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
+    "Clean Code/Design patterns/SOLID/Single Responsibility.md",
+    "home.md",
     "Clean Code/Design patterns/Design Patterns.md",
     "Notes for Myself/Note For My self.md",
     "Notes for Myself/Why I am Failing?.md",
-    "Untitled.md",
-    "Clean Code/Design patterns/SOLID/Single Responsibility.md",
     "Notes for Myself",
-    "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
     "Clean Code/Clean Code.md",
     "Clean Code/Design patterns/SOLID",
     "Swift/Classes.md",
@@ -149,17 +150,9 @@
     "Clean Code/Design patterns/Creational Patterns/Prototype.md",
     "Clean Code/Design patterns/Creational Patterns/Factories.md",
     "Clean Code/Design patterns/Creational Patterns",
-    "Game_Dev/art tools and animators.md",
-    "Game_Dev/Game_Dev.md",
-    "swift_keywords/Public.md",
     "images/how the table view work.jpg",
-    "Xcode/Debugging/Debugging.md",
-    "Xcode/Debugging/Breakpoints in Xcode.md",
     "Xcode/Debugging",
     "Xcode",
-    "UIkit/UITableView.md",
-    "Swift/typecasting.md",
-    "Swift/optional binding with if let.md",
     "Swift/ViewControllers",
     "ObjC/ObjC Keywords",
     "Clean Code/Design patterns",
