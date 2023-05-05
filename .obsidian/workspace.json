@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
+                "file": "ARkit/SceneKit.md",
                 "mode": "source",
                 "source": true
               }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
+                "file": "ARkit/SceneKit.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Clean Code/Design patterns/SOLID/Open-closed Principle.md"
+                "file": "ARkit/SceneKit.md"
               }
             }
           },
@@ -126,8 +126,12 @@
   },
   "active": "a987c9dc3faf114a",
   "lastOpenFiles": [
-    "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
+    "ARkit/Importing 3D Models.md",
+    "ARkit/Introduction to ARkit.md",
+    "ARkit/ARKit.md",
+    "ARkit/SceneKit.md",
     "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
+    "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
     "Clean Code/Design patterns/SOLID/Single Responsibility.md",
     "home.md",
     "Clean Code/Design patterns/Design Patterns.md",
