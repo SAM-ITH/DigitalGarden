@@ -1,0 +1,3 @@
+- simple ideas of the single responsibility is, that class has a one reason to change.  
+- class has a specific area of responsibility and it's doesn't try to take on other responsibilities. 
+- 

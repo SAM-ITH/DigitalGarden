@@ -1,12 +1,12 @@
 - SOLID Design principles 
 
 ##### Single Responsibility 
-
-- break our code down into modules. each module has a single responsibility. 
+[[Single Responsibility]]
 
 #### Open/Closed principle 
 
- - design code ability add more functionalities 
+
+
 
 #### Liskov Substitution 
 

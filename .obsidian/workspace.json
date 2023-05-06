@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "a8da1a749fcbfae9",
+        "id": "7083ec51b4844df7",
         "type": "tabs",
         "children": [
           {
-            "id": "4156c52c2e661590",
+            "id": "a987c9dc3faf114a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md",
-                "mode": "source",
-                "source": true
-              }
+              "type": "graph",
+              "state": {}
             }
           }
         ]
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -93,9 +88,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Clean Code/Design patterns/Design Patterns.md"
-              }
+              "state": {}
             }
           },
           {
@@ -124,38 +117,51 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "4156c52c2e661590",
+  "active": "a987c9dc3faf114a",
   "lastOpenFiles": [
-    "Clean Code/Clean Code.md",
-    "Clean Code/Design patterns/Design Patterns.md",
-    "Clean Code/Design Principles.md",
-    "Clean Code/Coding Standrads.md",
-    "Clean Code/Design patterns/Adapter pattern.md",
-    "Clean Code/Design patterns/Factory Method.md",
-    "Clean Code/Becoming a exceptional programmer.md",
-    "Swift/typecasting.md",
-    "Game_Dev/Skaction Class.md",
-    "Road to Techlead.md",
-    "swift_keywords/Public.md",
-    "Swift/optional binding with if let.md",
-    "JSON.md",
-    "home.md",
-    "Grand central dispatch.md",
-    "Swift/Force Unwrapping.md",
-    "ObjC/DAO - Data access object.md",
-    "Clean Code",
-    "ARkit/ARKit.md",
-    "Untitled 1.canvas",
-    "UIkit/Auto Layout.md",
-    "Untitled.canvas",
-    "ObjC/Message Passing - how objc gets around.md",
-    "ObjC/objC.md",
-    "ObjC/objc classes.md",
-    "Swift/Initializer/class designated initializers.md",
-    "Swift/Initializer/initializers.md",
-    "Swift/Visibility/Visibility.md",
+    "iOS dev/iOS Dev.md",
     "iOS dev/Application Life Cycle.md",
-    "iOS dev",
-    "ObjC/iOS dev"
+    "call by value result.md",
+    "Codable.md",
+    "Deep linking.md",
+    "File Private.md",
+    "Frame.md",
+    "Grand central dispatch.md",
+    "home.md",
+    "JSON.md",
+    "pass by value.md",
+    "Road to Techlead.md",
+    "Variadic Functions.md",
+    "using the delegation pattern.md",
+    "Style Guide lines.md",
+    "ARkit/Scene Editor.md",
+    "images/scene_editor_view.png",
+    "ARkit/SceneKit.md",
+    "ARkit/Importing 3D Models.md",
+    "ARkit/Introduction to ARkit.md",
+    "ARkit/ARKit.md",
+    "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
+    "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
+    "Clean Code/Design patterns/SOLID/Single Responsibility.md",
+    "Clean Code/Design patterns/Design Patterns.md",
+    "Notes for Myself/Note For My self.md",
+    "Notes for Myself/Why I am Failing?.md",
+    "Notes for Myself",
+    "Clean Code/Design patterns/SOLID",
+    "Clean Code/Design patterns/Behavioural Patterns",
+    "Clean Code/Design patterns/Structural Patterns",
+    "Clean Code/Design patterns/Creational Patterns",
+    "images/how the table view work.jpg",
+    "Xcode/Debugging",
+    "Xcode",
+    "Swift/ViewControllers",
+    "ObjC/ObjC Keywords",
+    "Clean Code/Design patterns",
+    "images/how the table view work.JPG",
+    "images/collections swift.png",
+    "images/uikit_classes.jpg",
+    "images/live_preview.png",
+    "Untitled 1.canvas",
+    "Untitled.canvas"
   ]
 }
