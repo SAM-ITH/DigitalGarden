@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "7083ec51b4844df7",
+        "id": "05cfb46e4f73d03e",
         "type": "tabs",
         "children": [
           {
-            "id": "a987c9dc3faf114a",
+            "id": "f4b81083b0a3aa63",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "UIkit.md",
+                "mode": "preview",
+                "source": true
+              }
             }
           }
         ]
@@ -52,6 +56,14 @@
                 "sortOrder": "alphabetical"
               }
             }
+          },
+          {
+            "id": "94568f59a88780e3",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
           }
         ]
       }
@@ -73,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "UIkit.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,7 +101,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "UIkit.md"
+              }
             }
           },
           {
@@ -117,50 +132,50 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "a987c9dc3faf114a",
+  "active": "f4b81083b0a3aa63",
   "lastOpenFiles": [
-    "iOS dev/iOS Dev.md",
-    "iOS dev/Application Life Cycle.md",
-    "call by value result.md",
-    "Codable.md",
-    "Deep linking.md",
-    "File Private.md",
-    "Frame.md",
-    "Grand central dispatch.md",
+    "SwiftUI.md",
+    "Swift.md",
+    "OOP concepts.md",
     "home.md",
-    "JSON.md",
-    "pass by value.md",
-    "Road to Techlead.md",
-    "Variadic Functions.md",
-    "using the delegation pattern.md",
-    "Style Guide lines.md",
-    "ARkit/Scene Editor.md",
-    "images/scene_editor_view.png",
-    "ARkit/SceneKit.md",
-    "ARkit/Importing 3D Models.md",
-    "ARkit/Introduction to ARkit.md",
-    "ARkit/ARKit.md",
-    "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
-    "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
-    "Clean Code/Design patterns/SOLID/Single Responsibility.md",
-    "Clean Code/Design patterns/Design Patterns.md",
-    "Notes for Myself/Note For My self.md",
-    "Notes for Myself/Why I am Failing?.md",
-    "Notes for Myself",
-    "Clean Code/Design patterns/SOLID",
-    "Clean Code/Design patterns/Behavioural Patterns",
-    "Clean Code/Design patterns/Structural Patterns",
-    "Clean Code/Design patterns/Creational Patterns",
-    "images/how the table view work.jpg",
-    "Xcode/Debugging",
-    "Xcode",
+    "Clean Code.md",
+    "ARKit.md",
+    "Programming/Swift/Force Unwrapping.md",
+    "Programming/Swift/Instances.md",
+    "Programming/Codable.md",
+    "Programming/call by value result.md",
+    "Programming/ARkit/Scene Editor.md",
+    "Programming/ARkit/Introduction to ARkit.md",
+    "Programming/Articles/A_Functions.md",
+    "Programming/Swift/Functions.md",
+    "Programming/Swift/JSON_Parsing.md",
+    "Programming/Swift/Looping.md",
+    "Programming/Swift/Enumurate items in an array.md",
+    "Programming/Swift/Extensions.md",
+    "Programming/Swift/Dictionary.md",
+    "Programming/Swift/Array.md",
+    "Programming/Architectures/MVC.md",
+    "swift_keywords/keywords.md",
+    "swift_keywords/self.md",
+    "swift_keywords/final.md",
+    "swift_keywords/Static.md",
+    "Swift/trailing closures.md",
+    "Swift/Visibility",
+    "Swift/Initializer",
     "Swift/ViewControllers",
-    "ObjC/ObjC Keywords",
-    "Clean Code/Design patterns",
+    "Wealth",
+    "movingout",
+    "Programming",
+    "Programming/images/scene_editor_view.png",
+    "Programming/Notes for Myself",
+    "Programming/Clean Code/Design patterns/SOLID",
+    "Programming/Clean Code/Design patterns/Behavioural Patterns",
+    "Programming/Clean Code/Design patterns/Structural Patterns",
+    "Programming/images/how the table view work.jpg",
     "images/how the table view work.JPG",
-    "images/collections swift.png",
-    "images/uikit_classes.jpg",
-    "images/live_preview.png",
+    "Programming/images/collections swift.png",
+    "Programming/images/uikit_classes.jpg",
+    "Programming/images/live_preview.png",
     "Untitled 1.canvas",
     "Untitled.canvas"
   ]
