@@ -11,8 +11,12 @@
             "id": "f4b81083b0a3aa63",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "UIkit.md",
+                "mode": "preview",
+                "source": true
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "UIkit.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +101,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "UIkit.md"
+              }
             }
           },
           {
@@ -127,44 +134,44 @@
   },
   "active": "f4b81083b0a3aa63",
   "lastOpenFiles": [
-    "UIkit.md",
-    "ARKit.md",
     "SwiftUI.md",
     "Swift.md",
     "OOP concepts.md",
+    "home.md",
     "Clean Code.md",
-    "Programming/swift_keywords/Static.md",
-    "Wealth",
-    "Programming/swift_keywords/self.md",
-    "Programming/swift_keywords/Public.md",
-    "Programming/swift_keywords/keywords.md",
-    "Programming/swift_keywords/Inout.md",
-    "Programming/swift_keywords/final.md",
-    "Programming/Clean Code/Coding Standrads.md",
-    "Programming/Clean Code/Becoming a exceptional programmer.md",
-    "movingout",
-    "Programming/call by value result.md",
-    "Programming",
-    "Programming/iOS dev/iOS Dev.md",
-    "Programming/iOS dev/Application Life Cycle.md",
+    "ARKit.md",
+    "Programming/Swift/Force Unwrapping.md",
+    "Programming/Swift/Instances.md",
     "Programming/Codable.md",
-    "Programming/Deep linking.md",
-    "Programming/File Private.md",
-    "Programming/Frame.md",
-    "Programming/Grand central dispatch.md",
-    "Programming/home.md",
-    "Programming/JSON.md",
-    "Programming/pass by value.md",
-    "Programming/Road to Techlead.md",
+    "Programming/call by value result.md",
+    "Programming/ARkit/Scene Editor.md",
+    "Programming/ARkit/Introduction to ARkit.md",
+    "Programming/Articles/A_Functions.md",
+    "Programming/Swift/Functions.md",
+    "Programming/Swift/JSON_Parsing.md",
+    "Programming/Swift/Looping.md",
+    "Programming/Swift/Enumurate items in an array.md",
+    "Programming/Swift/Extensions.md",
+    "Programming/Swift/Dictionary.md",
+    "Programming/Swift/Array.md",
+    "Programming/Architectures/MVC.md",
+    "swift_keywords/keywords.md",
+    "swift_keywords/self.md",
+    "swift_keywords/final.md",
+    "swift_keywords/Static.md",
+    "Swift/trailing closures.md",
+    "Swift/Visibility",
+    "Swift/Initializer",
+    "Swift/ViewControllers",
+    "Wealth",
+    "movingout",
+    "Programming",
     "Programming/images/scene_editor_view.png",
     "Programming/Notes for Myself",
     "Programming/Clean Code/Design patterns/SOLID",
     "Programming/Clean Code/Design patterns/Behavioural Patterns",
     "Programming/Clean Code/Design patterns/Structural Patterns",
-    "Programming/Clean Code/Design patterns/Creational Patterns",
     "Programming/images/how the table view work.jpg",
-    "Programming/Xcode/Debugging",
-    "Programming/Xcode",
     "images/how the table view work.JPG",
     "Programming/images/collections swift.png",
     "Programming/images/uikit_classes.jpg",
