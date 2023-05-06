@@ -4,14 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "7083ec51b4844df7",
+        "id": "05cfb46e4f73d03e",
         "type": "tabs",
         "children": [
           {
-            "id": "a987c9dc3faf114a",
+            "id": "f4b81083b0a3aa63",
             "type": "leaf",
             "state": {
-              "type": "graph",
+              "type": "empty",
               "state": {}
             }
           }
@@ -51,6 +51,14 @@
                 "extraContext": false,
                 "sortOrder": "alphabetical"
               }
+            }
+          },
+          {
+            "id": "94568f59a88780e3",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
             }
           }
         ]
@@ -117,50 +125,50 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "a987c9dc3faf114a",
+  "active": "f4b81083b0a3aa63",
   "lastOpenFiles": [
-    "iOS dev/iOS Dev.md",
-    "iOS dev/Application Life Cycle.md",
-    "call by value result.md",
-    "Codable.md",
-    "Deep linking.md",
-    "File Private.md",
-    "Frame.md",
-    "Grand central dispatch.md",
-    "home.md",
-    "JSON.md",
-    "pass by value.md",
-    "Road to Techlead.md",
-    "Variadic Functions.md",
-    "using the delegation pattern.md",
-    "Style Guide lines.md",
-    "ARkit/Scene Editor.md",
-    "images/scene_editor_view.png",
-    "ARkit/SceneKit.md",
-    "ARkit/Importing 3D Models.md",
-    "ARkit/Introduction to ARkit.md",
-    "ARkit/ARKit.md",
-    "Clean Code/Design patterns/SOLID/Open-closed Principle.md",
-    "Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
-    "Clean Code/Design patterns/SOLID/Single Responsibility.md",
-    "Clean Code/Design patterns/Design Patterns.md",
-    "Notes for Myself/Note For My self.md",
-    "Notes for Myself/Why I am Failing?.md",
-    "Notes for Myself",
-    "Clean Code/Design patterns/SOLID",
-    "Clean Code/Design patterns/Behavioural Patterns",
-    "Clean Code/Design patterns/Structural Patterns",
-    "Clean Code/Design patterns/Creational Patterns",
-    "images/how the table view work.jpg",
-    "Xcode/Debugging",
-    "Xcode",
-    "Swift/ViewControllers",
-    "ObjC/ObjC Keywords",
-    "Clean Code/Design patterns",
+    "UIkit.md",
+    "ARKit.md",
+    "SwiftUI.md",
+    "Swift.md",
+    "OOP concepts.md",
+    "Clean Code.md",
+    "Programming/swift_keywords/Static.md",
+    "Wealth",
+    "Programming/swift_keywords/self.md",
+    "Programming/swift_keywords/Public.md",
+    "Programming/swift_keywords/keywords.md",
+    "Programming/swift_keywords/Inout.md",
+    "Programming/swift_keywords/final.md",
+    "Programming/Clean Code/Coding Standrads.md",
+    "Programming/Clean Code/Becoming a exceptional programmer.md",
+    "movingout",
+    "Programming/call by value result.md",
+    "Programming",
+    "Programming/iOS dev/iOS Dev.md",
+    "Programming/iOS dev/Application Life Cycle.md",
+    "Programming/Codable.md",
+    "Programming/Deep linking.md",
+    "Programming/File Private.md",
+    "Programming/Frame.md",
+    "Programming/Grand central dispatch.md",
+    "Programming/home.md",
+    "Programming/JSON.md",
+    "Programming/pass by value.md",
+    "Programming/Road to Techlead.md",
+    "Programming/images/scene_editor_view.png",
+    "Programming/Notes for Myself",
+    "Programming/Clean Code/Design patterns/SOLID",
+    "Programming/Clean Code/Design patterns/Behavioural Patterns",
+    "Programming/Clean Code/Design patterns/Structural Patterns",
+    "Programming/Clean Code/Design patterns/Creational Patterns",
+    "Programming/images/how the table view work.jpg",
+    "Programming/Xcode/Debugging",
+    "Programming/Xcode",
     "images/how the table view work.JPG",
-    "images/collections swift.png",
-    "images/uikit_classes.jpg",
-    "images/live_preview.png",
+    "Programming/images/collections swift.png",
+    "Programming/images/uikit_classes.jpg",
+    "Programming/images/live_preview.png",
     "Untitled 1.canvas",
     "Untitled.canvas"
   ]
