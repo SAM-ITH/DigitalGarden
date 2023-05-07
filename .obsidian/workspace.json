@@ -11,14 +11,11 @@
             "id": "33ee7d9105f2cc93",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
-                "viewState": {
-                  "x": 0,
-                  "y": 0,
-                  "zoom": 0
-                }
+                "file": "App Forge/Kalkulator/kalkulator.md",
+                "mode": "preview",
+                "source": true
               }
             }
           }
@@ -88,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
+                "file": "App Forge/Kalkulator/kalkulator.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas"
+                "file": "App Forge/Kalkulator/kalkulator.md"
               }
             }
           },
@@ -137,8 +134,8 @@
   },
   "active": "33ee7d9105f2cc93",
   "lastOpenFiles": [
-    "App Forge/Kalkulator/kalkulator.md",
     "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
+    "App Forge/Kalkulator/kalkulator.md",
     "App Forge.md",
     "Untitled.canvas",
     "App Forge/Kalkulator",
