@@ -1,0 +1,9 @@
+{
+	"nodes":[
+		{"id":"a9b6dc88e5aaa055","x":-400,"y":-220,"width":240,"height":240,"type":"text","text":"#### UI elements \n- UIview\n- Buttons to num pad \n- Label to show results"},
+		{"id":"81bc2568ee25d038","x":-60,"y":-210,"width":280,"height":270,"type":"text","text":"### UIView \n- add to the whole view \n- change the view to clear colour \n- add IBOutlet to the to the UIView.(var holder = UIView!)"}
+	],
+	"edges":[
+		{"id":"ac6c661b5d44f5c7","fromNode":"a9b6dc88e5aaa055","fromSide":"top","toNode":"81bc2568ee25d038","toSide":"top"}
+	]
+}

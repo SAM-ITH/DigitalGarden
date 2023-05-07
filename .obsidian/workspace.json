@@ -4,18 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "05cfb46e4f73d03e",
+        "id": "2ec14dcfe4efac1b",
         "type": "tabs",
         "children": [
           {
-            "id": "f4b81083b0a3aa63",
+            "id": "33ee7d9105f2cc93",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "UIkit.md",
-                "mode": "preview",
-                "source": true
+                "file": "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
+                "viewState": {
+                  "x": 0,
+                  "y": 0,
+                  "zoom": 0
+                }
               }
             }
           }
@@ -85,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "UIkit.md",
+                "file": "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +105,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "UIkit.md"
+                "file": "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas"
               }
             }
           },
@@ -132,11 +135,18 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "f4b81083b0a3aa63",
+  "active": "33ee7d9105f2cc93",
   "lastOpenFiles": [
+    "App Forge/Kalkulator/kalkulator.md",
+    "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
+    "App Forge.md",
+    "Untitled.canvas",
+    "App Forge/Kalkulator",
+    "App Forge",
+    "OOP concepts.md",
+    "UIkit.md",
     "SwiftUI.md",
     "Swift.md",
-    "OOP concepts.md",
     "home.md",
     "Clean Code.md",
     "ARKit.md",
@@ -156,10 +166,6 @@
     "Programming/Swift/Array.md",
     "Programming/Architectures/MVC.md",
     "swift_keywords/keywords.md",
-    "swift_keywords/self.md",
-    "swift_keywords/final.md",
-    "swift_keywords/Static.md",
-    "Swift/trailing closures.md",
     "Swift/Visibility",
     "Swift/Initializer",
     "Swift/ViewControllers",
@@ -169,14 +175,11 @@
     "Programming/images/scene_editor_view.png",
     "Programming/Notes for Myself",
     "Programming/Clean Code/Design patterns/SOLID",
-    "Programming/Clean Code/Design patterns/Behavioural Patterns",
-    "Programming/Clean Code/Design patterns/Structural Patterns",
     "Programming/images/how the table view work.jpg",
     "images/how the table view work.JPG",
     "Programming/images/collections swift.png",
     "Programming/images/uikit_classes.jpg",
     "Programming/images/live_preview.png",
-    "Untitled 1.canvas",
-    "Untitled.canvas"
+    "Untitled 1.canvas"
   ]
 }
