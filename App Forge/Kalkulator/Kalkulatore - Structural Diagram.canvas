@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"type":"text","text":"#### Dial Pad\n- all the numbers are buttons \n","id":"3814c0b343db9192","x":-1360,"y":-395,"width":170,"height":230},
+		{"type":"text","text":"#### UI elements \n- UIview\n- Buttons to num pad \n- Label to show results","id":"a9b6dc88e5aaa055","x":-930,"y":-196,"width":240,"height":240},
+		{"type":"text","text":"### UIView \n- add to the whole view \n- change the view to clear colour \n- add IBOutlet to the to the UIView.(var holder = UIView!)","id":"81bc2568ee25d038","x":-460,"y":-435,"width":280,"height":270},
+		{"type":"text","text":"#### ViewController\n+firstNumber (INT)\n+resultNumber(INT)\n+currentOperation: Operation\n\nenum Operation {\ncase add, subtract, multiply, divide\n}\n\n---\n- ClearResults() \nresultlabel = \"0\"\n---\n- numberPressed(_ sender: UIbutton)\n```swift \nif resultLabel.text == \"0\" \n{\nresultLabel.text = \"\\(tag)\"\n}\nelse if let text = resultLabel.text {\n\t  resultLabel.text = \"\\(text)\\(tag)\"\n}\n``` \n---\n- OperationPressed \nsame thing what we have done for the button pressed but with some cases. better to think logic by your self. ","id":"48f3da51eed98fb9","x":-760,"y":200,"width":460,"height":940},
+		{"type":"text","text":"#### IBActions\n---\n- IBaction --> clearResults\n","id":"f7e77877e9d86de5","x":-1380,"y":140,"width":305,"height":242}
+	],
+	"edges":[
+		{"id":"ac6c661b5d44f5c7","fromNode":"a9b6dc88e5aaa055","fromSide":"top","toNode":"81bc2568ee25d038","toSide":"top"},
+		{"id":"57851f817da99afe","fromNode":"a9b6dc88e5aaa055","fromSide":"top","toNode":"3814c0b343db9192","toSide":"top"},
+		{"id":"231e89a17f905767","fromNode":"f7e77877e9d86de5","fromSide":"right","toNode":"48f3da51eed98fb9","toSide":"top"}
+	]
+}
