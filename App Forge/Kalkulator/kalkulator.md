@@ -3,6 +3,9 @@
 #### Objective
 - main objective of this project is to learn UIkit and Swift. this going to be submit for the app store as my first iOS app. 
 
+#### technical diagram
+- [[Kalkulatore - Structural Diagram.canvas|Kalkulatore - Structural Diagram]]
+
 #### Plan to launch 
 - [x] Create the technical doc by watching a tutorial.
 	- [ ] Focus on creating the class diagram and structure of the code
