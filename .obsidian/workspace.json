@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ARKit.md",
+                "file": "Programming/ARkit/Scene Editor.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ARKit.md",
+                "file": "Programming/ARkit/Scene Editor.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "ARKit.md"
+                "file": "Programming/ARkit/Scene Editor.md"
               }
             }
           },
@@ -134,6 +134,10 @@
   },
   "active": "33ee7d9105f2cc93",
   "lastOpenFiles": [
+    "Programming/images/Arkit_diffuse.png",
+    "Programming/images/AR_euler_angles.png",
+    "Programming/images/transform in node inspector.png",
+    "ARKit.md",
     "App Forge/Kalkulator/kalkulator.md",
     "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
     "App Forge.md",
@@ -146,7 +150,6 @@
     "Swift.md",
     "home.md",
     "Clean Code.md",
-    "ARKit.md",
     "Programming/Swift/Force Unwrapping.md",
     "Programming/Swift/Instances.md",
     "Programming/Codable.md",
