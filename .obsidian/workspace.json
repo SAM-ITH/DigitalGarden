@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "2ec14dcfe4efac1b",
+        "id": "c357234fa16c2230",
         "type": "tabs",
         "children": [
           {
-            "id": "33ee7d9105f2cc93",
+            "id": "256fb0dea9097f3e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/ARkit/Scene Editor.md",
+                "file": "Programming/DataBases/SQL/Basic SQL queries.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/ARkit/Scene Editor.md",
+                "file": "Programming/DataBases/SQL/Basic SQL queries.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/ARkit/Scene Editor.md"
+                "file": "Programming/DataBases/SQL/Basic SQL queries.md"
               }
             }
           },
@@ -132,8 +132,13 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "33ee7d9105f2cc93",
+  "active": "256fb0dea9097f3e",
   "lastOpenFiles": [
+    "Programming/DataBases/SQL/SQL.md",
+    "Programming/DataBases/SQL/Basic SQL queries.md",
+    "Programming/DataBases/SQL",
+    "Programming/DataBases",
+    "Programming/ARkit/Scene Editor.md",
     "Programming/images/Arkit_diffuse.png",
     "Programming/images/AR_euler_angles.png",
     "Programming/images/transform in node inspector.png",
@@ -154,7 +159,6 @@
     "Programming/Swift/Instances.md",
     "Programming/Codable.md",
     "Programming/call by value result.md",
-    "Programming/ARkit/Scene Editor.md",
     "Programming/ARkit/Introduction to ARkit.md",
     "Programming/Articles/A_Functions.md",
     "Programming/Swift/Functions.md",
@@ -165,7 +169,6 @@
     "Programming/Swift/Dictionary.md",
     "Programming/Swift/Array.md",
     "Programming/Architectures/MVC.md",
-    "swift_keywords/keywords.md",
     "Swift/Visibility",
     "Swift/Initializer",
     "Swift/ViewControllers",
@@ -173,8 +176,6 @@
     "movingout",
     "Programming",
     "Programming/images/scene_editor_view.png",
-    "Programming/Notes for Myself",
-    "Programming/Clean Code/Design patterns/SOLID",
     "Programming/images/how the table view work.jpg",
     "images/how the table view work.JPG",
     "Programming/images/collections swift.png",
