@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "c357234fa16c2230",
+        "id": "9b94d4f02e6a32cf",
         "type": "tabs",
         "children": [
           {
-            "id": "256fb0dea9097f3e",
+            "id": "85883136a4d261ee",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/DataBases/SQL/Basic SQL queries.md",
+                "file": "Programming/Swift/Static Properties and Methods.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/DataBases/SQL/Basic SQL queries.md",
+                "file": "Programming/Swift/Static Properties and Methods.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/DataBases/SQL/Basic SQL queries.md"
+                "file": "Programming/Swift/Static Properties and Methods.md"
               }
             }
           },
@@ -132,10 +132,18 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "256fb0dea9097f3e",
+  "active": "85883136a4d261ee",
   "lastOpenFiles": [
-    "Programming/DataBases/SQL/SQL.md",
+    "Swift.md",
+    "Programming/Swift/Static Properties and Methods.md",
+    "Programming/Swift/Code Structure/Code Structure.md",
+    "Programming/Swift/Code Structure",
+    "App Forge/Kalkulator/kalkulator.md",
+    "Programming/SwiftUI/Chapter - 01/Adding Buttons and navigating with them/Buttons and Navigation.md",
+    "Programming/Coding challenges/coding challenges 2.md",
+    "Programming/Coding challenges/coding challenges.md",
     "Programming/DataBases/SQL/Basic SQL queries.md",
+    "Programming/DataBases/SQL/SQL.md",
     "Programming/DataBases/SQL",
     "Programming/DataBases",
     "Programming/ARkit/Scene Editor.md",
@@ -143,7 +151,6 @@
     "Programming/images/AR_euler_angles.png",
     "Programming/images/transform in node inspector.png",
     "ARKit.md",
-    "App Forge/Kalkulator/kalkulator.md",
     "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
     "App Forge.md",
     "Untitled.canvas",
@@ -152,7 +159,6 @@
     "OOP concepts.md",
     "UIkit.md",
     "SwiftUI.md",
-    "Swift.md",
     "home.md",
     "Clean Code.md",
     "Programming/Swift/Force Unwrapping.md",
@@ -164,17 +170,11 @@
     "Programming/Swift/Functions.md",
     "Programming/Swift/JSON_Parsing.md",
     "Programming/Swift/Looping.md",
-    "Programming/Swift/Enumurate items in an array.md",
-    "Programming/Swift/Extensions.md",
-    "Programming/Swift/Dictionary.md",
-    "Programming/Swift/Array.md",
-    "Programming/Architectures/MVC.md",
     "Swift/Visibility",
     "Swift/Initializer",
     "Swift/ViewControllers",
     "Wealth",
     "movingout",
-    "Programming",
     "Programming/images/scene_editor_view.png",
     "Programming/images/how the table view work.jpg",
     "images/how the table view work.JPG",

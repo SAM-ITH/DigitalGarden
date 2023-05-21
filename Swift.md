@@ -15,6 +15,7 @@ ___
 
 [[Complex types]]
 [[Operators & conditions]]
+[[Static Properties and Methods]]
 
 
 
@@ -22,10 +23,12 @@ ___
 [[typecasting]]
 
 
-## Other 
+### Other 
 [[Naming style guidelines]]
 
 
-## ViewControllers 
+### ViewControllers 
 
 [[Tableview - swift]]
+
+### Code Structure and readability and principle 
