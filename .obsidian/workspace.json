@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/Swift/Static Properties and Methods.md",
+                "file": "Programming/Swift/Code Structure/Code Structure.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/Swift/Static Properties and Methods.md",
+                "file": "Programming/Swift/Code Structure/Code Structure.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/Swift/Static Properties and Methods.md"
+                "file": "Programming/Swift/Code Structure/Code Structure.md"
               }
             }
           },
@@ -135,8 +135,8 @@
   "active": "85883136a4d261ee",
   "lastOpenFiles": [
     "Swift.md",
-    "Programming/Swift/Static Properties and Methods.md",
     "Programming/Swift/Code Structure/Code Structure.md",
+    "Programming/Swift/Static Properties and Methods.md",
     "Programming/Swift/Code Structure",
     "App Forge/Kalkulator/kalkulator.md",
     "Programming/SwiftUI/Chapter - 01/Adding Buttons and navigating with them/Buttons and Navigation.md",
