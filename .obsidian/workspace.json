@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/Swift/Code Structure/Code Structure.md",
-                "mode": "source",
+                "file": "Programming/Swift/Functions.md",
+                "mode": "preview",
                 "source": true
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/Swift/Code Structure/Code Structure.md",
+                "file": "Programming/Swift/Functions.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/Swift/Code Structure/Code Structure.md"
+                "file": "Programming/Swift/Functions.md"
               }
             }
           },
@@ -134,8 +134,18 @@
   },
   "active": "85883136a4d261ee",
   "lastOpenFiles": [
-    "Swift.md",
     "Programming/Swift/Code Structure/Code Structure.md",
+    "Programming/Articles/A_Functions.md",
+    "Programming/Swift/Functions.md",
+    "Programming/Swift/Enumurate items in an array.md",
+    "Programming/Swift/ENUM.md",
+    "Programming/Swift/Dictionary.md",
+    "Programming/Swift/Collection types.md",
+    "Programming/Swift/Complex types.md",
+    "Programming/Swift/Closures.md",
+    "Programming/Swift/Classes.md",
+    "Programming/Swift/Array.md",
+    "Swift.md",
     "Programming/Swift/Static Properties and Methods.md",
     "Programming/Swift/Code Structure",
     "App Forge/Kalkulator/kalkulator.md",
@@ -160,16 +170,6 @@
     "UIkit.md",
     "SwiftUI.md",
     "home.md",
-    "Clean Code.md",
-    "Programming/Swift/Force Unwrapping.md",
-    "Programming/Swift/Instances.md",
-    "Programming/Codable.md",
-    "Programming/call by value result.md",
-    "Programming/ARkit/Introduction to ARkit.md",
-    "Programming/Articles/A_Functions.md",
-    "Programming/Swift/Functions.md",
-    "Programming/Swift/JSON_Parsing.md",
-    "Programming/Swift/Looping.md",
     "Swift/Visibility",
     "Swift/Initializer",
     "Swift/ViewControllers",
