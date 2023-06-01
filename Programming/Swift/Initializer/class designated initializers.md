@@ -1,3 +1,4 @@
+
 ### fixing errors with default values
 - when we create a instance of class, no property can be left in a undetermined state. 
 - for example following code snippet gives a error saying class samith has no initializer. 

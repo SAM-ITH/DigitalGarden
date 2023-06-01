@@ -1,3 +1,4 @@
 - [[Becoming a exceptional programmer]]
 - [[Coding Standrads]]
 - [[Design Patterns]]
+- [[Architectures]]

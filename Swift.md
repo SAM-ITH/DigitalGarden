@@ -1,6 +1,6 @@
 ### Core concepts 
 [[Classes]]
-[[A_Functions]]
+[[Functions]]
 [[Closures]]
 [[Structs]]
 [[Protocols]]
