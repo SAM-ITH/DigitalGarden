@@ -106,4 +106,41 @@ print(value)
 now the function can change the value however its want.
 
 ### Overloading 
+- we can use the same function name for several different functions. this techniques in called as overloading 
 
+however complier should able to identify the each function separately. this can be achieved by using following,
+
+- different number of parameters 
+```swift 
+funcPrint(multipler:Int, value:Int)
+funcPrint(multipler:Int, value:Int, amount:Double)
+```
+- different parameter types 
+```swift 
+funcPrint(multipler:Int, value:Int)
+funcPrint(multipler:Double, value:Double)
+```
+- different external parameter names 
+
+- changing the return type of the function 
+```swift 
+func getValue() -> String {
+	return "samith"					   
+}
+
+func getValue() -> Int {
+	return 13 
+}
+```
+
+but we are facing an issue when we trying to call function. because complier don't know which function is needed to be called. 
+```swift 
+let value = getValue()
+```
+this can be fixed by calling the function with the value type you want 
+```swift 
+let valueInt : Int = getValue()
+let valueString: String = getValue()
+```
+
+### Functions as variables 
