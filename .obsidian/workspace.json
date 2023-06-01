@@ -11,12 +11,8 @@
             "id": "6881819c690b01ce",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Programming/Swift/Functions.md",
-                "mode": "preview",
-                "source": true
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/Swift/Functions.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -101,9 +96,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Programming/Swift/Functions.md"
-              }
+              "state": {}
             }
           },
           {
@@ -132,11 +125,24 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "6881819c690b01ce",
+  "active": "6ff3333e5d0c9ffe",
   "lastOpenFiles": [
+    "Programming/Control flow/Control flow.md",
+    "Programming/Control flow/While Loops.md",
+    "Programming/Control flow/switch statements.md",
+    "Programming/Control flow/ranges.md",
+    "Programming/Control flow/for loop.md",
+    "Programming/call by value result.md",
+    "Programming/Articles/A_Struct.md",
+    "ARKit.md",
+    "App Forge.md",
+    "Clean Code.md",
+    "home.md",
+    "OOP concepts.md",
+    "Swift.md",
+    "Programming/Swift/Functions.md",
     "Programming/Swift/Classes.md",
     "Programming/Swift/Sub_classes.md",
-    "Swift.md",
     "A_Functions.md",
     "Programming/Swift/Access control.md",
     "Programming/Swift/ViewControllers/Tableview - swift.md",
@@ -144,22 +150,9 @@
     "Programming/Swift/Initializer/multiple initilizers.md",
     "Programming/Swift/Initializer/initializers.md",
     "Programming/Swift/Initializer/class designated initializers.md",
-    "Programming/Architectures/Architectures.md",
-    "Clean Code.md",
-    "Programming/Architectures/MVC.md",
+    "Programming/Clean Code/Architectures/Architectures.md",
+    "Programming/Clean Code/Architectures/MVC.md",
     "Programming/Clean Code/Design patterns/SOLID/Open-closed Principle.md",
-    "Programming/Clean Code/Design patterns/SOLID/Single Responsibility.md",
-    "Programming/Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
-    "Programming/Clean Code/Coding Standrads.md",
-    "Programming/Clean Code/Becoming a exceptional programmer.md",
-    "Programming/Clean Code/Design patterns/Design Patterns.md",
-    "Programming/Swift/Functions.md",
-    "Programming/Swift/Code Structure/Code Structure.md",
-    "Programming/Articles/A_Functions.md",
-    "Programming/Swift/Enumurate items in an array.md",
-    "Programming/Swift/ENUM.md",
-    "Programming/Swift/Dictionary.md",
-    "Programming/Swift/Collection types.md",
     "Programming/Swift/Code Structure",
     "Programming/DataBases/SQL",
     "Programming/DataBases",
