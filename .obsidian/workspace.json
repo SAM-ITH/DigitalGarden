@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/UML/UML.md",
+                "file": "Big Data/BiG Data.md",
                 "mode": "source",
                 "source": true
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/UML/UML.md",
+                "file": "Big Data/BiG Data.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/UML/UML.md"
+                "file": "Big Data/BiG Data.md"
               }
             }
           },
@@ -145,8 +145,9 @@
   },
   "active": "2130b7ef6a99af94",
   "lastOpenFiles": [
-    "Programming/C_Sharp/C_Sharp.md",
     "Programming/UML/UML.md",
+    "Big Data/BiG Data.md",
+    "Programming/C_Sharp/C_Sharp.md",
     "Big Data Analytics.md",
     "Big Data",
     "Programming/call by value result.md",
@@ -173,7 +174,6 @@
     "Programming/Swift/ViewControllers/Tableview - swift.md",
     "Programming/Swift/Initializer/struct designated initializers.md",
     "Programming/Swift/Initializer/multiple initilizers.md",
-    "Programming/Swift/Initializer/initializers.md",
     "Programming/Swift/Code Structure",
     "Programming/DataBases/SQL",
     "Programming/DataBases",
