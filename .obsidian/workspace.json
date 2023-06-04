@@ -4,35 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "8e02c14a80a0f412",
+        "id": "c16c414d65b2ef15",
         "type": "tabs",
         "children": [
           {
-            "id": "6881819c690b01ce",
+            "id": "fed942cd4a12192d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/call by value result.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "2130b7ef6a99af94",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Big Data/BiG Data.md",
+                "file": "Programming/Vim key bindings/VIM.md",
                 "mode": "source",
                 "source": true
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,11 +85,11 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Big Data/BiG Data.md",
+                "file": "Programming/Vim key bindings/VIM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
@@ -115,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Big Data/BiG Data.md"
+                "file": "Programming/Vim key bindings/VIM.md"
               }
             }
           },
@@ -143,14 +130,25 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "2130b7ef6a99af94",
+  "active": "fed942cd4a12192d",
   "lastOpenFiles": [
-    "Programming/UML/UML.md",
-    "Big Data/BiG Data.md",
-    "Programming/C_Sharp/C_Sharp.md",
-    "Big Data Analytics.md",
-    "Big Data",
     "Programming/call by value result.md",
+    "Programming/UML/UML.md",
+    "Programming.md",
+    "Swift.md",
+    "Programming/Swift/Access control.md",
+    "Programming/Swift/Closures.md",
+    "Programming/Codable.md",
+    "home.md",
+    "Big Data Analytics.md",
+    "App Forge.md",
+    "ARKit.md",
+    "OOP concepts.md",
+    "Programming/Vim key bindings/VIM.md",
+    "Big Data/BiG Data.md",
+    "Programming/Vim key bindings",
+    "Programming/C_Sharp/C_Sharp.md",
+    "Big Data",
     "Programming/UML",
     "Programming/C_Sharp",
     "Programming/Frame.md",
@@ -160,20 +158,10 @@
     "Programming/Control flow/ranges.md",
     "Programming/Control flow/for loop.md",
     "Programming/Articles/A_Struct.md",
-    "ARKit.md",
-    "App Forge.md",
     "Clean Code.md",
-    "home.md",
-    "OOP concepts.md",
-    "Swift.md",
     "Programming/Swift/Functions.md",
     "Programming/Swift/Classes.md",
     "Programming/Swift/Sub_classes.md",
-    "A_Functions.md",
-    "Programming/Swift/Access control.md",
-    "Programming/Swift/ViewControllers/Tableview - swift.md",
-    "Programming/Swift/Initializer/struct designated initializers.md",
-    "Programming/Swift/Initializer/multiple initilizers.md",
     "Programming/Swift/Code Structure",
     "Programming/DataBases/SQL",
     "Programming/DataBases",
@@ -185,7 +173,6 @@
     "App Forge/Kalkulator",
     "App Forge",
     "Swift/Visibility",
-    "Swift/Initializer",
     "Programming/images/scene_editor_view.png",
     "Programming/images/how the table view work.jpg",
     "images/how the table view work.JPG",

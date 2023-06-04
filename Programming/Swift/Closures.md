@@ -1,4 +1,3 @@
-[[Swift]]
 
 #### what is a closure ?
 

@@ -4,8 +4,7 @@ my name is samith and I am an iOS developer in career also i have worked as a ro
 
 Click anything on the sidebar 😬
 
-Cool Stuff to look out for:
-- Swift 
-- iOS dev 
-- ARkit 
 
+Basic Guide for the content 
+
+[[Programming]] - everything related to programming 
