@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "8e02c14a80a0f412",
+        "id": "eeb9b12d7985ac5c",
         "type": "tabs",
         "children": [
           {
-            "id": "6881819c690b01ce",
+            "id": "b1ffc2241e0916a5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/Swift/Functions.md",
-                "mode": "preview",
+                "file": "Programming/C_Sharp/C_Sharp.md",
+                "mode": "source",
                 "source": true
               }
             }
@@ -85,11 +85,11 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/Swift/Functions.md",
+                "file": "Programming/C_Sharp/C_Sharp.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/Swift/Functions.md"
+                "file": "Programming/C_Sharp/C_Sharp.md"
               }
             }
           },
@@ -114,13 +114,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -132,34 +130,38 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "6881819c690b01ce",
+  "active": "b1ffc2241e0916a5",
   "lastOpenFiles": [
+    "Programming/UML/UML.md",
+    "Big Data/BiG Data.md",
+    "Programming/Vim key bindings/VIM.md",
+    "Programming/call by value result.md",
+    "Programming.md",
+    "Swift.md",
+    "Programming/Swift/Access control.md",
+    "Programming/Swift/Closures.md",
+    "Programming/Codable.md",
+    "home.md",
+    "Big Data Analytics.md",
+    "App Forge.md",
+    "ARKit.md",
+    "OOP concepts.md",
+    "Programming/Vim key bindings",
+    "Programming/C_Sharp/C_Sharp.md",
+    "Big Data",
+    "Programming/UML",
+    "Programming/C_Sharp",
+    "Programming/Frame.md",
+    "Programming/Control flow/Control flow.md",
+    "Programming/Control flow/While Loops.md",
+    "Programming/Control flow/switch statements.md",
+    "Programming/Control flow/ranges.md",
+    "Programming/Control flow/for loop.md",
+    "Programming/Articles/A_Struct.md",
+    "Clean Code.md",
+    "Programming/Swift/Functions.md",
     "Programming/Swift/Classes.md",
     "Programming/Swift/Sub_classes.md",
-    "Swift.md",
-    "A_Functions.md",
-    "Programming/Swift/Access control.md",
-    "Programming/Swift/ViewControllers/Tableview - swift.md",
-    "Programming/Swift/Initializer/struct designated initializers.md",
-    "Programming/Swift/Initializer/multiple initilizers.md",
-    "Programming/Swift/Initializer/initializers.md",
-    "Programming/Swift/Initializer/class designated initializers.md",
-    "Programming/Architectures/Architectures.md",
-    "Clean Code.md",
-    "Programming/Architectures/MVC.md",
-    "Programming/Clean Code/Design patterns/SOLID/Open-closed Principle.md",
-    "Programming/Clean Code/Design patterns/SOLID/Single Responsibility.md",
-    "Programming/Clean Code/Design patterns/SOLID/SOLID Design Principles.md",
-    "Programming/Clean Code/Coding Standrads.md",
-    "Programming/Clean Code/Becoming a exceptional programmer.md",
-    "Programming/Clean Code/Design patterns/Design Patterns.md",
-    "Programming/Swift/Functions.md",
-    "Programming/Swift/Code Structure/Code Structure.md",
-    "Programming/Articles/A_Functions.md",
-    "Programming/Swift/Enumurate items in an array.md",
-    "Programming/Swift/ENUM.md",
-    "Programming/Swift/Dictionary.md",
-    "Programming/Swift/Collection types.md",
     "Programming/Swift/Code Structure",
     "Programming/DataBases/SQL",
     "Programming/DataBases",
@@ -171,10 +173,6 @@
     "App Forge/Kalkulator",
     "App Forge",
     "Swift/Visibility",
-    "Swift/Initializer",
-    "Swift/ViewControllers",
-    "Wealth",
-    "movingout",
     "Programming/images/scene_editor_view.png",
     "Programming/images/how the table view work.jpg",
     "images/how the table view work.JPG",
