@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/C_Sharp/C_Sharp.md",
-                "mode": "source",
+                "file": "Programming/Swift/Initializer/class designated initializers.md",
+                "mode": "preview",
                 "source": true
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/C_Sharp/C_Sharp.md",
+                "file": "Programming/Swift/Initializer/class designated initializers.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/C_Sharp/C_Sharp.md"
+                "file": "Programming/Swift/Initializer/class designated initializers.md"
               }
             }
           },
@@ -132,6 +132,11 @@
   },
   "active": "b1ffc2241e0916a5",
   "lastOpenFiles": [
+    "Programming/Swift/Initializer/struct designated initializers.md",
+    "Programming/Swift/Initializer/multiple initilizers.md",
+    "Programming/Swift/Initializer/initializers.md",
+    "Programming/Swift/Initializer/class designated initializers.md",
+    "Programming/C_Sharp/C_Sharp.md",
     "Programming/UML/UML.md",
     "Big Data/BiG Data.md",
     "Programming/Vim key bindings/VIM.md",
@@ -147,7 +152,6 @@
     "ARKit.md",
     "OOP concepts.md",
     "Programming/Vim key bindings",
-    "Programming/C_Sharp/C_Sharp.md",
     "Big Data",
     "Programming/UML",
     "Programming/C_Sharp",
@@ -158,10 +162,6 @@
     "Programming/Control flow/ranges.md",
     "Programming/Control flow/for loop.md",
     "Programming/Articles/A_Struct.md",
-    "Clean Code.md",
-    "Programming/Swift/Functions.md",
-    "Programming/Swift/Classes.md",
-    "Programming/Swift/Sub_classes.md",
     "Programming/Swift/Code Structure",
     "Programming/DataBases/SQL",
     "Programming/DataBases",
