@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/Swift/Initializer/class designated initializers.md",
-                "mode": "preview",
+                "file": "Programming/OOP/polymorphism.md",
+                "mode": "source",
                 "source": true
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/Swift/Initializer/class designated initializers.md",
+                "file": "Programming/OOP/polymorphism.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/Swift/Initializer/class designated initializers.md"
+                "file": "Programming/OOP/polymorphism.md"
               }
             }
           },
@@ -132,17 +132,21 @@
   },
   "active": "b1ffc2241e0916a5",
   "lastOpenFiles": [
+    "Programming/Swift/typecasting.md",
+    "Swift.md",
+    "Programming/OOP/Instance and methods.md",
+    "Programming/OOP/polymorphism.md",
+    "Programming/OOP/inheritance.md",
+    "Programming/Swift/Initializer/class designated initializers.md",
     "Programming/Swift/Initializer/struct designated initializers.md",
     "Programming/Swift/Initializer/multiple initilizers.md",
     "Programming/Swift/Initializer/initializers.md",
-    "Programming/Swift/Initializer/class designated initializers.md",
     "Programming/C_Sharp/C_Sharp.md",
     "Programming/UML/UML.md",
     "Big Data/BiG Data.md",
     "Programming/Vim key bindings/VIM.md",
     "Programming/call by value result.md",
     "Programming.md",
-    "Swift.md",
     "Programming/Swift/Access control.md",
     "Programming/Swift/Closures.md",
     "Programming/Codable.md",
@@ -158,10 +162,6 @@
     "Programming/Frame.md",
     "Programming/Control flow/Control flow.md",
     "Programming/Control flow/While Loops.md",
-    "Programming/Control flow/switch statements.md",
-    "Programming/Control flow/ranges.md",
-    "Programming/Control flow/for loop.md",
-    "Programming/Articles/A_Struct.md",
     "Programming/Swift/Code Structure",
     "Programming/DataBases/SQL",
     "Programming/DataBases",
