@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/Web Services/Web Services.md",
+                "file": "App Forge/Design a Calculator app/kalkulator.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/Web Services/Web Services.md",
+                "file": "App Forge/Design a Calculator app/kalkulator.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/Web Services/Web Services.md"
+                "file": "App Forge/Design a Calculator app/kalkulator.md"
               }
             }
           },
@@ -132,8 +132,11 @@
   },
   "active": "b1ffc2241e0916a5",
   "lastOpenFiles": [
-    "Programming.md",
+    "App Forge/Design a Calculator app/Kalkulatore - Structural Diagram.canvas",
+    "App Forge.md",
+    "App Forge/Design a Calculator app/kalkulator.md",
     "Programming/Web Services/Web Services.md",
+    "Programming.md",
     "Programming/Swift/ViewControllers/Tableview - swift.md",
     "Programming/Swift/Code Structure/Code Structure.md",
     "Programming/OOP/polymorphism.md",
@@ -156,9 +159,6 @@
     "Big Data/BiG Data.md",
     "Programming/Vim key bindings/VIM.md",
     "Programming/call by value result.md",
-    "Programming/Swift/Access control.md",
-    "Programming/Swift/Closures.md",
-    "Programming/Codable.md",
     "Programming/Vim key bindings",
     "Big Data",
     "Programming/UML",
@@ -169,9 +169,8 @@
     "Programming/images/Arkit_diffuse.png",
     "Programming/images/AR_euler_angles.png",
     "Programming/images/transform in node inspector.png",
-    "App Forge/Kalkulator/Kalkulatore - Structural Diagram.canvas",
     "Untitled.canvas",
-    "App Forge/Kalkulator",
+    "App Forge/Design a Calculator app",
     "App Forge",
     "Programming/images/scene_editor_view.png",
     "Programming/images/how the table view work.jpg",
