@@ -16,10 +16,6 @@ ___
 [[Complex types]]
 [[Operators & conditions]]
 [[Static Properties and Methods]]
-
-
-
-
 [[typecasting]]
 
 
