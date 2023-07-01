@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "App Forge/Design a Calculator app/kalkulator.md",
+                "file": "Programming/UML/Associations.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "App Forge/Design a Calculator app/kalkulator.md",
+                "file": "Programming/UML/Associations.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "App Forge/Design a Calculator app/kalkulator.md"
+                "file": "Programming/UML/Associations.md"
               }
             }
           },
@@ -118,7 +118,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -132,11 +133,15 @@
   },
   "active": "b1ffc2241e0916a5",
   "lastOpenFiles": [
+    "Programming/UML/Domain Model.md",
+    "Programming/UML/UML.md",
+    "Programming/UML/Relationships.md",
+    "Programming/UML/Associations.md",
+    "Programming.md",
+    "App Forge/Design a Calculator app/kalkulator.md",
     "App Forge/Design a Calculator app/Kalkulatore - Structural Diagram.canvas",
     "App Forge.md",
-    "App Forge/Design a Calculator app/kalkulator.md",
     "Programming/Web Services/Web Services.md",
-    "Programming.md",
     "Programming/Swift/ViewControllers/Tableview - swift.md",
     "Programming/Swift/Code Structure/Code Structure.md",
     "Programming/OOP/polymorphism.md",
@@ -155,10 +160,7 @@
     "Programming/Swift/Initializer/struct designated initializers.md",
     "Programming/Swift/Initializer/multiple initilizers.md",
     "Programming/Swift/Initializer/initializers.md",
-    "Programming/UML/UML.md",
     "Big Data/BiG Data.md",
-    "Programming/Vim key bindings/VIM.md",
-    "Programming/call by value result.md",
     "Programming/Vim key bindings",
     "Big Data",
     "Programming/UML",
