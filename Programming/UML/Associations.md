@@ -17,3 +17,7 @@ They define how entities are related and interact with each other within the pro
     
     - In a many-to-many association, multiple instances of an entity are related to multiple instances of another entity.
     - For example, in a social media domain, users can have multiple friends, and each friend can have multiple users as friends. This results in a many-to-many association between users.
+
+
+
+
