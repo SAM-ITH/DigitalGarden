@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "App Forge.md",
+                "file": "Programming/Clean Code/Documentation.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,8 +85,8 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "App Forge.md",
-                "collapseAll": false,
+                "file": "Programming/Clean Code/Documentation.md",
+                "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": true,
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "App Forge.md"
+                "file": "Programming/Clean Code/Documentation.md"
               }
             }
           },
@@ -130,12 +130,13 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "b1ffc2241e0916a5",
+  "active": "544ad3de8d3f79ab",
   "lastOpenFiles": [
-    "App Forge/Projects.md",
-    "App Forge.md",
-    "kalkulator.md",
     "Clean Code.md",
+    "Programming/Clean Code/Documentation.md",
+    "App Forge.md",
+    "App Forge/Projects.md",
+    "kalkulator.md",
     "Programming/Clean Code/Coding Standrads.md",
     "Programming/Clean Code/Becoming a exceptional programmer.md",
     "Programming/Swift/Code Structure/Code Structure.md",
@@ -158,7 +159,6 @@
     "Programming/ARkit/SceneKit.md",
     "Programming/ARkit/Scene Editor.md",
     "Programming/ARkit/Introduction to ARkit.md",
-    "Programming/ARkit/Importing 3D Models.md",
     "Programming/Web Services",
     "Programming/Vim key bindings",
     "Big Data",
