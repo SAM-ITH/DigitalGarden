@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/Clean Code/Documentation.md",
+                "file": "App Forge/Finance Calculator/Finance Calculator.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming/Clean Code/Documentation.md",
+                "file": "App Forge/Finance Calculator/Finance Calculator.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/Clean Code/Documentation.md"
+                "file": "App Forge/Finance Calculator/Finance Calculator.md"
               }
             }
           },
@@ -130,10 +130,15 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "544ad3de8d3f79ab",
+  "active": "b1ffc2241e0916a5",
   "lastOpenFiles": [
-    "Clean Code.md",
+    "Big Data/BiG Data.md",
+    "App Forge/Finance Calculator/Finance Calculator.md",
+    "App Forge/Finance Calculator",
+    "Big Data/Hive.md",
+    "Big Data/Hadoop.md",
     "Programming/Clean Code/Documentation.md",
+    "Clean Code.md",
     "App Forge.md",
     "App Forge/Projects.md",
     "kalkulator.md",
@@ -141,9 +146,6 @@
     "Programming/Clean Code/Becoming a exceptional programmer.md",
     "Programming/Swift/Code Structure/Code Structure.md",
     "Programming.md",
-    "Big Data/Hadoop.md",
-    "Big Data/BiG Data.md",
-    "Big Data/Hive.md",
     "Programming/UML/Associations.md",
     "Programming/UML/Domain Model.md",
     "Programming/UML/UML.md",
@@ -158,7 +160,6 @@
     "Programming/OOP/encapsulation.md",
     "Programming/ARkit/SceneKit.md",
     "Programming/ARkit/Scene Editor.md",
-    "Programming/ARkit/Introduction to ARkit.md",
     "Programming/Web Services",
     "Programming/Vim key bindings",
     "Big Data",
@@ -172,7 +173,6 @@
     "Programming/images/transform in node inspector.png",
     "Untitled.canvas",
     "App Forge/Design a Calculator app",
-    "App Forge",
     "Programming/images/scene_editor_view.png",
     "Programming/images/how the table view work.jpg",
     "images/how the table view work.JPG",
