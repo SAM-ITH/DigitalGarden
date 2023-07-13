@@ -23,9 +23,6 @@ ___
 [[Naming style guidelines]]
 
 
-### ViewControllers 
-
-[[Tableview - swift]]
 
 ### Code Structure and readability and principle 
 [[Code Structure]]
