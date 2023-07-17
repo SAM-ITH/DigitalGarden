@@ -11,8 +11,12 @@
             "id": "0135962f219a946d",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "home.md",
+                "mode": "source",
+                "source": true
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "home.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +101,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "home.md"
+              }
             }
           },
           {
@@ -125,6 +132,23 @@
   },
   "active": "0135962f219a946d",
   "lastOpenFiles": [
+    "Swift.md",
+    "Programming/Swift/Naming style guidelines.md",
+    "Programming/Swift/methods.md",
+    "Programming/Swift/Looping.md",
+    "Programming/Swift/JSON_Parsing.md",
+    "Programming/Swift/Instances.md",
+    "Programming/Swift/Functions.md",
+    "Programming/Swift/Force Unwrapping.md",
+    "Programming/Swift/Extensions.md",
+    "Programming/Swift/Enumurate items in an array.md",
+    "Programming/Swift/ENUM.md",
+    "Programming/Swift/Dictionary.md",
+    "Programming/Swift/Complex types.md",
+    "Programming/Swift/Collection types.md",
+    "Programming/Swift/Classes.md",
+    "Programming/Swift/Array.md",
+    "App Forge/Finance Calculator/Finance Calculator.md",
     "home.md",
     "Programming/UIkit/UITableView.md",
     "Programming/UIkit/UIKit  API's.md",
@@ -134,23 +158,6 @@
     "Programming/UIkit/Disclosure indicator.md",
     "Programming/UIkit/Delegate pattern.md",
     "Programming/UIkit/completion handler (closure).md",
-    "Programming/UIkit/Communication patterns.md",
-    "Programming/UIkit/Auto Layout.md",
-    "Programming/ObjC/objC.md",
-    "Programming/ObjC/objc classes.md",
-    "SwiftUI.md",
-    "Programming/ObjC/TableView - ObjC.md",
-    "Programming/SwiftUI/Basic Views and Controls.md",
-    "Programming/SwiftUI/Dealing with texts/Secure Field.md",
-    "Programming/SwiftUI/Dealing with texts/Labels.md",
-    "Programming/SwiftUI/Dealing with texts/Getting user input.md",
-    "Programming/SwiftUI/Using images/Using Images.md",
-    "Programming/Swift/Visibility/Visibility.md",
-    "Swift.md",
-    "Programming/Swift/ViewControllers/Tableview.md",
-    "Programming/Frame.md",
-    "Programming/Swift/Closures.md",
-    "Programming/Swift/Collection types.md",
     "App Forge/Finance Calculator",
     "App Forge/Design a Calculator app/Kalkulatore - Structural Diagram.canvas",
     "Programming/Web Services",
