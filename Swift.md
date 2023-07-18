@@ -15,13 +15,16 @@ extension Int {
 
 1.sayHello // output - "Hello, I'm 1"
 ```
-- there are three kind of objects in swift 
+- there are three kind of objects in swift or we can say three flavors of object type
 	- [[Classes]]
 	- [[Structs]]
 	- [[ENUM]]
+- [[Variables]] is a name for an object. 
+- executable code like `dog.bark()` or `print(hello)` can not just go anywhere of your body. failure to do so will give you the error `expected declaration`. 
+- in general executable code must live inside a [[Functions]].
+
 
 ### Core concepts 
-[[Functions]]
 [[Closures]]
 [[Protocols]]
 [[Optionals]]
