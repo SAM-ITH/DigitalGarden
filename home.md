@@ -8,15 +8,7 @@ Click anything on the sidebar 😬
 
 **also you can connect with me or check my work on following links** 
 
-- website : https://www.samith.me
-
-- linkedin : https://www.linkedin.com/in/samithwijesighe/
-
-- twitter : https://twitter.com/Mechacoder | Github : https://github.com/SAM-ITH
-
-- StackOverFlow : https://stackoverflow.com/users/7865361/samith-wijesinghe
-
-- Dribble : https://dribbble.com/Samith_
+- [website](https://www.samith.me) | [linkedin](https://www.linkedin.com/in/samithwijesighe/) | [twitter](https://twitter.com/Mechacoder) | [Github](https://github.com/SAM-ITH) | [StackOverFlow](https://stackoverflow.com/users/7865361/samith-wijesinghe) | [Dribble](https://dribbble.com/Samith_) | [work time line](https://www.polywork.com/samith)
 
 Basic Guide for the content 
 
