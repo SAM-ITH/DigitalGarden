@@ -18,3 +18,11 @@ also you can connect with me or check my work on following links
 Basic Guide for the content 
 
 [[Programming]] - everything related to programming 
+
+
+
+
+
+---
+current version - 1.0.0(6)
+Copyright © 2023 Samith Wijesinghe. All rights reserved.
