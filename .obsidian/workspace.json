@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "home.md",
-                "mode": "preview",
+                "file": "App Forge.md",
+                "mode": "source",
                 "source": true
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "home.md",
+                "file": "App Forge.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "home.md"
+                "file": "App Forge.md"
               }
             }
           },
@@ -132,9 +132,17 @@
   },
   "active": "0135962f219a946d",
   "lastOpenFiles": [
-    "Swift.md",
-    "Programming/Swift/Variables.md",
+    "ARKit.md",
+    "Big Data Analytics.md",
+    "Clean Code.md",
     "home.md",
+    "OOP concepts.md",
+    "Swift.md",
+    "Control flow.md",
+    "SwiftUI.md",
+    "Programming.md",
+    "App Forge.md",
+    "Programming/Swift/Variables.md",
     "Programming/Swift/Naming style guidelines.md",
     "Programming/Swift/methods.md",
     "Programming/Swift/Looping.md",
@@ -150,14 +158,6 @@
     "Programming/Swift/Collection types.md",
     "Programming/Swift/Classes.md",
     "Programming/Swift/Array.md",
-    "App Forge/Finance Calculator/Finance Calculator.md",
-    "Programming/UIkit/UITableView.md",
-    "Programming/UIkit/UIKit  API's.md",
-    "Programming/UIkit/Navigation.md",
-    "Programming/UIkit/Modal Presentation.md",
-    "UIkit.md",
-    "Programming/UIkit/Disclosure indicator.md",
-    "Programming/UIkit/Delegate pattern.md",
     "App Forge/Finance Calculator",
     "App Forge/Design a Calculator app/Kalkulatore - Structural Diagram.canvas",
     "Programming/Web Services",

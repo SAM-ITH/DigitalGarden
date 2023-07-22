@@ -28,7 +28,6 @@ extension Int {
 [[Closures]]
 [[Protocols]]
 [[Optionals]]
-[[Control flow]]
 [[Collection types]]
 
 ___
