@@ -24,5 +24,5 @@ Basic Guide for the content
 
 
 ---
-current version - 1.0.0(6)
+current version - 1.0.0(7)
 Copyright © 2023 Samith Wijesinghe. All rights reserved.

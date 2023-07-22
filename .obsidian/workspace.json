@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "home.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": true
               }
             }
@@ -132,13 +132,13 @@
   },
   "active": "0135962f219a946d",
   "lastOpenFiles": [
+    "Swift.md",
+    "OOP concepts.md",
+    "home.md",
     "App Forge.md",
     "ARKit.md",
     "Big Data Analytics.md",
     "Clean Code.md",
-    "home.md",
-    "OOP concepts.md",
-    "Swift.md",
     "Control flow.md",
     "SwiftUI.md",
     "Programming.md",
