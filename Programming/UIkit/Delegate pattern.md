@@ -1,4 +1,4 @@
-[[UIkit]]
+
 
 #### what is delegate pattern
 - def : delegate is an object that executes group of methods on behalf of an another object. 

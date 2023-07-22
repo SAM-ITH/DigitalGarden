@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "eeb9b12d7985ac5c",
+        "id": "875e06dddd80db10",
         "type": "tabs",
         "children": [
           {
-            "id": "b1ffc2241e0916a5",
+            "id": "0135962f219a946d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "App Forge/Finance Calculator/Finance Calculator.md",
-                "mode": "source",
+                "file": "home.md",
+                "mode": "preview",
                 "source": true
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "App Forge/Finance Calculator/Finance Calculator.md",
+                "file": "home.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "App Forge/Finance Calculator/Finance Calculator.md"
+                "file": "home.md"
               }
             }
           },
@@ -130,36 +130,36 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "b1ffc2241e0916a5",
+  "active": "0135962f219a946d",
   "lastOpenFiles": [
-    "Big Data/BiG Data.md",
-    "App Forge/Finance Calculator/Finance Calculator.md",
-    "App Forge/Finance Calculator",
-    "Big Data/Hive.md",
-    "Big Data/Hadoop.md",
-    "Programming/Clean Code/Documentation.md",
-    "Clean Code.md",
     "App Forge.md",
-    "App Forge/Projects.md",
-    "kalkulator.md",
-    "Programming/Clean Code/Coding Standrads.md",
-    "Programming/Clean Code/Becoming a exceptional programmer.md",
-    "Programming/Swift/Code Structure/Code Structure.md",
+    "ARKit.md",
+    "Big Data Analytics.md",
+    "Clean Code.md",
+    "home.md",
+    "OOP concepts.md",
+    "Swift.md",
+    "Control flow.md",
+    "SwiftUI.md",
     "Programming.md",
-    "Programming/UML/Associations.md",
-    "Programming/UML/Domain Model.md",
-    "Programming/UML/UML.md",
-    "Programming/UML/Relationships.md",
-    "App Forge/Design a Calculator app/kalkulator.md",
+    "Programming/Swift/Variables.md",
+    "Programming/Swift/Naming style guidelines.md",
+    "Programming/Swift/methods.md",
+    "Programming/Swift/Looping.md",
+    "Programming/Swift/JSON_Parsing.md",
+    "Programming/Swift/Instances.md",
+    "Programming/Swift/Functions.md",
+    "Programming/Swift/Force Unwrapping.md",
+    "Programming/Swift/Extensions.md",
+    "Programming/Swift/Enumurate items in an array.md",
+    "Programming/Swift/ENUM.md",
+    "Programming/Swift/Dictionary.md",
+    "Programming/Swift/Complex types.md",
+    "Programming/Swift/Collection types.md",
+    "Programming/Swift/Classes.md",
+    "Programming/Swift/Array.md",
+    "App Forge/Finance Calculator",
     "App Forge/Design a Calculator app/Kalkulatore - Structural Diagram.canvas",
-    "Programming/Web Services/Web Services.md",
-    "Programming/Swift/ViewControllers/Tableview - swift.md",
-    "Programming/OOP/polymorphism.md",
-    "Programming/OOP/Instance and methods.md",
-    "Programming/OOP/inheritance.md",
-    "Programming/OOP/encapsulation.md",
-    "Programming/ARkit/SceneKit.md",
-    "Programming/ARkit/Scene Editor.md",
     "Programming/Web Services",
     "Programming/Vim key bindings",
     "Big Data",

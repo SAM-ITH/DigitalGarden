@@ -1,0 +1,9 @@
+- variable is a name for an object. 
+- you can image its like a box that contain object.  object can be changed or replaced with the time. so when you creating a variable you simply creating a box with a name. 
+- all the variables must be declared. no variables comes with implicitly into existence. 
+- you can create name or declare a variable with two ways
+	- `var`
+	- `let`
+-  in var you can change the values later. but in let you can not change once you assign a value. 
+- All the variable has a type. once you assign a type you can not never change it. its like there is different types of boxes. you can not put all the objects in a one type box. you need to use relevant type of box for that. 
+- variable has life its on own. it will preserve value given to it as long as it there. so its not only a way of naming something but also a way of preserve  
