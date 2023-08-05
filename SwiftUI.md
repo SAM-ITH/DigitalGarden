@@ -14,8 +14,9 @@
 ---
 
 ### Content
-[[Basic Views and Controls]]
-[[Live preview tools]]
-[[modifier]]
-[[View]]
-[[Learning more about swiftUI - Stanfrod]]
+- [[Basic Views and Controls]]
+- [[Live preview tools]]
+- [[modifier]]
+- [[View]]
+- [[State Management]]
+- [[Learning more about swiftUI - Stanfrod]]
