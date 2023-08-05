@@ -14,12 +14,11 @@
 4.  Divide the remaining unclaimed space by the unallocated space, and then repeat _Step 2_.
 5.  The stack then aligns its content and chooses its own size to exactly enclose its children.
 
-
-
-[[Spacer]]
-[[Divider]]
-[[Offset]]
-[[Frame]]
+---
+- [[Spacer]]
+- [[Divider]]
+- [[Offset]]
+- [[Frame]]
 
 
 
