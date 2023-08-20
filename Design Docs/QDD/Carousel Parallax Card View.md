@@ -1,0 +1,7 @@
+- creating a navigation view 
+- creating set of cards  using foreach loop 
+- make them horizontally scrollable 
+- set up scale effect to selected card 
+- add geometry reader 
+- add frame to give the actual card view 
+- doing the animation stuff (i don't think i will able to google it and fixing so better to follow the tutorial in this section)
