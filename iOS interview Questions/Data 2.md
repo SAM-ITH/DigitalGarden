@@ -1,0 +1,14 @@
+- how is dictionary different from array?
+	- when accessing data in array you need to access them according to index in array. but in dictionary you access them using something you define 
+- what is the main difference between class and a struct 
+	- struct is a value type and class is a reference type. also classes allow inheritance. 
+	- value type 
+		- value type are copied when they assign to an instance. this means each instance of a value type is completely independent of any other instance 
+	- reference type 
+		- reference types are not copied when they assign into  an instance.  it means if you change the value of a reference type, all of the other references are also getting changed. 
+- what are tuples and why they are useful ?
+	- tuples help to group multiple values of different types. tuples are value types. tuples can be used to return multiple values from function and represent complex data structures such as points, coordinates and records. 
+- what does the codable protocol do? 
+	- safely convert custom data types into json, XML and also json, XML to custom swift data types.
+- what is the difference between array and a set? 
+	- sets can not contain duplicates and are unordered. so lookup is significantly fast.
