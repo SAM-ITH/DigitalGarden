@@ -4,8 +4,10 @@
     "iconPacksPath": ".obsidian/plugins/obsidian-icon-folder/icons",
     "fontSize": 16,
     "emojiStyle": "none",
-    "iconColor": null,
-    "recentlyUsedIcons": [],
+    "iconColor": "#fff5e0",
+    "recentlyUsedIcons": [
+      "FabSwift"
+    ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
     "extraMargin": {
@@ -15,5 +17,9 @@
       "left": 0
     },
     "iconInTabsEnabled": false
+  },
+  "Programming/Swift": {
+    "iconName": "FabSwift",
+    "inheritanceIcon": "FabSwift"
   }
 }
