@@ -30,3 +30,6 @@ std:: cin >> a;
 ```cpp
 std:: cout << a << std::endl
 ```
+
+#### Basic data types 
+
