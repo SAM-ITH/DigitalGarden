@@ -74,3 +74,6 @@ return_type function_name (arg1_type arg_1, arg2_type arg_2){
 return value;
 }
 ```
+
+##### Pointers 
+
