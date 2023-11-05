@@ -27,4 +27,5 @@ https://www.youtube.com/watch?v=zdKQ-I8o1GQ&list=PLn3eTxaOtL2MThB3r1Pz5Z-EQaqBi3
 ### Swift and iOS dev 
 
 - iOS application life cycle 
-- 
+- what the hell is optional chaining 
+- protocols 
