@@ -13,3 +13,6 @@
 - mass adoption of OOP happen because it can develop frameworks. 
 - frameworks become crucial when you are developing apps with GUI. 
 
+### Object Oriented Modeling
+
+- [[Object Oriented - Problem Sets]] - problem sets related to Object oriented modeling 
