@@ -3,6 +3,8 @@ class diagrams are fundamental tools in OOP that visually represent the static s
 #### Components of a class diagram 
 
 - classes 
-- attributes 
-- methods 
-- relationships 
+- attributes - represent the data or attributes associated with each class 
+- methods - functions that class can perform 
+- [[Relationships]]
+
+
