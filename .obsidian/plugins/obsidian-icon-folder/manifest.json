@@ -1,9 +1,9 @@
 {
   "id": "obsidian-icon-folder",
-  "name": "Iconize",
-  "version": "2.8.0",
+  "name": "Icon Folder",
+  "version": "2.1.2",
   "minAppVersion": "0.9.12",
-  "description": "Add icons to anything you desire in Obsidian, including files, folders, and text.",
+  "description": "This plugin allows to add an emoji or an icon to a folder or file.",
   "author": "Florian Woelki",
   "authorUrl": "https://florianwoelki.com/",
   "isDesktopOnly": false

@@ -3,4 +3,4 @@
 - [[Design Patterns]]
 - [[Architectures]]
 - [[Documentation]]
-- [[Design Principles]]
+- [[Modularisation]]
