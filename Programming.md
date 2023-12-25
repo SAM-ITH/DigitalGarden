@@ -8,6 +8,11 @@ hey welcome to the programming menu. in here you can find all the notes that i h
 [[Swift]]
 [[C_Sharp]]
 
+### Frameworks 
+[[SwiftUI]]
+[[UIkit]]
+[[ARKit]]
+
 ### Misc
 [[VIM]]
 [[UML]]
@@ -15,14 +20,11 @@ hey welcome to the programming menu. in here you can find all the notes that i h
 ### Architectures 
 [[Clean Code]]
 
+
 ### Databases 
 [[SQL]]
 
+
 #### Web services 
 [[Web Services]]
-
-### Frontend development 
-
-- [[iOS 📱  & MacOS 💻  Dev]]
-
 
