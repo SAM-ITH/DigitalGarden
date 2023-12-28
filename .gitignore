@@ -33,3 +33,9 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/macos
 workspace.json
+/.obsidian/appearance.json
+/.obsidian/community-plugins.json
+/.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/data.json
+/.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/main.js
+/.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/manifest.json
+/.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/styles.css
