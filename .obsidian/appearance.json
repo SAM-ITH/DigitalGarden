@@ -4,5 +4,6 @@
   "enabledCssSnippets": [
     "obsidian"
   ],
-  "accentColor": ""
+  "accentColor": "",
+  "theme": "obsidian"
 }
