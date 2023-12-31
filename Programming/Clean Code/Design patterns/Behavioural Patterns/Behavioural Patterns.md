@@ -1,1 +1,3 @@
-[[Observer]]
+- [[Observer]]
+- [[Strategy Pattern]]
+
