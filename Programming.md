@@ -2,24 +2,26 @@
 hey welcome to the programming menu. in here you can find all the notes that i have taken related to the programming.
 
 ### Programming concepts 
-[[OOP concepts]]
+- [[OOP concepts]]
+- [[Concurrent Programming]]
+
 
 ### Languages 
-[[Swift]]
-[[C_Sharp]]
+- [[Swift]]
+- [[C_Sharp]]
 
 ### Misc
-[[VIM]]
-[[UML]]
+- [[VIM]]
+- [[UML]]
 
 ### Architectures 
-[[Clean Code]]
+- [[Clean Code]]
 
 ### Databases 
-[[SQL]]
+- [[SQL]]
 
 #### Web services 
-[[Web Services]]
+- [[Web Services]]
 
 ### Frontend development 
 
