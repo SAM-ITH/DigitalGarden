@@ -13,7 +13,6 @@ hey welcome to the programming menu. in here you can find all the notes that i h
 ### Misc
 - [[VIM]]
 - [[UML]]
-- [[Prompt Engineering]]
 
 ### Architectures 
 - [[Clean Code]]
