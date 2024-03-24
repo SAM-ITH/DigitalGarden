@@ -15,3 +15,12 @@ there are two types of LLMs
 - [[Give the model time to think]]
 	 
 
+## Model limitations 
+
+- model doesn't know the boundary of its knowledge so some times it might make up the things. 
+- this is called as hallucination. 
+
+##### To avoid hallucination 
+- give instructions to model to first find the relevant information 
+- then answer the question. 
+- based on the relevant information. 
