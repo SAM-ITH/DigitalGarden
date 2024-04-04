@@ -3,7 +3,7 @@ hey welcome to the programming menu. in here you can find all the notes that i h
 
 ### Programming concepts 
 - [[OOP concepts]]
-- [[Concurrent Programming]]
+- [[Concurrency]]
 
 
 ### Languages 
