@@ -19,7 +19,7 @@
     "iconInTabsEnabled": false
   },
   "Programming/Swift": {
-    "iconName": "FabSwift",
+    "iconName": null,
     "inheritanceIcon": "FabSwift"
   }
 }
