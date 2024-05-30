@@ -14,4 +14,10 @@
 ## Why we need concurrency ?
 
 ## Concurrency vs parallelism
+![[concurerncyVSparallelism.png]]
+
+- in concurrency multiple tasks are appeared to be happen at the same time. but at the core only single instance working at a one time. 
+- in parallelism truly tasks are happens in the same time. so they need to multiple resources to do it. as show in the above image. 
+
+
 
