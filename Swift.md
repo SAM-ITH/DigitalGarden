@@ -32,18 +32,15 @@ extension Int {
 
 ___
 ### Basic concepts
-
-
 [[Complex types]]
 [[Operators & conditions]]
 [[Static Properties and Methods]]
 [[typecasting]]
 
-
+### Error Handling
+[[Exception Handeling]]
 ### Other 
 [[Naming style guidelines]]
-
-
 
 ### Code Structure and readability and principle 
 [[Code Structure]]
