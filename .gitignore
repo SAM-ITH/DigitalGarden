@@ -4,6 +4,10 @@
 .AppleDouble
 .LSOverride
 
+## obsidian plugins ##
+.obsidian
+*.obsidian/
+
 # Icon must end with two \r
 Icon
 
@@ -39,3 +43,5 @@ workspace.json
 /.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/main.js
 /.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/manifest.json
 /.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/styles.css
+
+

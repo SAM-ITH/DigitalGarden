@@ -1,9 +1,9 @@
 {
   "baseFontSize": 18,
-  "cssTheme": "Tokyo Night",
+  "cssTheme": "AnuPpuccin",
   "enabledCssSnippets": [
     "obsidian"
   ],
   "accentColor": "",
-  "theme": "obsidian"
+  "theme": "system"
 }

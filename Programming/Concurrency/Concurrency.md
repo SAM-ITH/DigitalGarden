@@ -7,11 +7,22 @@
 - parallelism is using multiple resource to execute the multiple instruction sequences at the same time. 
 - for an example: there is two queues for the single hot dog stand. in parallelism we can use another new resource of hot dog stand to feed the second queue. 
 
+## Concurrency vs parallelism
+![[concurerncyVSparallelism.png]]
+
+- in concurrency multiple tasks are appeared to be happen at the same time. but at the core only single instance working at a one time. 
+- in parallelism truly tasks are happens in the same time. so they need to multiple resources to do it. as show in the above image. 
+
 ### How to achieve concurrency 
 
 - [[Time Slicing and Context Switching]]
 
-## Why we need concurrency ?
+#### Achieving Multi Threading in iOS
 
-## Concurrency vs parallelism
+- [[Manual Thread Creation]]
+
+
+
+
+
 
