@@ -40,4 +40,6 @@ workspace.json
 /.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/manifest.json
 /.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/styles.css
 
+## obsidian plugins ##
 .obsidian/
+.obsidian
