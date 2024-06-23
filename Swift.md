@@ -36,6 +36,7 @@ ___
 [[Operators & conditions]]
 [[Static Properties and Methods]]
 [[typecasting]]
+[[Method chaining in Swift]]
 
 ### Error Handling
 [[Exception Handeling]]
