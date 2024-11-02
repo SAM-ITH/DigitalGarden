@@ -14,10 +14,11 @@
 ---
 
 ### Content
-- [[Basic Views and Controls]]
+- [[View]]
+- [[laying out components]]
+- [[Dealing with text]]
+- [[Using Images]]
 - [[Live preview tools]]
 - [[modifier]]
-- [[View]]
 - [[State Management]]
-- [[Learning more about swiftUI - Stanfrod]]
 - [[SwiftUI Reusable components]]

@@ -1,5 +1,12 @@
 ## View - thing with the Struct 
 
+- Views are basic building blocks of the user interfaces.
+- swiftUI views are
+	- Declarative 
+		you can describe what view you want in the interface and swiftUI will produce it.
+	- compositional 
+	- State-driven 
+### Anatomy of the SwiftUI view
 - this is a data structure that behaves like a view.
 - view keyword is a behavioral element.
 

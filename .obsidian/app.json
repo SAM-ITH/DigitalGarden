@@ -4,5 +4,5 @@
   "legacyEditor": false,
   "livePreview": false,
   "promptDelete": false,
-  "vimMode": true
+  "vimMode": false
 }
