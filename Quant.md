@@ -1,3 +1,12 @@
-Home base of the quantitative finance related notes. divided into two main categories Msc related research project and the general research and algorithms. 
+Home base of the quantitative finance related notes. still trying figure out how these topics are related to each other so all of these are raw topics without any inter connections. 
 
 - [[MSc - Research]]
+- [[Market states]]
+
+### Data types 
+- [[Time Series Data]]
+### Machine learning 
+- [[LSTM]]
+### Algorithms 
+- [[Markov chains]]
+
