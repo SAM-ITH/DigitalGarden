@@ -5,8 +5,7 @@
 .LSOverride
 
 ## obsidian plugins ##
-*.obsidian
-*.obsidian/
+.obsidian/
 
 # Icon must end with two \r
 Icon
