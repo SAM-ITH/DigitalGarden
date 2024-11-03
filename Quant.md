@@ -7,6 +7,7 @@ Home base of the quantitative finance related notes. still trying figure out how
 - [[Time Series Data]]
 ### Machine learning 
 - [[LSTM]]
+- [[Attention Mechanisms]]
 ### Algorithms 
 - [[Markov chains]]
 
