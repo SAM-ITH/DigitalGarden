@@ -12,3 +12,8 @@
 - All the documents need to have a object id. 
 
 - MongoDB support polymorphic data. 
+
+[[Data Modeling - Mongo]]
+
+
+
