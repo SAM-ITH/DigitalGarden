@@ -42,5 +42,6 @@ workspace.json
 /.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/main.js
 /.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/manifest.json
 /.obsidian/plugins/obsidian-markdown-formatting-assistant-plugin/styles.css
-
-
+.obsidian/graph.json
+.obsidian/app.json
+.obsidian/core-plugins.json
