@@ -24,3 +24,6 @@ there are two types of LLMs
 - give instructions to model to first find the relevant information 
 - then answer the question. 
 - based on the relevant information. 
+
+
+- [[Prompt - templates]]
