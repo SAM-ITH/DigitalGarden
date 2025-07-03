@@ -21,3 +21,13 @@ this note is based on the talk given by **Andrej Karpathy** : https://www.youtub
 - LLMs are like human spirits that have good photo graphic knowledge about everything. (things that he is trained)
 - another analogy is we can think them like a simulation of a  super intelligent autistic persons that have cognitive issues. 
 - memory of a person can be take as LLMs context window. but human has those memories for some time, but LLMs it get reset every time you start a new chat. 
+
+### Opportunities
+#### partial autonomy apps. 
+- we can take cursor as an example. 
+	- it has an application specific GUI. 
+	- package state into a context window before calling GUI. 
+	- orchestrate and call multiple models (embedding models, chat models)
+	- Autonomy slider. (you can do inline change, whole file change or whole project change)
+	- we can take perplexity as an another example.
+
