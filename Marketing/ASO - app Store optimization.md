@@ -1,0 +1,1 @@
+- when creating app store screen shots don't heavily focused on features say about the benefits that user can reap by using the app. 
