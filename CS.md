@@ -7,4 +7,3 @@ All the notes related to the computer science are direct through here
 - [[Clean Code]]
 - [[BiG Data]]
 - [[OOP concepts]]
-- [[UIkit]]

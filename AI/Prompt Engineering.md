@@ -14,7 +14,6 @@ there are two types of LLMs
 -  [[write clear and specific instructions]]
 - [[Give the model time to think]]
 	 
-
 ## Model limitations 
 
 - model doesn't know the boundary of its knowledge so some times it might make up the things. 
