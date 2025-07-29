@@ -1,9 +1,17 @@
 All the notes related to the computer science are direct through here 
 
-- [[Swift]]
-- [[SwiftUI]]
+## Basic Programming Concepts 
 - [[Programming]]
 - [[ARKit]]
 - [[Clean Code]]
 - [[BiG Data]]
 - [[OOP concepts]]
+
+## Mobile
+### Language Specific Concepts 
+[[Swift]]
+### UI Frameworks
+[[SwiftUI]]
+[[Flutter]]
+
+
