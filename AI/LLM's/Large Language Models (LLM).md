@@ -1,0 +1,8 @@
+- what is a large language model?
+	- LLM is a probabilisitic model of text.
+- if its a probability of distribution then how do we affect the distribution over the vocabulary ?
+	- this can be done by using two methods
+		- prompting - that does not effect the weight of the model 
+		- Training - effect the wights of the model 
+- How does the LLM's generating text using these distributions?
+	- Decoders
