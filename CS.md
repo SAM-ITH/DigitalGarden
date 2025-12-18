@@ -7,11 +7,10 @@ All the notes related to the computer science are direct through here
 - [[BiG Data]]
 - [[OOP concepts]]
 
-## Mobile
 ### Language Specific Concepts 
-[[Swift]]
+- [[Swift]]
 ### UI Frameworks
-[[SwiftUI]]
-[[Flutter]]
+- [[SwiftUI]]
+- [[Flutter]]
 
 
