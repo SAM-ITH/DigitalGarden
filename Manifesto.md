@@ -11,9 +11,19 @@
 - controlling as much as possible of my mind.
 
 ok lets break down the decade plan to smaller chunks that you can take and execute. 
-
 ##### build a company that thrive in consumer software and technologies that has a large product portfolio with millions of users.
 - most important skill for achieve this goal is to ability to sell things.
 - Idea -> build -> marketing do this iteration to all the products in a fast pace.
 - build a mechanism to idea iteration, build and ship things faster.
 - understand the social media game and marketing, build a mechanism for that. 
+- build audiences around the products. 
+
+##### lay the ground work to build a Quant based trading firm
+- Build a quality data repositories.'
+- Build automated data collection pipes. 
+- Build a archive of algorithms with proven results to use in trading. 
+- Start small scale algorithmic trading business. 
+- Fully mechanised investment decision making process and the trading process.
+
+
+
