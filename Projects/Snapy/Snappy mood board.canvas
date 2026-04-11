@@ -1,0 +1,16 @@
+{
+	"nodes":[
+		{"id":"28d209192d857b4d","type":"file","file":"Projects/Snapy/Images/IMG_4763.png","x":-740,"y":-380,"width":185,"height":400},
+		{"id":"c559672e6c6da1f4","type":"file","file":"Projects/Snapy/Images/IMG_4767.png","x":-480,"y":-380,"width":185,"height":400},
+		{"id":"084a4a283c4d9d3f","type":"file","file":"Projects/Snapy/Images/IMG_4768.png","x":-240,"y":-380,"width":185,"height":400},
+		{"id":"27f63422bf285f2b","type":"file","file":"Projects/Snapy/Images/IMG_4766.png","x":-740,"y":102,"width":185,"height":400},
+		{"id":"f20723272f22e9a9","type":"file","file":"Projects/Snapy/Images/Screenshot 2026-04-05 at 2.44.19 PM.png","x":-480,"y":102,"width":185,"height":400},
+		{"id":"58c0cfa36c5d5cdd","type":"file","file":"Projects/Snapy/Images/IMG_4771.png","x":800,"y":102,"width":185,"height":400},
+		{"id":"ad760e95a23b6f7d","type":"file","file":"Projects/Snapy/Images/IMG_4770.png","x":580,"y":102,"width":185,"height":400},
+		{"id":"6726a20a8e4a7e28","type":"file","file":"Projects/Snapy/Images/IMG_4769.png","x":340,"y":102,"width":185,"height":400},
+		{"id":"2225d839db939ddd","type":"file","file":"Projects/Snapy/Images/IMG_4772.png","x":120,"y":102,"width":185,"height":400},
+		{"id":"8bd40fe0597b4951","type":"file","file":"Projects/Snapy/Images/IMG_4764.png","x":248,"y":-380,"width":185,"height":400},
+		{"id":"8b33085fbacd04a1","type":"file","file":"Projects/Snapy/Images/IMG_4765.png","x":460,"y":-380,"width":185,"height":400}
+	],
+	"edges":[]
+}
