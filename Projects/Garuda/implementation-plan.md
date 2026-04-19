@@ -10,7 +10,7 @@ The project is divided into two systems:
 |--------|------|-------------|
 | **System 1** | [Mayura CLI](system-1-mayura-cli.md) | Bloomberg-style terminal for PDF intake, parsing, AI structuring, and data submission |
 | **System 2** | [Garuda REST API](system-2-garuda-api.md) | FastAPI service with internal write endpoints and public read-only endpoints (monetized) |
-| **Database** | [Database Architecture](database-architecture.md) | PostgreSQL schema designed from 9 real CSE quarterly reports across 6 sectors |
+| **Database** | [Ganthakara](database-architecture.md) | PostgreSQL schema designed from 9 real CSE quarterly reports across 6 sectors |
 | **DeepSeek Prompt** | [DeepSeek Prompt Guide](deepseek-prompt-guide.md) | System prompt, user prompt template, API call, validation and retry strategy |
 | **Pipeline Flow** | [Data Pipeline Flow](data-pipeline-flow.md) | Step-by-step: PDF → LiteParse → DeepSeek → API → PostgreSQL |
 
