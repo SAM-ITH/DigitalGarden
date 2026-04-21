@@ -1,16 +1,16 @@
 {
 	"nodes":[
-		{"id":"fe5c28c6ef63b775","x":-597,"y":-328,"width":400,"height":294,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 14.51.54.png"},
-		{"id":"37666f2484045144","x":-152,"y":-328,"width":400,"height":163,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.20.09.png"},
-		{"id":"7424736fe51600f6","x":293,"y":-328,"width":400,"height":247,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.20.17.png"},
-		{"id":"f98ab21bbdff1163","x":738,"y":-328,"width":400,"height":287,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.26.05.png"},
-		{"id":"d5f47bbf5cf85cc3","x":-597,"y":117,"width":400,"height":280,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 17.05.01.png"},
-		{"id":"b1977fe4b0b98dae","x":1183,"y":-328,"width":400,"height":253,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.28.49.png"},
-		{"id":"ed49ddc97943fab1","x":1628,"y":-328,"width":400,"height":271,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.31.27.png"},
-		{"id":"4986746c19bd8584","x":2073,"y":-328,"width":400,"height":227,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.40.29.png"},
-		{"id":"5f153bfb1c8c98c2","x":2518,"y":-328,"width":400,"height":263,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 17.01.59.png"},
-		{"id":"f6e53548944b2900","x":2963,"y":-328,"width":400,"height":278,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 17.02.08.png"},
-		{"id":"3246bc1d96f7ea40","x":3408,"y":-328,"width":400,"height":272,"type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 17.03.24.png"}
+		{"id":"fe5c28c6ef63b775","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 14.51.54.png","x":-597,"y":-328,"width":400,"height":294},
+		{"id":"37666f2484045144","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.20.09.png","x":-152,"y":-328,"width":400,"height":163},
+		{"id":"7424736fe51600f6","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.20.17.png","x":293,"y":-328,"width":400,"height":247},
+		{"id":"f98ab21bbdff1163","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.26.05.png","x":738,"y":-328,"width":400,"height":287},
+		{"id":"d5f47bbf5cf85cc3","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 17.05.01.png","x":-597,"y":117,"width":400,"height":280},
+		{"id":"b1977fe4b0b98dae","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.28.49.png","x":1183,"y":-328,"width":399,"height":253},
+		{"id":"ed49ddc97943fab1","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.31.27.png","x":1628,"y":-328,"width":400,"height":271},
+		{"id":"4986746c19bd8584","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 16.40.29.png","x":2073,"y":-328,"width":400,"height":227},
+		{"id":"5f153bfb1c8c98c2","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 17.01.59.png","x":2518,"y":-328,"width":400,"height":263},
+		{"id":"f6e53548944b2900","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 17.02.08.png","x":2963,"y":-328,"width":400,"height":278},
+		{"id":"3246bc1d96f7ea40","type":"file","file":"Projects/Blinkbreak/Images/Screenshot 2025-12-13 at 17.03.24.png","x":3408,"y":-328,"width":400,"height":272}
 	],
 	"edges":[]
 }
