@@ -2,21 +2,21 @@
 
 ## Stack Overview
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| iOS App | Swift + SwiftUI | Swift 5.9+ |
-| Android App | Kotlin + Jetpack Compose | Kotlin 2.0+ |
-| Backend Runtime | Go | 1.22+ |
-| Backend Router | Chi / Gin | Latest |
-| SQL Code Gen | sqlc | Latest |
-| Validation | go-playground/validator | v10 |
-| Primary Database | PostgreSQL | 16 |
-| Cache / Realtime | Redis | 7 |
-| SMS OTP | ShoutOUT API | - |
-| Deployment | Coolify v4 on VPS | 4.x |
-| Containerization | Docker | Latest |
-| Reverse Proxy | Traefik | v3 (via Coolify) |
-| CI/CD | GitHub Actions | - |
+| Layer            | Technology               | Version          |
+| ---------------- | ------------------------ | ---------------- |
+| iOS App          | Swift + SwiftUI          | Swift 5.9+       |
+| Android App      | Kotlin + Jetpack Compose | Kotlin 2.0+      |
+| Backend Runtime  | Go                       | 1.22+            |
+| Backend Router   | Chi / Gin                | Latest           |
+| SQL Code Gen     | sqlc                     | Latest           |
+| Validation       | go-playground/validator  | v10              |
+| Primary Database | PostgreSQL               | 16               |
+| Cache / Realtime | Redis                    | 7                |
+| SMS OTP          | ShoutOUT API             | -                |
+| Deployment       | Coolify v4 on VPS        | 4.x              |
+| Containerization | Docker                   | Latest           |
+| Reverse Proxy    | Traefik                  | v3 (via Coolify) |
+| CI/CD            | GitHub Actions           | -                |
 
 ---
 
