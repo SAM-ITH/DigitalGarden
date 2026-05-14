@@ -19,19 +19,19 @@ LookAway displays "minutes without a break" in the menu bar, shows how long you'
 
 ## 2. Break Management
 
-### 2.1 Long Breaks
+### 2.1 Long Breaks - added
 LookAway supports configurable long breaks (default: 3 minutes after every 3 short breaks). Users can customize the long break duration, frequency, and even trigger long breaks after every short break. BlinkBreak only has a single repeating short break cycle with no concept of long breaks.
 
-### 2.2 Snooze / Postpone System
+### 2.2 Snooze / Postpone System - added
 LookAway offers +1 min, +5 min, and +15 min snooze options directly in the break screen and notifications (replacing the old "Skip Break" button). Users can also configure keyboard shortcuts for snoozing. BlinkBreak only has a "Skip Break" (stop) button that immediately ends the break.
 
-### 2.3 Postpone Limits
+### 2.3 Postpone Limits - added
 LookAway lets users cap how many times breaks can be postponed/snoozed per day, preventing mindless snoozing. BlinkBreak has no limit on how many times a user can skip breaks.
 
 ### 2.4 Skip Break Warning
 LookAway displays a small warning when users skip a break after skipping multiple breaks in a row, encouraging healthier behavior. BlinkBreak has no such warning system.
 
-### 2.5 Break Countdown Before Activation
+### 2.5 Break Countdown Before Activation - added
 LookAway shows a 5-second countdown near the cursor just before the break overlay activates, so users are never caught off-guard. The countdown duration is configurable (5s or 10s). BlinkBreak shows no pre-break warning and the full-screen overlay appears abruptly.
 
 ### 2.6 End Break Option (Long Breaks)
@@ -50,7 +50,7 @@ LookAway offers a compact notification design showing essential info with full d
 ### 3.1 Meeting Detection
 LookAway automatically detects when you're in a meeting or call by monitoring microphone usage. It auto-pauses breaks during meetings, shows a notification when a meeting is detected (with option to ignore), and deducts meeting duration from focus time. Users can exclude specific microphones, cameras, and apps from triggering detection. BlinkBreak has no meeting detection.
 
-### 3.2 Video Playback Detection
+### 3.2 Video Playback Detection - added
 LookAway detects when you're watching a video (YouTube, VLC, etc.) and pauses breaks automatically. It can work even when the video app is in the background (configurable), and excludes video editing apps (Final Cut Pro, DaVinci Resolve) and Spotify. BlinkBreak has no video detection.
 
 ### 3.3 Fullscreen Game Detection
@@ -59,7 +59,7 @@ LookAway automatically detects when a fullscreen game is running and pauses brea
 ### 3.4 Deep Focus Apps Detection
 LookAway lets users select specific apps (e.g., Xcode, Figma) where breaks should be paused automatically. This is user-configurable. BlinkBreak has no per-app focus detection.
 
-### 3.5 Screen Recording Detection
+### 3.5 Screen Recording Detection - added
 LookAway pauses breaks when screen recording or screen sharing is detected. BlinkBreak has no screen recording detection.
 
 ### 3.6 Typing Detection
@@ -204,7 +204,7 @@ LookAway shows new version availability in the menu bar dropdown. BlinkBreak has
 ## Summary Table
 
 | Category | LookAway | BlinkBreak | Gap |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Stats Dashboard | Yes | No | **Missing** |
 | Screen Score / Gamification | Yes | No | **Missing** |
 | Long Breaks | Yes | No | **Missing** |
