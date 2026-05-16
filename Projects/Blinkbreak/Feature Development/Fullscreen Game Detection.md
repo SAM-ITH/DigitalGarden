@@ -1,0 +1,1 @@
+we need to build functionality that app automatically detects when a fullscreen game is running and pauses breaks. 

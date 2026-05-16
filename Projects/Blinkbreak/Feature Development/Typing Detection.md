@@ -1,0 +1,1 @@
+we need to add feature to app that it can postpone a break if you're in the middle of typing, waiting until you finish before showing the break. This is opt-in via settings. 

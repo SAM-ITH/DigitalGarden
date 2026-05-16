@@ -1,0 +1,1 @@
+we need to display a small warning when users skip a break after skipping multiple breaks in a row, encouraging healthier behavior. currently we have no such warning system. this should be show in the reminderview when user going to skip an another break after skipping few.

@@ -28,7 +28,7 @@ LookAway offers +1 min, +5 min, and +15 min snooze options directly in the break
 ### 2.3 Postpone Limits - added
 LookAway lets users cap how many times breaks can be postponed/snoozed per day, preventing mindless snoozing. BlinkBreak has no limit on how many times a user can skip breaks.
 
-### 2.4 Skip Break Warning
+### 2.4 Skip Break Warning - added
 LookAway displays a small warning when users skip a break after skipping multiple breaks in a row, encouraging healthier behavior. BlinkBreak has no such warning system.
 
 ### 2.5 Break Countdown Before Activation - added
@@ -47,13 +47,13 @@ LookAway offers a compact notification design showing essential info with full d
 
 ## 3. Smart Pause / Focus Detection
 
-### 3.1 Meeting Detection
+### 3.1 Meeting Detection - added
 LookAway automatically detects when you're in a meeting or call by monitoring microphone usage. It auto-pauses breaks during meetings, shows a notification when a meeting is detected (with option to ignore), and deducts meeting duration from focus time. Users can exclude specific microphones, cameras, and apps from triggering detection. BlinkBreak has no meeting detection.
 
 ### 3.2 Video Playback Detection - added
 LookAway detects when you're watching a video (YouTube, VLC, etc.) and pauses breaks automatically. It can work even when the video app is in the background (configurable), and excludes video editing apps (Final Cut Pro, DaVinci Resolve) and Spotify. BlinkBreak has no video detection.
 
-### 3.3 Fullscreen Game Detection
+### 3.3 Fullscreen Game Detection - added
 LookAway automatically detects when a fullscreen game is running and pauses breaks. BlinkBreak has no game detection.
 
 ### 3.4 Deep Focus Apps Detection
@@ -62,7 +62,7 @@ LookAway lets users select specific apps (e.g., Xcode, Figma) where breaks shoul
 ### 3.5 Screen Recording Detection - added
 LookAway pauses breaks when screen recording or screen sharing is detected. BlinkBreak has no screen recording detection.
 
-### 3.6 Typing Detection
+### 3.6 Typing Detection -added
 LookAway can postpone a break if you're in the middle of typing, waiting until you finish before showing the break. This is opt-in via settings. BlinkBreak has no typing detection.
 
 ### 3.7 Dragging Detection
