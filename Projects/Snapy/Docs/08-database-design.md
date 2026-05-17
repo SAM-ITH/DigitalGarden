@@ -206,7 +206,7 @@ Current FSRS state for each user-card pair. Updated on every review.
 | `scheduled_days` | `INTEGER` | NOT NULL, DEFAULT 0 | Days until next review |
 | `state` | `VARCHAR(12)` | NOT NULL, DEFAULT 'new' | 'new', 'learning', 'review', 'relearning' |
 | `due_at` | `TIMESTAMPTZ` | NOT NULL, DEFAULT now() | When this card is next due |
-| `last_reviewed_at` | `TIMESTAMPTZ` | NULL | Last review timestamp (for conflict resolution) |
+| `last_reviewed_at` | `TIMESTAMPTZ` | NULL | Last review timestamp |
 | `reps` | `INTEGER` | NOT NULL, DEFAULT 0 | Total number of reviews for this card |
 | `lapses` | `INTEGER` | NOT NULL, DEFAULT 0 | Number of times card went to "Again" from review state |
 

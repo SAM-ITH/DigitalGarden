@@ -448,21 +448,14 @@ Runs every Monday at 00:00 IST (UTC+5:30) using a goroutine with a ticker or ext
 ## Review Batch Sync
 
 ### Request
+The client sends **raw review results only** — no SRS state. The server runs FSRS and computes all scheduling.
 ```json
 {
   "reviews": [
     {
       "cardId": "card-uuid-1",
       "rating": 3,
-      "reviewedAt": "2026-05-01T10:30:00Z",
-      "srsState": {
-        "stability": 4.93,
-        "difficulty": 5.21,
-        "elapsedDays": 3,
-        "scheduledDays": 7,
-        "state": "review",
-        "dueAt": "2026-05-08T10:30:00Z"
-      }
+      "reviewedAt": "2026-05-01T10:30:00Z"
     }
   ]
 }
@@ -472,22 +465,25 @@ Runs every Monday at 00:00 IST (UTC+5:30) using a goroutine with a ticker or ext
 For each review in the batch:
 
 1. **Store review log**: Insert into `card_reviews` table
-2. **Update SRS state**: Upsert `card_srs_state` with conflict resolution:
-   - If server's `lastReviewedAt` < client's `reviewedAt`: accept client state
-   - If server's `lastReviewedAt` >= client's `reviewedAt`: keep server state (client is stale)
-3. **Validate with go-fsrs**: Server recomputes FSRS to verify client's scheduling (catches bugs or tampered data)
-4. **Update daily activity**: Increment `sessions_count`, `cards_reviewed`, recalculate `accuracy` in `daily_activity`
-5. **Update streak**: Check if this is the first review today, if so increment `current_streak` (or reset if missed a day)
-6. **Update leaderboard**: Calculate points and `ZINCRBY` Redis sorted sets
+2. **Get existing SRS state**: Query `card_srs_state` for this user-card pair
+3. **Run FSRS**: Compute new scheduling using `go-fsrs`:
+   - If new card (no existing state): use initial values (stability=0, difficulty=0, state="new")
+   - If existing card: use current state from database
+   - Input: current state + rating → Output: new stability, difficulty, state, due date, reps, lapses
+4. **Upsert SRS state**: Store the FSRS-computed state in `card_srs_state`
+5. **Update daily activity**: Increment `sessions_count`, `cards_reviewed`, recalculate `accuracy` in `daily_activity`
+6. **Update streak**: Check if this is the first review today, if so increment `current_streak` (or reset if missed a day)
+7. **Update leaderboard**: Calculate points and `ZINCRBY` Redis sorted sets
 
 ### Response
 ```json
 {
   "accepted": 2,
-  "rejected": 0,
-  "corrections": []
+  "rejected": 0
 }
 ```
+
+**Note:** Rejections can happen if a card doesn't exist or the user doesn't have access. There is no conflict resolution needed since the server is the single source of truth — no client-submitted SRS state to conflict with.
 
 ---
 
@@ -597,7 +593,7 @@ snapy-api/
 │   ├── service/
 │   │   ├── otp.go                     # OTP generation, ShoutOUT HTTP calls
 │   │   ├── token.go                   # JWT creation, refresh logic
-│   │   ├── fsrs.go                    # FSRS validation (go-fsrs)
+│   │   ├── fsrs.go                    # FSRS scheduling (go-fsrs, server-side only)
 │   │   ├── studyplan.go               # Plan generation algorithm
 │   │   ├── leaderboard.go             # Redis leaderboard operations
 │   │   ├── analytics.go               # Stats computation

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m http.server 8765)",
+      "Bash(echo \"Server PID: $!\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:8765/index.html)",
+      "Bash(kill 44013)",
+      "Bash(curl -s -o /dev/null -w \"Index: HTTP %{http_code}\\\\n\" http://localhost:8765/index.html)",
+      "Bash(curl -s -o /dev/null -w \"Schema page: HTTP %{http_code}\\\\n\" http://localhost:8765/pages/database/schema.html)",
+      "Bash(curl -s -o /dev/null -w \"Diagram: HTTP %{http_code}\\\\n\" http://localhost:8765/diagrams/db-architecture.html)",
+      "Bash(curl -s -o /dev/null -w \"CSS: HTTP %{http_code}\\\\n\" http://localhost:8765/assets/styles.css)",
+      "Bash(curl -s -o /dev/null -w \"JS: HTTP %{http_code}\\\\n\" http://localhost:8765/assets/nav.js)"
+    ]
+  }
+}

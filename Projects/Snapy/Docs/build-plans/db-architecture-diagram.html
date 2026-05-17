@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snapy — Database Architecture & Service Map</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #1c2333;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-dim: #8b949e;
+            --text-muted: #6e7681;
+            
+            --auth: #f97316;
+            --auth-bg: rgba(249,115,22,0.08);
+            --auth-border: rgba(249,115,22,0.3);
+            
+            --content: #3b82f6;
+            --content-bg: rgba(59,130,246,0.08);
+            --content-border: rgba(59,130,246,0.3);
+            
+            --review: #a855f7;
+            --review-bg: rgba(168,85,247,0.08);
+            --review-border: rgba(168,85,247,0.3);
+            
+            --studyplan: #22c55e;
+            --studyplan-bg: rgba(34,197,94,0.08);
+            --studyplan-border: rgba(34,197,94,0.3);
+            
+            --analytics: #ec4899;
+            --analytics-bg: rgba(236,72,153,0.08);
+            --analytics-border: rgba(236,72,153,0.3);
+            
+            --pg: #336791;
+            --pg-bg: rgba(51,103,145,0.15);
+            --pg-border: rgba(51,103,145,0.4);
+            
+            --redis: #dc382d;
+            --redis-bg: rgba(220,56,45,0.1);
+            --redis-border: rgba(220,56,45,0.3);
+            
+            --traefik: #00b4d8;
+            --traefik-bg: rgba(0,180,216,0.08);
+            --traefik-border: rgba(0,180,216,0.3);
+            
+            --mobile: #fbbf24;
+            --mobile-bg: rgba(251,191,36,0.08);
+            --mobile-border: rgba(251,191,36,0.3);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, #f97316, #a855f7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 14px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .legend-item:hover { background: var(--surface2); }
+        .legend-item.active { background: var(--surface2); color: var(--text); }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Architecture Diagram */
+        .arch-diagram {
+            margin-bottom: 40px;
+        }
+
+        .arch-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .arch-box {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+            cursor: default;
+        }
+        .arch-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .arch-box .label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .arch-box .name {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .arch-box .detail {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        .arch-box.mobile { background: var(--mobile-bg); border-color: var(--mobile-border); min-width: 180px; }
+        .arch-box.mobile .label { color: var(--mobile); }
+        
+        .arch-box.traefik { background: var(--traefik-bg); border-color: var(--traefik-border); min-width: 200px; }
+        .arch-box.traefik .label { color: var(--traefik); }
+
+        .arch-box.service { min-width: 160px; }
+        .arch-box.service .label { color: var(--text-dim); }
+
+        .arch-box.service[data-service="auth"] { background: var(--auth-bg); border-color: var(--auth-border); }
+        .arch-box.service[data-service="auth"] .name { color: var(--auth); }
+        
+        .arch-box.service[data-service="content"] { background: var(--content-bg); border-color: var(--content-border); }
+        .arch-box.service[data-service="content"] .name { color: var(--content); }
+        
+        .arch-box.service[data-service="review"] { background: var(--review-bg); border-color: var(--review-border); }
+        .arch-box.service[data-service="review"] .name { color: var(--review); }
+        
+        .arch-box.service[data-service="studyplan"] { background: var(--studyplan-bg); border-color: var(--studyplan-border); }
+        .arch-box.service[data-service="studyplan"] .name { color: var(--studyplan); }
+        
+        .arch-box.service[data-service="analytics"] { background: var(--analytics-bg); border-color: var(--analytics-border); }
+        .arch-box.service[data-service="analytics"] .name { color: var(--analytics); }
+
+        .arch-box.db { background: var(--pg-bg); border-color: var(--pg-border); min-width: 200px; }
+        .arch-box.db .label { color: var(--pg); }
+        .arch-box.db.redis { background: var(--redis-bg); border-color: var(--redis-border); }
+        .arch-box.db.redis .label { color: var(--redis); }
+
+        /* Arrows */
+        .arrow-row {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin: 4px 0;
+        }
+        .arrow-down {
+            width: 2px;
+            height: 24px;
+            background: var(--border);
+            margin: 0 auto;
+            position: relative;
+        }
+        .arrow-down::after {
+            content: '▼';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: var(--text-muted);
+        }
+        .arrow-label {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            padding: 2px 0;
+        }
+        .fan-out {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            height: 40px;
+        }
+        .fan-out::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 15px;
+            background: var(--border);
+        }
+        .fan-out::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            width: 80%;
+            height: 2px;
+            background: var(--border);
+            left: 10%;
+        }
+        .fan-in {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            height: 30px;
+        }
+        .fan-in::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 80%;
+            height: 2px;
+            background: var(--border);
+            left: 10%;
+        }
+
+        /* Section headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-header h2 {
+            font-size: 1.3rem;
+        }
+        .section-header .badge {
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .section-header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+
+        /* Tables grid */
+        .tables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .table-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .table-card:hover {
+            border-color: var(--text-muted);
+        }
+        .table-card.highlight {
+            box-shadow: 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        .table-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+        .table-header:hover { background: var(--surface2); }
+        .table-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .table-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .table-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .table-desc {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .service-badges {
+            display: flex;
+            gap: 4px;
+        }
+        .svc-badge {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .svc-badge.auth { background: var(--auth-bg); color: var(--auth); border: 1px solid var(--auth-border); }
+        .svc-badge.content { background: var(--content-bg); color: var(--content); border: 1px solid var(--content-border); }
+        .svc-badge.review { background: var(--review-bg); color: var(--review); border: 1px solid var(--review-border); }
+        .svc-badge.studyplan { background: var(--studyplan-bg); color: var(--studyplan); border: 1px solid var(--studyplan-border); }
+        .svc-badge.analytics { background: var(--analytics-bg); color: var(--analytics); border: 1px solid var(--analytics-border); }
+
+        .table-body {
+            padding: 0 16px 12px 16px;
+        }
+
+        .col-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5);
+            font-size: 0.78rem;
+        }
+        .col-row:last-child { border-bottom: none; }
+
+        .col-pk { color: #fbbf24; font-weight: 600; min-width: 22px; }
+        .col-fk { color: #60a5fa; font-weight: 600; min-width: 22px; }
+        .col-name { font-weight: 600; min-width: 110px; color: var(--text); }
+        .col-type { color: var(--text-dim); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.72rem; min-width: 100px; }
+        .col-constraint { color: var(--text-muted); font-size: 0.68rem; flex: 1; }
+        .col-desc { color: var(--text-muted); font-size: 0.68rem; flex: 1; text-align: right; }
+
+        /* Relationships section */
+        .relationships {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .rel-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text);
+        }
+        .rel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 10px;
+        }
+        .rel-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            padding: 6px 10px;
+            background: var(--surface2);
+            border-radius: 6px;
+            color: var(--text-dim);
+        }
+        .rel-from { color: var(--text); font-weight: 600; }
+        .rel-arrow { color: var(--text-muted); font-size: 1.1rem; }
+        .rel-to { color: var(--text); font-weight: 600; }
+        .rel-via { color: var(--text-muted); font-size: 0.7rem; }
+
+        /* Redis section */
+        .redis-section {
+            background: var(--redis-bg);
+            border: 1px solid var(--redis-border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .redis-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--redis);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .redis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 12px;
+        }
+        .redis-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .redis-key {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--redis);
+            margin-bottom: 4px;
+        }
+        .redis-type {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+        .redis-desc {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .redis-example {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            background: var(--surface2);
+            padding: 6px 8px;
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+
+        /* Data flow section */
+        .flow-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .flow-step {
+            display: flex;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5);
+        }
+        .flow-step:last-child { border-bottom: none; }
+        .flow-num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .flow-content { flex: 1; }
+        .flow-action { font-weight: 600; font-size: 0.88rem; margin-bottom: 3px; }
+        .flow-detail { font-size: 0.78rem; color: var(--text-dim); }
+        .flow-tables {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .flow-table-tag {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: var(--pg-bg);
+            border: 1px solid var(--pg-border);
+            color: #7eb8da;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .tables-grid { grid-template-columns: 1fr; }
+            .arch-row { flex-direction: column; align-items: center; }
+            .legend { gap: 8px; }
+            body { padding: 12px; }
+        }
+
+        /* Highlight animation */
+        .table-card[data-highlighted="true"] {
+            border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 0 25px rgba(255,255,255,0.08);
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            padding: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: fixed;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+            max-width: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Snapy Database Architecture</h1>
+        <p class="subtitle">How 5 API microservices connect to 15 PostgreSQL tables + Redis</p>
+
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" style="color:var(--traefik)">5</div>
+                <div class="stat-label">API Services</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" style="color:var(--pg)">15</div>
+                <div class="stat-label">PostgreSQL Tables</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" style="color:var(--redis)">5</div>
+                <div class="stat-label">Redis Structures</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" style="color:var(--text-dim)">~70</div>
+                <div class="stat-label">Total Columns</div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item active" data-filter="all">
+                <div class="legend-dot" style="background:var(--text)"></div> All
+            </div>
+            <div class="legend-item" data-filter="auth">
+                <div class="legend-dot" style="background:var(--auth)"></div> Auth Service
+            </div>
+            <div class="legend-item" data-filter="content">
+                <div class="legend-dot" style="background:var(--content)"></div> Content Service
+            </div>
+            <div class="legend-item" data-filter="review">
+                <div class="legend-dot" style="background:var(--review)"></div> Review Service
+            </div>
+            <div class="legend-item" data-filter="studyplan">
+                <div class="legend-dot" style="background:var(--studyplan)"></div> Study Plan Service
+            </div>
+            <div class="legend-item" data-filter="analytics">
+                <div class="legend-dot" style="background:var(--analytics)"></div> Analytics Service
+            </div>
+        </div>
+
+        <!-- Architecture Diagram -->
+        <div class="arch-diagram">
+            <!-- Row 1: Mobile Apps -->
+            <div class="arch-row">
+                <div class="arch-box mobile">
+                    <div class="label">iOS App</div>
+                    <div class="name">Swift / SwiftUI</div>
+                    <div class="detail">Cache: SwiftData</div>
+                </div>
+                <div class="arch-box mobile">
+                    <div class="label">Android App</div>
+                    <div class="name">Kotlin / Compose</div>
+                    <div class="detail">Cache: Room</div>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="arrow-label">HTTPS / REST API</div>
+            <div class="arrow-down"></div>
+
+            <!-- Row 2: Traefik -->
+            <div class="arch-row">
+                <div class="arch-box traefik" style="min-width:360px">
+                    <div class="label">Gateway</div>
+                    <div class="name">Traefik Reverse Proxy</div>
+                    <div class="detail">SSL termination + path-based routing</div>
+                </div>
+            </div>
+
+            <!-- Fan out -->
+            <div class="arrow-label">Routes by URL prefix</div>
+            <div class="fan-out"></div>
+
+            <!-- Row 3: Services -->
+            <div class="arch-row">
+                <div class="arch-box service" data-service="auth">
+                    <div class="label">:8081</div>
+                    <div class="name">Auth Service</div>
+                    <div class="detail">/api/auth/*</div>
+                </div>
+                <div class="arch-box service" data-service="content">
+                    <div class="label">:8082</div>
+                    <div class="name">Content Service</div>
+                    <div class="detail">/api/content/*</div>
+                </div>
+                <div class="arch-box service" data-service="review">
+                    <div class="label">:8083</div>
+                    <div class="name">Review Service</div>
+                    <div class="detail">/api/reviews/*</div>
+                </div>
+                <div class="arch-box service" data-service="studyplan">
+                    <div class="label">:8084</div>
+                    <div class="name">Study Plan Service</div>
+                    <div class="detail">/api/study-plans/*</div>
+                </div>
+                <div class="arch-box service" data-service="analytics">
+                    <div class="label">:8085</div>
+                    <div class="name">Analytics Service</div>
+                    <div class="detail">/api/analytics/*</div>
+                </div>
+            </div>
+
+            <!-- Fan in -->
+            <div class="fan-in"></div>
+            <div class="arrow-down"></div>
+
+            <!-- Row 4: Databases -->
+            <div class="arch-row">
+                <div class="arch-box db" style="min-width:360px">
+                    <div class="label">Primary Database</div>
+                    <div class="name">PostgreSQL 16</div>
+                    <div class="detail">15 tables, all persistent data</div>
+                </div>
+                <div class="arch-box db redis" style="min-width:260px">
+                    <div class="label">Cache & Realtime</div>
+                    <div class="name">Redis 7</div>
+                    <div class="detail">OTP, leaderboards, rate limiting</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION: Table Relationships -->
+        <!-- ============================================ -->
+        <div class="section-header">
+            <h2>Table Relationships</h2>
+            <span class="badge" style="background:var(--pg-bg);color:#7eb8da;border:1px solid var(--pg-border)">PostgreSQL</span>
+            <p>How tables connect through foreign keys</p>
+        </div>
+
+        <div class="relationships">
+            <div class="rel-title">Foreign Key Connections</div>
+            <div class="rel-grid">
+                <div class="rel-item">
+                    <span class="rel-from">grades</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">subjects</span>
+                    <span class="rel-via">grade_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">subjects</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">terms</span>
+                    <span class="rel-via">subject_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">terms</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">units</span>
+                    <span class="rel-via">term_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">units</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">cards</span>
+                    <span class="rel-via">unit_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">users</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">refresh_tokens</span>
+                    <span class="rel-via">user_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">users + cards</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">card_reviews</span>
+                    <span class="rel-via">user_id, card_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">users + cards</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">card_srs_state</span>
+                    <span class="rel-via">user_id, card_id (PK)</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">users</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">study_plans</span>
+                    <span class="rel-via">user_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">study_plans + units</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">study_plan_tasks</span>
+                    <span class="rel-via">plan_id, unit_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">users + grades + subjects</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">user_scores</span>
+                    <span class="rel-via">user_id, grade_id, subject_id</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">users</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">user_streaks</span>
+                    <span class="rel-via">user_id (PK)</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">users</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">daily_activity</span>
+                    <span class="rel-via">user_id + date (PK)</span>
+                </div>
+                <div class="rel-item">
+                    <span class="rel-from">users</span>
+                    <span class="rel-arrow">→</span>
+                    <span class="rel-to">device_tokens</span>
+                    <span class="rel-via">user_id</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION: All Tables -->
+        <!-- ============================================ -->
+        <div class="section-header">
+            <h2>All Database Tables</h2>
+            <span class="badge" style="background:var(--pg-bg);color:#7eb8da;border:1px solid var(--pg-border)">15 Tables</span>
+            <p>Click a table header to expand/collapse</p>
+        </div>
+
+        <div class="tables-grid" id="tablesGrid">
+
+            <!-- grades -->
+            <div class="table-card" data-services="content">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--content-bg);color:var(--content);border:1px solid var(--content-border)">G</div>
+                        <div>
+                            <div class="table-name">grades</div>
+                            <div class="table-desc">School grades (10, 11, 12, 13)</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge content">content</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc">Auto-generated</span></div>
+                    <div class="col-row"><span class="col-name">name</span><span class="col-type">VARCHAR(20)</span><span class="col-desc">"Grade 10"</span></div>
+                    <div class="col-row"><span class="col-name">level</span><span class="col-type">INTEGER</span><span class="col-desc">10, 11, 12, 13</span></div>
+                    <div class="col-row"><span class="col-name">education_stage</span><span class="col-type">VARCHAR(20)</span><span class="col-desc">'ol' or 'al'</span></div>
+                    <div class="col-row"><span class="col-name">display_order</span><span class="col-type">INTEGER</span><span class="col-desc">Sort order for UI</span></div>
+                </div>
+            </div>
+
+            <!-- users -->
+            <div class="table-card" data-services="auth review studyplan analytics">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--auth-bg);color:var(--auth);border:1px solid var(--auth-border)">U</div>
+                        <div>
+                            <div class="table-name">users</div>
+                            <div class="table-desc">Student accounts</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge auth">auth</span>
+                        <span class="svc-badge review">review</span>
+                        <span class="svc-badge studyplan">plan</span>
+                        <span class="svc-badge analytics">analytics</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc">Auto-generated</span></div>
+                    <div class="col-row"><span class="col-name">phone</span><span class="col-type">VARCHAR(15)</span><span class="col-desc">+94771234567 (unique)</span></div>
+                    <div class="col-row"><span class="col-name">name</span><span class="col-type">VARCHAR(100)</span><span class="col-desc">Display name</span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">grade_id</span><span class="col-type">UUID</span><span class="col-desc">→ grades.id</span></div>
+                    <div class="col-row"><span class="col-name">stream</span><span class="col-type">VARCHAR(20)</span><span class="col-desc">science/commerce/arts/technology</span></div>
+                    <div class="col-row"><span class="col-name">role</span><span class="col-type">VARCHAR(10)</span><span class="col-desc">'user' or 'admin'</span></div>
+                    <div class="col-row"><span class="col-name">password_hash</span><span class="col-type">VARCHAR(255)</span><span class="col-desc">bcrypt hash</span></div>
+                    <div class="col-row"><span class="col-name">created_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc">Account creation</span></div>
+                    <div class="col-row"><span class="col-name">updated_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc">Last update</span></div>
+                </div>
+            </div>
+
+            <!-- subjects -->
+            <div class="table-card" data-services="content">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--content-bg);color:var(--content);border:1px solid var(--content-border)">S</div>
+                        <div>
+                            <div class="table-name">subjects</div>
+                            <div class="table-desc">Subjects per grade (Math, Science...)</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge content">content</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">grade_id</span><span class="col-type">UUID</span><span class="col-desc">→ grades.id</span></div>
+                    <div class="col-row"><span class="col-name">name</span><span class="col-type">VARCHAR(100)</span><span class="col-desc">"Mathematics"</span></div>
+                    <div class="col-row"><span class="col-name">name_si</span><span class="col-type">VARCHAR(100)</span><span class="col-desc">Sinhala name</span></div>
+                    <div class="col-row"><span class="col-name">name_ta</span><span class="col-type">VARCHAR(100)</span><span class="col-desc">Tamil name</span></div>
+                    <div class="col-row"><span class="col-name">icon</span><span class="col-type">VARCHAR(50)</span><span class="col-desc">"math", "science"</span></div>
+                    <div class="col-row"><span class="col-name">color</span><span class="col-type">VARCHAR(7)</span><span class="col-desc">"#4CAF50"</span></div>
+                    <div class="col-row"><span class="col-name">is_compulsory</span><span class="col-type">BOOLEAN</span><span class="col-desc">Compulsory subject?</span></div>
+                    <div class="col-row"><span class="col-name">stream</span><span class="col-type">VARCHAR(20)</span><span class="col-desc">A/L stream (null for O/L)</span></div>
+                    <div class="col-row"><span class="col-name">display_order</span><span class="col-type">INTEGER</span><span class="col-desc">Sort order</span></div>
+                </div>
+            </div>
+
+            <!-- terms -->
+            <div class="table-card" data-services="content studyplan">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--content-bg);color:var(--content);border:1px solid var(--content-border)">T</div>
+                        <div>
+                            <div class="table-name">terms</div>
+                            <div class="table-desc">Academic terms (Term 1, 2, 3)</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge content">content</span>
+                        <span class="svc-badge studyplan">plan</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">subject_id</span><span class="col-type">UUID</span><span class="col-desc">→ subjects.id</span></div>
+                    <div class="col-row"><span class="col-name">name</span><span class="col-type">VARCHAR(20)</span><span class="col-desc">"Term 1", "Term 2", "Term 3"</span></div>
+                    <div class="col-row"><span class="col-name">display_order</span><span class="col-type">INTEGER</span><span class="col-desc">1, 2, 3</span></div>
+                </div>
+            </div>
+
+            <!-- units -->
+            <div class="table-card" data-services="content review studyplan">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--content-bg);color:var(--content);border:1px solid var(--content-border)">U</div>
+                        <div>
+                            <div class="table-name">units</div>
+                            <div class="table-desc">Study units within a term</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge content">content</span>
+                        <span class="svc-badge review">review</span>
+                        <span class="svc-badge studyplan">plan</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">term_id</span><span class="col-type">UUID</span><span class="col-desc">→ terms.id</span></div>
+                    <div class="col-row"><span class="col-name">name</span><span class="col-type">VARCHAR(200)</span><span class="col-desc">"Algebra"</span></div>
+                    <div class="col-row"><span class="col-name">description</span><span class="col-type">TEXT</span><span class="col-desc">Brief description</span></div>
+                    <div class="col-row"><span class="col-name">card_count</span><span class="col-type">INTEGER</span><span class="col-desc">Denormalized count</span></div>
+                    <div class="col-row"><span class="col-name">version</span><span class="col-type">INTEGER</span><span class="col-desc">For cache invalidation</span></div>
+                    <div class="col-row"><span class="col-name">display_order</span><span class="col-type">INTEGER</span><span class="col-desc">Sort within term</span></div>
+                </div>
+            </div>
+
+            <!-- cards -->
+            <div class="table-card" data-services="content review">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--content-bg);color:var(--content);border:1px solid var(--content-border)">C</div>
+                        <div>
+                            <div class="table-name">cards</div>
+                            <div class="table-desc">Flashcards (Classic & MCQ)</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge content">content</span>
+                        <span class="svc-badge review">review</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">unit_id</span><span class="col-type">UUID</span><span class="col-desc">→ units.id</span></div>
+                    <div class="col-row"><span class="col-name">type</span><span class="col-type">VARCHAR(10)</span><span class="col-desc">'classic' or 'mcq'</span></div>
+                    <div class="col-row"><span class="col-name">question</span><span class="col-type">TEXT</span><span class="col-desc">Question text</span></div>
+                    <div class="col-row"><span class="col-name">answer</span><span class="col-type">TEXT</span><span class="col-desc">Answer (classic cards)</span></div>
+                    <div class="col-row"><span class="col-name">choices</span><span class="col-type">JSONB</span><span class="col-desc">MCQ options [{text, isCorrect}]</span></div>
+                    <div class="col-row"><span class="col-name">explanation</span><span class="col-type">TEXT</span><span class="col-desc">Shown after answering</span></div>
+                    <div class="col-row"><span class="col-name">display_order</span><span class="col-type">INTEGER</span><span class="col-desc">Order within unit</span></div>
+                </div>
+            </div>
+
+            <!-- refresh_tokens -->
+            <div class="table-card" data-services="auth">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--auth-bg);color:var(--auth);border:1px solid var(--auth-border)">R</div>
+                        <div>
+                            <div class="table-name">refresh_tokens</div>
+                            <div class="table-desc">JWT refresh tokens (hashed)</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge auth">auth</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">user_id</span><span class="col-type">UUID</span><span class="col-desc">→ users.id</span></div>
+                    <div class="col-row"><span class="col-name">token_hash</span><span class="col-type">VARCHAR(64)</span><span class="col-desc">SHA-256 hash</span></div>
+                    <div class="col-row"><span class="col-name">expires_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc">30 days from creation</span></div>
+                    <div class="col-row"><span class="col-name">created_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc"></span></div>
+                </div>
+            </div>
+
+            <!-- card_reviews -->
+            <div class="table-card" data-services="review analytics">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--review-bg);color:var(--review);border:1px solid var(--review-border)">H</div>
+                        <div>
+                            <div class="table-name">card_reviews</div>
+                            <div class="table-desc">Review history (append-only log)</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge review">review</span>
+                        <span class="svc-badge analytics">analytics</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">user_id</span><span class="col-type">UUID</span><span class="col-desc">→ users.id</span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">card_id</span><span class="col-type">UUID</span><span class="col-desc">→ cards.id</span></div>
+                    <div class="col-row"><span class="col-name">rating</span><span class="col-type">SMALLINT</span><span class="col-desc">1=Again, 2=Hard, 3=Good, 4=Easy</span></div>
+                    <div class="col-row"><span class="col-name">reviewed_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc">Client timestamp</span></div>
+                    <div class="col-row"><span class="col-name">created_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc">Server timestamp</span></div>
+                </div>
+            </div>
+
+            <!-- card_srs_state -->
+            <div class="table-card" data-services="review analytics studyplan">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--review-bg);color:var(--review);border:1px solid var(--review-border)">S</div>
+                        <div>
+                            <div class="table-name">card_srs_state</div>
+                            <div class="table-desc">FSRS spaced repetition state per user-card</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge review">review</span>
+                        <span class="svc-badge analytics">analytics</span>
+                        <span class="svc-badge studyplan">plan</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">user_id + card_id</span><span class="col-type">UUID + UUID</span><span class="col-desc">Composite PK</span></div>
+                    <div class="col-row"><span class="col-name">stability</span><span class="col-type">REAL</span><span class="col-desc">Memory strength (days)</span></div>
+                    <div class="col-row"><span class="col-name">difficulty</span><span class="col-type">REAL</span><span class="col-desc">Card hardness (1-10)</span></div>
+                    <div class="col-row"><span class="col-name">elapsed_days</span><span class="col-type">INTEGER</span><span class="col-desc">Days since last review</span></div>
+                    <div class="col-row"><span class="col-name">scheduled_days</span><span class="col-type">INTEGER</span><span class="col-desc">Days until next review</span></div>
+                    <div class="col-row"><span class="col-name">state</span><span class="col-type">VARCHAR(12)</span><span class="col-desc">new/learning/review/relearning</span></div>
+                    <div class="col-row"><span class="col-name">due_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc">Next review date</span></div>
+                    <div class="col-row"><span class="col-name">last_reviewed_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc">Last review time</span></div>
+                    <div class="col-row"><span class="col-name">reps</span><span class="col-type">INTEGER</span><span class="col-desc">Total reviews</span></div>
+                    <div class="col-row"><span class="col-name">lapses</span><span class="col-type">INTEGER</span><span class="col-desc">Times forgotten</span></div>
+                </div>
+            </div>
+
+            <!-- study_plans -->
+            <div class="table-card" data-services="studyplan">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--studyplan-bg);color:var(--studyplan);border:1px solid var(--studyplan-border)">P</div>
+                        <div>
+                            <div class="table-name">study_plans</div>
+                            <div class="table-desc">User-created study plans</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge studyplan">plan</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">user_id</span><span class="col-type">UUID</span><span class="col-desc">→ users.id</span></div>
+                    <div class="col-row"><span class="col-name">name</span><span class="col-type">VARCHAR(100)</span><span class="col-desc">"Term 1 Exam Prep"</span></div>
+                    <div class="col-row"><span class="col-name">goal_type</span><span class="col-type">VARCHAR(20)</span><span class="col-desc">term_exam / catch_up / custom</span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">target_term_id</span><span class="col-type">UUID</span><span class="col-desc">→ terms.id</span></div>
+                    <div class="col-row"><span class="col-name">deadline</span><span class="col-type">DATE</span><span class="col-desc">Target completion date</span></div>
+                    <div class="col-row"><span class="col-name">daily_minutes</span><span class="col-type">INTEGER</span><span class="col-desc">Planned daily study time</span></div>
+                    <div class="col-row"><span class="col-name">is_active</span><span class="col-type">BOOLEAN</span><span class="col-desc">Currently active?</span></div>
+                </div>
+            </div>
+
+            <!-- study_plan_tasks -->
+            <div class="table-card" data-services="studyplan">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--studyplan-bg);color:var(--studyplan);border:1px solid var(--studyplan-border)">T</div>
+                        <div>
+                            <div class="table-name">study_plan_tasks</div>
+                            <div class="table-desc">Daily tasks within a plan</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge studyplan">plan</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">plan_id</span><span class="col-type">UUID</span><span class="col-desc">→ study_plans.id</span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">unit_id</span><span class="col-type">UUID</span><span class="col-desc">→ units.id</span></div>
+                    <div class="col-row"><span class="col-name">scheduled_date</span><span class="col-type">DATE</span><span class="col-desc">Which day this task is for</span></div>
+                    <div class="col-row"><span class="col-name">task_type</span><span class="col-type">VARCHAR(10)</span><span class="col-desc">'new' or 'review'</span></div>
+                    <div class="col-row"><span class="col-name">estimated_minutes</span><span class="col-type">INTEGER</span><span class="col-desc">Time estimate</span></div>
+                    <div class="col-row"><span class="col-name">is_completed</span><span class="col-type">BOOLEAN</span><span class="col-desc">Done?</span></div>
+                    <div class="col-row"><span class="col-name">completed_at</span><span class="col-type">TIMESTAMPTZ</span><span class="col-desc">When completed</span></div>
+                </div>
+            </div>
+
+            <!-- user_scores -->
+            <div class="table-card" data-services="analytics">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--analytics-bg);color:var(--analytics);border:1px solid var(--analytics-border)">L</div>
+                        <div>
+                            <div class="table-name">user_scores</div>
+                            <div class="table-desc">Archived weekly leaderboard scores</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge analytics">analytics</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">user_id</span><span class="col-type">UUID</span><span class="col-desc">→ users.id</span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">grade_id</span><span class="col-type">UUID</span><span class="col-desc">→ grades.id</span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">subject_id</span><span class="col-type">UUID</span><span class="col-desc">→ subjects.id (null=grade-level)</span></div>
+                    <div class="col-row"><span class="col-name">points</span><span class="col-type">INTEGER</span><span class="col-desc">Points earned that week</span></div>
+                    <div class="col-row"><span class="col-name">week_start</span><span class="col-type">DATE</span><span class="col-desc">Monday of scored week</span></div>
+                </div>
+            </div>
+
+            <!-- user_streaks -->
+            <div class="table-card" data-services="analytics review">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--analytics-bg);color:var(--analytics);border:1px solid var(--analytics-border)">S</div>
+                        <div>
+                            <div class="table-name">user_streaks</div>
+                            <div class="table-desc">Study streak tracking</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge analytics">analytics</span>
+                        <span class="svc-badge review">review</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">user_id</span><span class="col-type">UUID</span><span class="col-desc">→ users.id</span></div>
+                    <div class="col-row"><span class="col-name">current_streak</span><span class="col-type">INTEGER</span><span class="col-desc">Consecutive days</span></div>
+                    <div class="col-row"><span class="col-name">longest_streak</span><span class="col-type">INTEGER</span><span class="col-desc">All-time best</span></div>
+                    <div class="col-row"><span class="col-name">last_active_date</span><span class="col-type">DATE</span><span class="col-desc">Last study day</span></div>
+                </div>
+            </div>
+
+            <!-- daily_activity -->
+            <div class="table-card" data-services="analytics review">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--analytics-bg);color:var(--analytics);border:1px solid var(--analytics-border)">D</div>
+                        <div>
+                            <div class="table-name">daily_activity</div>
+                            <div class="table-desc">Daily stats for heatmap</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge analytics">analytics</span>
+                        <span class="svc-badge review">review</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">user_id + activity_date</span><span class="col-type">UUID + DATE</span><span class="col-desc">Composite PK</span></div>
+                    <div class="col-row"><span class="col-name">sessions_count</span><span class="col-type">INTEGER</span><span class="col-desc">Study sessions</span></div>
+                    <div class="col-row"><span class="col-name">cards_reviewed</span><span class="col-type">INTEGER</span><span class="col-desc">Total cards</span></div>
+                    <div class="col-row"><span class="col-name">correct_count</span><span class="col-type">INTEGER</span><span class="col-desc">Correct answers</span></div>
+                    <div class="col-row"><span class="col-name">study_minutes</span><span class="col-type">INTEGER</span><span class="col-desc">Estimated time</span></div>
+                </div>
+            </div>
+
+            <!-- device_tokens -->
+            <div class="table-card" data-services="auth">
+                <div class="table-header" onclick="toggleTable(this)">
+                    <div class="table-header-left">
+                        <div class="table-icon" style="background:var(--auth-bg);color:var(--auth);border:1px solid var(--auth-border)">D</div>
+                        <div>
+                            <div class="table-name">device_tokens</div>
+                            <div class="table-desc">Push notification tokens</div>
+                        </div>
+                    </div>
+                    <div class="service-badges">
+                        <span class="svc-badge auth">auth</span>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="col-row"><span class="col-pk">PK</span><span class="col-name">id</span><span class="col-type">UUID</span><span class="col-desc"></span></div>
+                    <div class="col-row"><span class="col-fk">FK</span><span class="col-name">user_id</span><span class="col-type">UUID</span><span class="col-desc">→ users.id</span></div>
+                    <div class="col-row"><span class="col-name">platform</span><span class="col-type">VARCHAR(10)</span><span class="col-desc">'ios' or 'android'</span></div>
+                    <div class="col-row"><span class="col-name">token</span><span class="col-type">TEXT</span><span class="col-desc">APNs or FCM token</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION: Redis -->
+        <!-- ============================================ -->
+        <div class="section-header">
+            <h2>Redis Data Structures</h2>
+            <span class="badge" style="background:var(--redis-bg);color:var(--redis);border:1px solid var(--redis-border)">Cache Layer</span>
+            <p>Ephemeral data that auto-expires</p>
+        </div>
+
+        <div class="redis-section">
+            <div class="redis-title">
+                Redis 7 — Cache, OTP, Leaderboards
+            </div>
+            <div class="redis-grid">
+                <div class="redis-item">
+                    <div class="redis-key">otp:{phone}</div>
+                    <div class="redis-type">String | TTL: 5 min</div>
+                    <div class="redis-desc">Stores the 6-digit OTP code for login verification</div>
+                    <div class="redis-example">SET otp:+94771234567 "482901" EX 300</div>
+                </div>
+                <div class="redis-item">
+                    <div class="redis-key">rate:otp:{phone}</div>
+                    <div class="redis-type">Counter | TTL: 10 min</div>
+                    <div class="redis-desc">Rate limiting — max 3 OTP requests per phone per 10 min</div>
+                    <div class="redis-example">INCR rate:otp:+94771234567 → reject if ≥ 3</div>
+                </div>
+                <div class="redis-item">
+                    <div class="redis-key">leaderboard:grade:{gradeId}:week:{weekStart}</div>
+                    <div class="redis-type">Sorted Set</div>
+                    <div class="redis-desc">Grade-level leaderboard — O(log n) rank operations</div>
+                    <div class="redis-example">ZINCRBY leaderboard:grade:abc:week:2026-04-20 15.0 user-uuid</div>
+                </div>
+                <div class="redis-item">
+                    <div class="redis-key">leaderboard:subject:{subjectId}:week:{weekStart}</div>
+                    <div class="redis-type">Sorted Set</div>
+                    <div class="redis-desc">Subject-level leaderboard — per-subject competition</div>
+                    <div class="redis-example">ZREVRANGE leaderboard:subject:xyz:week:2026-04-20 0 49 WITHSCORES</div>
+                </div>
+                <div class="redis-item">
+                    <div class="redis-key">rate:{endpoint}:{identifier}</div>
+                    <div class="redis-type">Counter | TTL: varies</div>
+                    <div class="redis-desc">General API rate limiting per user/IP</div>
+                    <div class="redis-example">INCR rate:api:user-uuid → reject if over limit</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION: Data Flow -->
+        <!-- ============================================ -->
+        <div class="section-header">
+            <h2>Data Flow: Student Studies a Flashcard</h2>
+            <span class="badge" style="background:var(--review-bg);color:var(--review);border:1px solid var(--review-border)">End to End</span>
+            <p>What happens when a student answers a card</p>
+        </div>
+
+        <div class="flow-section">
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--mobile-bg);color:var(--mobile);border:1px solid var(--mobile-border)">1</div>
+                <div class="flow-content">
+                    <div class="flow-action">Student opens a unit and answers a flashcard</div>
+                    <div class="flow-detail">App records: { cardId: "uuid-1", rating: 3 (Good), reviewedAt: "2026-05-16T10:30:00Z" }. If offline, this is queued locally.</div>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--traefik-bg);color:var(--traefik);border:1px solid var(--traefik-border)">2</div>
+                <div class="flow-content">
+                    <div class="flow-action">App sends batch of reviews to the server</div>
+                    <div class="flow-detail">POST /api/reviews/batch — Traefik routes this to the Review Service (port 8083). JWT token is verified by auth middleware.</div>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--review-bg);color:var(--review);border:1px solid var(--review-border)">3</div>
+                <div class="flow-content">
+                    <div class="flow-action">Review Service processes each card in a database transaction</div>
+                    <div class="flow-detail">For each review in the batch, the service does 5 things in order:</div>
+                    <div class="flow-tables">
+                        <span class="flow-table-tag">card_reviews</span>
+                        <span class="flow-table-tag">card_srs_state</span>
+                        <span class="flow-table-tag">daily_activity</span>
+                        <span class="flow-table-tag">user_streaks</span>
+                        <span class="flow-table-tag">Redis leaderboards</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--review-bg);color:var(--review);border:1px solid var(--review-border)">3a</div>
+                <div class="flow-content">
+                    <div class="flow-action">Insert review history</div>
+                    <div class="flow-detail">INSERT into <code>card_reviews</code> — permanent log of every review (who, what card, rating, when). Never updated or deleted.</div>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--review-bg);color:var(--review);border:1px solid var(--review-border)">3b</div>
+                <div class="flow-content">
+                    <div class="flow-action">Run FSRS algorithm</div>
+                    <div class="flow-detail">Read current state from <code>card_srs_state</code> → feed into go-fsrs with the rating → get new stability, difficulty, due date → UPSERT back to <code>card_srs_state</code>.</div>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--analytics-bg);color:var(--analytics);border:1px solid var(--analytics-border)">3c</div>
+                <div class="flow-content">
+                    <div class="flow-action">Update daily activity</div>
+                    <div class="flow-detail">UPSERT into <code>daily_activity</code> — increment cards_reviewed, correct_count, sessions_count for today. Powers the streak heatmap.</div>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--analytics-bg);color:var(--analytics);border:1px solid var(--analytics-border)">3d</div>
+                <div class="flow-content">
+                    <div class="flow-action">Update streak</div>
+                    <div class="flow-detail">Update <code>user_streaks</code> — if last active yesterday, increment current_streak. If today, no change. If older, reset to 1.</div>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--redis-bg);color:var(--redis);border:1px solid var(--redis-border)">3e</div>
+                <div class="flow-content">
+                    <div class="flow-action">Update leaderboard scores</div>
+                    <div class="flow-detail">Calculate points: +1 base +2 accuracy bonus, multiplied by streak bonus (1x/1.5x/2x). ZINCRBY to Redis sorted sets for grade and subject leaderboards.</div>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num" style="background:var(--review-bg);color:var(--review);border:1px solid var(--review-border)">4</div>
+                <div class="flow-content">
+                    <div class="flow-action">Return response to app</div>
+                    <div class="flow-detail">{ accepted: 10, rejected: 0 }. The app clears its local queue. Student sees session summary with score and XP earned.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION: Service-to-Table Map -->
+        <!-- ============================================ -->
+        <div class="section-header">
+            <h2>Which Service Touches Which Table?</h2>
+            <span class="badge" style="background:var(--surface2);color:var(--text-dim);border:1px solid var(--border)">Quick Reference</span>
+        </div>
+
+        <div style="overflow-x:auto; margin-bottom:40px;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.78rem; background:var(--surface); border-radius:10px; overflow:hidden;">
+                <thead>
+                    <tr style="border-bottom:2px solid var(--border)">
+                        <th style="padding:12px 16px; text-align:left; color:var(--text-dim); font-weight:600;">Table</th>
+                        <th style="padding:12px 16px; text-align:center; color:var(--auth);">Auth</th>
+                        <th style="padding:12px 16px; text-align:center; color:var(--content);">Content</th>
+                        <th style="padding:12px 16px; text-align:center; color:var(--review);">Review</th>
+                        <th style="padding:12px 16px; text-align:center; color:var(--studyplan);">Plan</th>
+                        <th style="padding:12px 16px; text-align:center; color:var(--analytics);">Analytics</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">users</td><td style="text-align:center; color:var(--auth);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">refresh_tokens</td><td style="text-align:center; color:var(--auth);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">grades</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--content);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">subjects</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--content);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">terms</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--content);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--studyplan);">●</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">units</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--content);">●</td><td style="text-align:center; color:var(--review);">●</td><td style="text-align:center; color:var(--studyplan);">●</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">cards</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--content);">●</td><td style="text-align:center; color:var(--review);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">card_reviews</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--review);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--analytics);">●</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">card_srs_state</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--review);">●</td><td style="text-align:center; color:var(--studyplan);">●</td><td style="text-align:center; color:var(--analytics);">●</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">study_plans</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--studyplan);">●</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">study_plan_tasks</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--studyplan);">●</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">user_scores</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--analytics);">●</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">user_streaks</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--review);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--analytics);">●</td></tr>
+                    <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 16px; font-weight:600;">daily_activity</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--review);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--analytics);">●</td></tr>
+                    <tr><td style="padding:8px 16px; font-weight:600;">device_tokens</td><td style="text-align:center; color:var(--auth);">●</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td><td style="text-align:center; color:var(--text-muted);">—</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION: Content Hierarchy -->
+        <!-- ============================================ -->
+        <div class="section-header">
+            <h2>Content Hierarchy Example</h2>
+            <span class="badge" style="background:var(--content-bg);color:var(--content);border:1px solid var(--content-border)">Sri Lankan Syllabus</span>
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:24px; margin-bottom:40px; font-family:'SF Mono','Fira Code',monospace; font-size:0.8rem; line-height:1.8;">
+            <div style="color:var(--content)">📁 Grade 11 <span style="color:var(--text-muted)">(grades table)</span></div>
+            <div style="padding-left:24px">
+                <div style="color:var(--content)">📁 Mathematics <span style="color:var(--text-muted)">(subjects table)</span></div>
+                <div style="padding-left:24px">
+                    <div style="color:var(--text-dim)">📁 Term 1 <span style="color:var(--text-muted)">(terms table)</span></div>
+                    <div style="padding-left:24px">
+                        <div style="color:var(--text-dim)">📄 Real Numbers <span style="color:var(--text-muted)">(units table)</span></div>
+                        <div style="padding-left:24px; color:var(--text-muted)">
+                            <div>🃏 "What is √144?" → "12" <span style="color:var(--text-muted)">(cards: classic)</span></div>
+                            <div>🃏 "Simplify 2x + 3x" → [4x, 5x, 6x, x] → 5x <span style="color:var(--text-muted)">(cards: mcq)</span></div>
+                            <div>🃏 ... 15-25 cards per unit</div>
+                        </div>
+                        <div style="color:var(--text-dim)">📄 Indices & Logarithms</div>
+                        <div style="color:var(--text-dim)">📄 Algebraic Expressions</div>
+                        <div style="color:var(--text-dim)">📄 Linear Equations</div>
+                    </div>
+                    <div style="color:var(--text-dim)">📁 Term 2</div>
+                    <div style="padding-left:24px; color:var(--text-dim)">
+                        <div>📄 Simultaneous Equations</div>
+                        <div>📄 Triangles & Geometry</div>
+                        <div>📄 Trigonometry</div>
+                        <div>📄 Statistics</div>
+                    </div>
+                    <div style="color:var(--text-dim)">📁 Term 3</div>
+                    <div style="padding-left:24px; color:var(--text-dim)">
+                        <div>📄 Sets</div>
+                        <div>📄 Probability</div>
+                        <div>📄 Mensuration</div>
+                        <div>📄 Graphs</div>
+                    </div>
+                </div>
+                <div style="color:var(--content)">📁 Science</div>
+                <div style="padding-left:24px; color:var(--text-dim)">📁 Term 1 → 📄 Measurement, 📄 Force & Motion ...</div>
+                <div style="color:var(--content)">📁 English</div>
+                <div style="color:var(--content)">📁 History</div>
+                <div style="color:var(--content)">📁 ... 6 compulsory + 3 optional subjects</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Toggle table body
+        function toggleTable(header) {
+            const body = header.nextElementSibling;
+            if (body) {
+                body.style.display = body.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // Legend filter
+        const legendItems = document.querySelectorAll('.legend-item');
+        const tableCards = document.querySelectorAll('.table-card');
+
+        legendItems.forEach(item => {
+            item.addEventListener('click', () => {
+                legendItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                const filter = item.dataset.filter;
+
+                tableCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                    } else {
+                        const services = card.dataset.services || '';
+                        if (services.includes(filter)) {
+                            card.style.display = 'block';
+                            card.style.opacity = '1';
+                        } else {
+                            card.style.display = 'block';
+                            card.style.opacity = '0.2';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

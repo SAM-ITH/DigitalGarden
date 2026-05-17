@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Snapy iOS app is built with **Swift** and **SwiftUI**, following the **MVVM** architecture pattern. It uses a **native Swift FSRS implementation** (`swift-fsrs` package or ~200 lines of native code) for the spaced repetition algorithm.
+The Snapy iOS app is built with **Swift** and **SwiftUI**, following the **MVVM** architecture pattern. FSRS runs server-side only — the app sends raw ratings and the server handles all scheduling.
 
 ---
 
@@ -17,18 +17,17 @@ The Snapy iOS app is built with **Swift** and **SwiftUI**, following the **MVVM*
 ┌──────────────────▼───────────────────────────┐
 │              ViewModels (@Observable)          │
 │  Business logic, state management             │
-└──────────┬─────────────────┬─────────────────┘
-           │                 │
-┌──────────▼──────┐ ┌───────▼─────────────────┐
-│    Services     │ │   FSRS Engine            │
-│  (Network, DB,  │ │   (swift-fsrs, native    │
-│   Auth, Push)   │ │    Swift implementation) │
-└──────────┬──────┘ └─────────────────────────┘
-           │
-┌──────────▼──────────────────────────────────┐
-│          Data Layer                          │
-│  URLSession (API)  │  SwiftData (Local DB)   │
-│  Keychain (Tokens) │                         │
+└──────────────────┬───────────────────────────┘
+                   │
+┌──────────────────▼───────────────────────────┐
+│               Services                        │
+│  (Network, DB, Auth, Push)                    │
+└──────────────────┬───────────────────────────┘
+                   │
+┌──────────────────▼───────────────────────────┐
+│          Data Layer                           │
+│  URLSession (API)  │  SwiftData (Local DB)    │
+│  Keychain (Tokens) │                          │
 └──────────────────────────────────────────────┘
 ```
 
@@ -37,6 +36,7 @@ The Snapy iOS app is built with **Swift** and **SwiftUI**, following the **MVVM*
 - **@Observable macro** (Swift 5.9+): Simpler than ObservableObject, automatic change tracking
 - **Dependency Injection**: Services injected via environment or init parameters
 - **Async/Await**: All async operations use Swift Concurrency (no Combine for data flow, Combine only where needed for legacy APIs)
+- **Server-side FSRS**: The server handles all spaced repetition scheduling. The app only collects ratings and sends them to the server.
 
 ---
 
@@ -159,7 +159,7 @@ class HomeViewModel {
 User taps unit → FlashcardSessionView
   │
   ├── Load cards from local cache (or fetch from API if not cached)
-  ├── Shuffle or order by FSRS priority
+  ├── Shuffle or display in order
   ├── Display progress bar (card X of N)
   │
   ├── For each card:
@@ -168,8 +168,8 @@ User taps unit → FlashcardSessionView
   │   │   ├── "Show Answer" button
   │   │   ├── Tap → 3D flip animation → reveal answer
   │   │   ├── "Got it" / "Missed it" buttons
-  │   │   ├── Run FSRS: "Got it" → rating 3 (Good), "Missed it" → rating 1 (Again)
-  │   │   └── Record review, advance to next card
+  │   │   ├── Record: cardId + rating (Got it=3, Missed it=1)
+  │   │   └── Advance to next card
   │   │
   │   └── [MCQ Card]
   │       ├── Show question + 4 choice buttons
@@ -177,7 +177,7 @@ User taps unit → FlashcardSessionView
   │       ├── Correct → choice turns green, success haptic
   │       ├── Incorrect → choice turns red, correct answer highlighted green
   │       ├── Show explanation (if available)
-  │       ├── Run FSRS: correct → rating 3 (Good), incorrect → rating 1 (Again)
+  │       ├── Record: cardId + rating (correct=3, incorrect=1)
   │       ├── 1.5s delay, then advance
   │       └── Record review
   │
@@ -186,7 +186,7 @@ User taps unit → FlashcardSessionView
       ├── Accuracy percentage
       ├── XP earned
       ├── "Continue" or "Back to Units" buttons
-      └── Sync reviews to server (POST /reviews)
+      └── Send ratings to server (POST /reviews) — server runs FSRS
 ```
 
 ### FlashcardSessionViewModel
@@ -198,7 +198,7 @@ class FlashcardSessionViewModel {
     var isAnswerRevealed: Bool = false
     var selectedChoice: Int? = nil
     var isCorrect: Bool? = nil
-    var sessionResults: [ReviewResult] = []
+    var sessionResults: [PendingReview] = []
     
     var currentCard: Card? { 
         cards.indices.contains(currentIndex) ? cards[currentIndex] : nil 
@@ -208,7 +208,6 @@ class FlashcardSessionViewModel {
     }
     var isSessionComplete: Bool { currentIndex >= cards.count }
     
-    private let fsrs: FSRS  // Native Swift FSRS
     private let reviewService: ReviewService
     
     // Classic mode: reveal answer
@@ -218,7 +217,7 @@ class FlashcardSessionViewModel {
     
     // Classic mode: mark correct/incorrect
     func markAnswer(correct: Bool) {
-        let rating: Rating = correct ? .good : .again
+        let rating: Int = correct ? 3 : 1  // Good=3, Again=1
         recordReview(rating: rating)
         advanceToNext()
     }
@@ -228,7 +227,7 @@ class FlashcardSessionViewModel {
         selectedChoice = index
         let card = cards[currentIndex]
         isCorrect = card.choices?[index].isCorrect ?? false
-        let rating: Rating = isCorrect == true ? .good : .again
+        let rating: Int = (isCorrect == true) ? 3 : 1
         recordReview(rating: rating)
         
         // Auto-advance after delay
@@ -238,10 +237,14 @@ class FlashcardSessionViewModel {
         }
     }
     
-    private func recordReview(rating: Rating) {
+    private func recordReview(rating: Int) {
         let card = cards[currentIndex]
-        let result = fsrs.review(cardId: card.id, rating: rating)
-        sessionResults.append(result)
+        let review = PendingReview(
+            cardId: card.id,
+            rating: rating,
+            reviewedAt: Date()
+        )
+        sessionResults.append(review)
     }
     
     private func advanceToNext() {
@@ -411,7 +414,6 @@ class PendingReview {
     var cardId: String
     var rating: Int
     var reviewedAt: Date
-    var srsStateJSON: String  // Serialized SRS state from FSRS
     var isSynced: Bool = false
 }
 ```
@@ -424,12 +426,12 @@ User opens unit:
   │   └── NO: Fetch from API → store in SwiftData → start session
   │
   During session:
-  ├── FSRS runs locally → instant scheduling
-  ├── Review results stored as PendingReview in SwiftData
+  ├── Record results: cardId + rating + timestamp
+  ├── Store as PendingReview in SwiftData (no FSRS state needed)
   │
   After session:
-  ├── If online: POST /reviews → mark PendingReviews as synced → delete
-  └── If offline: PendingReviews remain queued
+  ├── If online: POST /reviews → server runs FSRS → mark PendingReviews as synced → delete
+  └── If offline: PendingReviews remain queued (server will run FSRS when synced)
 ```
 
 ### Sync Manager
@@ -446,6 +448,7 @@ class SyncManager {
         isSyncing = true
         defer { isSyncing = false }
         
+        // Send raw ratings only — server computes FSRS
         let reviews = pending.map { $0.toReviewRequest() }
         
         do {
@@ -561,56 +564,23 @@ func application(_ application: UIApplication, didRegisterForRemoteNotifications
 
 ---
 
-## FSRS Integration (Native Swift)
+## FSRS Integration (Server-Side)
 
 ### Approach
-The FSRS algorithm is implemented natively in Swift — either using the `swift-fsrs` open-source package or a ~200-line native implementation. No cross-platform bridge needed.
+FSRS runs exclusively on the Go backend. The iOS app does NOT implement FSRS. It only collects ratings and sends them to the server.
 
-### Using FSRS
+### App Responsibilities
+1. Display cards and collect ratings:
+   - Classic mode: "Got it" (rating 3) or "Missed it" (rating 1)
+   - MCQ mode: Correct (rating 3) or Incorrect (rating 1)
+2. Queue results as `PendingReview` with `{ cardId, rating, reviewedAt }`
+3. Sync to `POST /reviews` when online — server runs FSRS
+4. Fetch due cards from `GET /reviews/due` — server determines what's due
 
-```swift
-import SwiftFSRS  // or local FSRS module
-
-// Create FSRS instance with default parameters
-let fsrs = FSRS(parameters: .default)
-
-// Review a card
-let result = fsrs.review(
-    state: .new,
-    stability: 0,
-    difficulty: 5.0,
-    elapsedDays: 0,
-    rating: .good
-)
-// result.nextState — updated card state
-// result.stability — new stability value
-// result.scheduledDays — days until next review
-// result.dueAt — exact due date
-```
-
-### Native Types
-```swift
-enum Rating: Int {
-    case again = 1, hard = 2, good = 3, easy = 4
-}
-
-enum CardState {
-    case new, learning, review, relearning
-}
-
-struct ReviewResult {
-    let cardId: String
-    let rating: Rating
-    let nextState: CardState
-    let stability: Double
-    let difficulty: Double
-    let scheduledDays: Int
-    let dueAt: Date
-}
-```
-
-### Consistency Verification
-The same test vectors are used across iOS (Swift), Android (Kotlin), and backend (Go) to ensure all three implementations produce identical scheduling results.
+### Due Cards Badge
+- App calls `GET /reviews/due` when online to get due card count
+- Displayed as a badge on the home screen
+- **Requires connectivity** — the phone cannot compute due dates locally
 
 ---
 
@@ -655,12 +625,6 @@ Snapy/
 │       ├── SessionProgressBar.swift
 │       ├── StreakBadge.swift
 │       └── LoadingView.swift
-├── FSRS/
-│   ├── FSRS.swift                    # FSRS algorithm implementation
-│   ├── FSRSParameters.swift          # Algorithm parameters (w0-w18)
-│   ├── CardState.swift               # State enum
-│   ├── Rating.swift                  # Rating enum
-│   └── ReviewResult.swift            # Review output model
 ├── ViewModels/
 │   ├── AuthViewModel.swift
 │   ├── HomeViewModel.swift
@@ -706,8 +670,7 @@ Snapy/
 |------|-------------|
 | ViewModels | State transitions, data loading, error handling |
 | Services | API request construction, response parsing |
-| Sync Manager | Queue management, conflict resolution |
-| FSRS Algorithm | FSRS scheduling produces expected intervals (shared test vectors) |
+| Sync Manager | Queue management, batch upload |
 
 ### UI Tests
 | Flow | What to Test |

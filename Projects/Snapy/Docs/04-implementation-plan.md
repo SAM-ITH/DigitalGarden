@@ -176,22 +176,22 @@ MCQ flashcard mode is functional. FSRS spaced repetition algorithm is integrated
 
 ### Tasks
 
-**FSRS - Native Per Platform**
-- [ ] Implement or integrate FSRS in Swift for iOS (`swift-fsrs` package or ~200 lines native)
-- [ ] Implement or integrate FSRS in Kotlin for Android (`fsrs-kt` package or ~200 lines native)
-- [ ] Implement or integrate FSRS in Go for backend (`go-fsrs` package)
-- [ ] Define shared test vectors (input state + rating → expected output)
-- [ ] Run same test cases on all three implementations to verify parity
+**FSRS - Server-Side Only**
+- [ ] Integrate `go-fsrs` in the Go backend
+- [ ] FSRS service computes scheduling for each review (stability, difficulty, due date)
 - [ ] Map Classic mode results: "Got it" → Good (3), "Missed it" → Again (1)
 - [ ] Map MCQ mode results: Correct → Good (3), Incorrect → Again (1)
+- [ ] Server-side unit tests for FSRS (Go only, no cross-platform testing needed)
 
 **Backend - Spaced Repetition**
-- [ ] Integrate `go-fsrs` for server-side SRS validation
+- [ ] Integrate `go-fsrs` for FSRS computation in Review Service
 - [ ] `GET /reviews/due` — return cards due for review (where `due_at <= now()`)
   - Ordered by: most overdue first
   - Filterable by subject
   - Include unit and subject info for each card
-- [ ] Update `POST /reviews` to validate and store FSRS state from client
+- [ ] Update `POST /reviews` to run FSRS for each review and store computed SRS state
+  - Client sends raw ratings only (cardId, rating, timestamp) — no SRS state from client
+  - Server is single source of truth for all scheduling
 
 **iOS - MCQ Mode**
 - [ ] MCQ card layout: question text + 4 answer option buttons
@@ -203,10 +203,9 @@ MCQ flashcard mode is functional. FSRS spaced repetition algorithm is integrated
 
 **iOS - Mixed Mode & FSRS**
 - [ ] Mixed sessions: interleave Classic and MCQ cards based on card type
-- [ ] Integrate native FSRS (swift-fsrs):
-  - After each card review, run FSRS to compute next review date
-  - Store updated SRS state locally and sync to server
-- [ ] Due cards badge on home screen (number of cards due today)
+- [ ] After each card review, record: cardId + rating + timestamp (no local FSRS)
+- [ ] Send ratings to server — server computes FSRS scheduling
+- [ ] Due cards badge on home screen (fetched from server, requires connectivity)
 
 **iOS - Quick Review**
 - [ ] Quick Review button on home screen
@@ -217,11 +216,11 @@ MCQ flashcard mode is functional. FSRS spaced repetition algorithm is integrated
 
 **Android - MCQ, Mixed Mode, FSRS, Quick Review**
 - [ ] Same functionality as iOS (feature parity)
-- [ ] Integrate native FSRS (fsrs-kt) directly as Kotlin dependency
+- [ ] No client-side FSRS needed — server handles all scheduling
 
 **Offline Enhancement**
-- [ ] Queue review results with FSRS state when offline
-- [ ] Sync queue to server on reconnect
+- [ ] Queue review results (cardId + rating + timestamp) when offline
+- [ ] Sync queue to server on reconnect — server runs FSRS for each queued review
 - [ ] Sync status indicator in UI (synced / pending / syncing)
 
 ### Exit Criteria
@@ -229,9 +228,9 @@ MCQ flashcard mode is functional. FSRS spaced repetition algorithm is integrated
 - Mixed sessions alternate Classic and MCQ cards within one session
 - FSRS schedules cards: easy cards appear later, missed cards appear sooner
 - Quick Review surfaces due cards across subjects, respects time limit
-- Due cards count visible on home screen
-- Offline reviews queue and sync correctly
-- FSRS unit tests pass on all three platforms (Swift, Kotlin, Go)
+- Due cards count visible on home screen (fetched from server)
+- Offline reviews queue and sync correctly (server runs FSRS on sync)
+- FSRS unit tests pass in Go (server-side only)
 
 ---
 
@@ -508,6 +507,6 @@ Admin panel for content management is built. Content is populated for all target
 | Content creation bottleneck | Delays launch | Start recruiting content creators in Phase 2, don't wait until Phase 6 |
 | ShoutOUT SMS delivery failures | Users can't log in | Implement retry logic, consider fallback SMS provider, show "resend" with timer |
 | VPS resource exhaustion | App becomes slow/unresponsive | Monitor early, set container memory limits, have vertical scaling plan ready |
-| FSRS parity across platforms | Different scheduling on iOS vs Android | Define shared test vectors early, run same tests on all three implementations |
+| FSRS parity across platforms | Different scheduling on iOS vs Android | **Mitigated**: FSRS runs server-side only (Go), no client-side implementations |
 | App store rejection | Delays launch | Follow guidelines strictly, submit for review early with TestFlight/internal track |
 | Scope creep | Timeline extends | Strictly follow phase boundaries, defer "nice to haves" to post-launch |

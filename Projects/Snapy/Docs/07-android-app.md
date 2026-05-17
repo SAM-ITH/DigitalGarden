@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Snapy Android app is built with **Kotlin** and **Jetpack Compose**, following the **MVVM** architecture pattern with **Hilt** for dependency injection. It uses a **native Kotlin FSRS implementation** (`fsrs-kt` package or ~200 lines of native code) for the spaced repetition algorithm.
+The Snapy Android app is built with **Kotlin** and **Jetpack Compose**, following the **MVVM** architecture pattern with **Hilt** for dependency injection. FSRS runs server-side only — the app sends raw ratings and the server handles all scheduling.
 
 ---
 
@@ -17,18 +17,17 @@ The Snapy Android app is built with **Kotlin** and **Jetpack Compose**, followin
 ┌──────────────────▼───────────────────────────┐
 │              ViewModels (Hilt-injected)        │
 │  Business logic, UI state, coroutines         │
-└──────────┬─────────────────┬─────────────────┘
-           │                 │
-┌──────────▼──────┐ ┌───────▼─────────────────┐
-│   Repositories  │ │   FSRS Engine            │
-│  (Data access   │ │   (fsrs-kt, native       │
-│   abstraction)  │ │    Kotlin implementation)│
-└──────────┬──────┘ └─────────────────────────┘
-           │
-┌──────────▼──────────────────────────────────┐
-│          Data Sources                        │
-│  Ktor Client (API) │  Room (Local DB)        │
-│  EncryptedSharedPrefs (Tokens)               │
+└──────────────────┬───────────────────────────┘
+                   │
+┌──────────────────▼───────────────────────────┐
+│              Repositories                      │
+│  (Data access abstraction)                    │
+└──────────────────┬───────────────────────────┘
+                   │
+┌──────────────────▼───────────────────────────┐
+│          Data Sources                         │
+│  Ktor Client (API) │  Room (Local DB)         │
+│  EncryptedSharedPrefs (Tokens)                │
 └──────────────────────────────────────────────┘
 ```
 
@@ -37,6 +36,7 @@ The Snapy Android app is built with **Kotlin** and **Jetpack Compose**, followin
 - **Unidirectional data flow**: UI state exposed as `StateFlow`, events flow up via callbacks
 - **Hilt DI**: All dependencies injected at compile time
 - **Coroutines + Flow**: All async operations use structured concurrency
+- **Server-side FSRS**: The server handles all spaced repetition scheduling. The app only collects ratings and sends them to the server.
 
 ---
 
@@ -194,7 +194,6 @@ Identical to iOS (see `01-app-overview.md` for user flow). The session ViewModel
 @HiltViewModel
 class FlashcardSessionViewModel @Inject constructor(
     private val reviewRepository: ReviewRepository,
-    private val fsrs: FSRS,  // Native Kotlin FSRS
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     
@@ -206,7 +205,7 @@ class FlashcardSessionViewModel @Inject constructor(
         val isAnswerRevealed: Boolean = false,
         val selectedChoice: Int? = null,
         val isCorrect: Boolean? = null,
-        val sessionResults: List<ReviewResult> = emptyList(),
+        val sessionResults: List<PendingReview> = emptyList(),
         val isSessionComplete: Boolean = false
     ) {
         val currentCard: Card? get() = cards.getOrNull(currentIndex)
@@ -232,7 +231,7 @@ class FlashcardSessionViewModel @Inject constructor(
     }
     
     fun markAnswer(correct: Boolean) {
-        val rating = if (correct) Rating.GOOD else Rating.AGAIN
+        val rating = if (correct) 3 else 1  // Good=3, Again=1
         recordReview(rating)
         advanceToNext()
     }
@@ -240,7 +239,7 @@ class FlashcardSessionViewModel @Inject constructor(
     fun selectChoice(index: Int) {
         val card = _uiState.value.currentCard ?: return
         val isCorrect = card.choices?.get(index)?.isCorrect ?: false
-        val rating = if (isCorrect) Rating.GOOD else Rating.AGAIN
+        val rating = if (isCorrect) 3 else 1
         
         _uiState.update { it.copy(selectedChoice = index, isCorrect = isCorrect) }
         recordReview(rating)
@@ -251,10 +250,14 @@ class FlashcardSessionViewModel @Inject constructor(
         }
     }
     
-    private fun recordReview(rating: Rating) {
+    private fun recordReview(rating: Int) {
         val card = _uiState.value.currentCard ?: return
-        val result = fsrs.review(cardId = card.id, rating = rating)
-        _uiState.update { it.copy(sessionResults = it.sessionResults + result) }
+        val review = PendingReview(
+            cardId = card.id,
+            rating = rating,
+            reviewedAt = System.currentTimeMillis()
+        )
+        _uiState.update { it.copy(sessionResults = it.sessionResults + review) }
     }
     
     private fun advanceToNext() {
@@ -447,7 +450,6 @@ data class PendingReviewEntity(
     val cardId: String,
     val rating: Int,
     val reviewedAt: Long,       // epoch millis
-    val srsStateJson: String,   // Serialized SRS state
     val isSynced: Boolean = false
 )
 ```
@@ -664,43 +666,23 @@ class SnapyFirebaseMessagingService : FirebaseMessagingService() {
 
 ---
 
-## FSRS Integration (Native Kotlin)
+## FSRS Integration (Server-Side)
 
 ### Approach
-The FSRS algorithm is implemented natively in Kotlin — either using the `fsrs-kt` open-source package or a ~200-line native implementation. No cross-platform bridge needed.
+FSRS runs exclusively on the Go backend. The Android app does NOT implement FSRS. It only collects ratings and sends them to the server.
 
-### Gradle Setup
-```kotlin
-// app/build.gradle.kts
-dependencies {
-    implementation("com.snapy:fsrs-kt:1.0.0")  // or local module
-}
-```
+### App Responsibilities
+1. Display cards and collect ratings:
+   - Classic mode: "Got it" (rating 3) or "Missed it" (rating 1)
+   - MCQ mode: Correct (rating 3) or Incorrect (rating 1)
+2. Queue results as `PendingReview` with `{ cardId, rating, reviewedAt }`
+3. Sync to `POST /reviews` when online — server runs FSRS
+4. Fetch due cards from `GET /reviews/due` — server determines what's due
 
-### Using FSRS from Kotlin
-```kotlin
-import com.snapy.fsrs.FSRS
-import com.snapy.fsrs.FSRSParameters
-import com.snapy.fsrs.Rating
-import com.snapy.fsrs.CardState
-
-val fsrs = FSRS(parameters = FSRSParameters.default)
-
-val result = fsrs.review(
-    state = CardState.New,
-    stability = 0.0,
-    difficulty = 5.0,
-    elapsedDays = 0,
-    rating = Rating.Good
-)
-// result.nextState
-// result.stability
-// result.scheduledDays
-// result.dueAt
-```
-
-### Consistency Verification
-The same test vectors are used across iOS (Swift), Android (Kotlin), and backend (Go) to ensure all three implementations produce identical scheduling results.
+### Due Cards Badge
+- App calls `GET /reviews/due` when online to get due card count
+- Displayed as a badge on the home screen
+- **Requires connectivity** — the phone cannot compute due dates locally
 
 ---
 
@@ -723,14 +705,6 @@ object AppModule {
     
     @Provides
     fun providePendingReviewDao(db: SnapyDatabase): PendingReviewDao = db.pendingReviewDao()
-    
-    @Provides
-    @Singleton
-    fun provideFSRS(): FSRS = FSRS(FSRSParameters.default)
-    
-    @Provides
-    @Singleton
-    fun provideTokenStore(@ApplicationContext context: Context): TokenStore = TokenStore(context)
 }
 
 @Module
@@ -827,12 +801,6 @@ app/
 │   │   │   │   └── entity/               # Room entities
 │   │   │   └── sync/
 │   │   │       └── ReviewSyncWorker.kt
-│   │   ├── fsrs/                         # Native Kotlin FSRS
-│   │   │   ├── FSRS.kt
-│   │   │   ├── FSRSParameters.kt
-│   │   │   ├── CardState.kt
-│   │   │   ├── Rating.kt
-│   │   │   └── ReviewResult.kt
 │   │   ├── di/
 │   │   │   ├── AppModule.kt
 │   │   │   ├── NetworkModule.kt
@@ -871,7 +839,6 @@ app/
 | ViewModels | State transitions, data loading, error handling | JUnit + Turbine (Flow testing) |
 | Repositories | Data mapping, cache logic | JUnit + MockK |
 | Room DAOs | Query correctness | Room testing (in-memory DB) |
-| FSRS Algorithm | FSRS scheduling produces expected intervals (shared test vectors) | JUnit |
 
 ### UI Tests
 | Flow | What to Test | Framework |

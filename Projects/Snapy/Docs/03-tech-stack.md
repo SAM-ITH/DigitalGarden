@@ -53,7 +53,7 @@
 ### FSRS Integration
 | Technology | Purpose | Justification |
 |-----------|---------|---------------|
-| **swift-fsrs** (or native implementation) | Spaced repetition | Native Swift FSRS implementation. The algorithm is ~200 lines of deterministic math — simple to implement or use an existing Swift package. No cross-platform bridge needed. |
+| **go-fsrs** (server-side) | Spaced repetition | FSRS runs exclusively on the Go backend. The server computes all scheduling (stability, difficulty, due dates). Mobile apps send raw ratings only. Single implementation, no cross-platform consistency concerns. |
 
 ---
 
@@ -91,7 +91,7 @@
 ### FSRS Integration
 | Technology | Purpose | Justification |
 |-----------|---------|---------------|
-| **fsrs-kt** (or native implementation) | Spaced repetition | Native Kotlin FSRS implementation. Same ~200 lines of deterministic math. Unit tests verify parity with the Swift and Go implementations. |
+| Server-side FSRS (go-fsrs) | Spaced repetition | FSRS runs exclusively on the Go backend. The Android app sends raw ratings (cardId + rating + timestamp) and the server computes all scheduling. No client-side algorithm needed. |
 
 ---
 
@@ -134,7 +134,7 @@ Go is the better fit for a VPS-hosted API where resources are shared with the da
 | **go-redis/redis** | Redis client | Feature-complete Redis client for Go, connection pooling, pipeline support |
 | **pgx** | PostgreSQL driver | High-performance PostgreSQL driver for Go, used by sqlc as the underlying driver |
 | **zerolog** | Logging | Zero-allocation JSON logger. Fast structured logging for production. |
-| **go-fsrs** | FSRS (server-side) | Go implementation of FSRS algorithm for server-side SRS state validation. |
+| **go-fsrs** | FSRS (server-side) | Go implementation of FSRS algorithm. The server runs FSRS for every review batch and computes all scheduling. Single source of truth — no client-side implementations needed. |
 
 ---
 
@@ -253,28 +253,25 @@ Android:
 
 ---
 
-## FSRS Strategy: Native Per Platform
+## FSRS Strategy: Server-Side Only
 
-Instead of sharing FSRS via a cross-platform layer (like KMP), each platform implements FSRS natively:
+FSRS runs exclusively on the Go backend. Mobile apps do NOT implement FSRS.
 
-| Platform | FSRS Library | Language |
-|----------|-------------|---------|
-| iOS | `swift-fsrs` or native implementation | Swift |
-| Android | `fsrs-kt` or native implementation | Kotlin |
-| Backend | `go-fsrs` | Go |
+| Platform | Role |
+|----------|------|
+| **Backend** | Runs `go-fsrs` — computes all scheduling (stability, difficulty, due dates) |
+| **iOS App** | Sends raw ratings only (cardId + rating + timestamp) |
+| **Android App** | Sends raw ratings only (cardId + rating + timestamp) |
 
 **Why this approach:**
-- FSRS is a well-defined mathematical algorithm (~200 lines of core logic)
-- The algorithm is deterministic — same inputs always produce same outputs
-- Existing open-source implementations are available in all three languages
-- Each implementation can be verified with the same unit test cases
-- Eliminates the complexity of KMP (build setup, SKIE bridging, separate repo, CI complexity)
-- No cross-platform dependency management
+- Single implementation in Go — no need for Swift or Kotlin versions
+- No cross-platform consistency concerns or shared test vectors
+- Server is the single source of truth for all SRS state
+- Simpler mobile apps — less code, fewer bugs
+- Easier to update the algorithm (change one place, not three)
+- Reduced network payload (no SRS state sent from client)
 
-**How to ensure consistency:**
-- Define a shared set of test vectors (input state + rating → expected output state)
-- Run the same test cases on all three implementations
-- If all tests pass, the implementations are functionally identical
+**Tradeoff:** Quick Review (studying due cards across subjects) requires connectivity since only the server knows which cards are due. Offline unit study still works — cards are cached locally and results are queued for sync.
 
 ---
 
@@ -306,7 +303,6 @@ Repositories:
 │   │   ├── ViewModels/
 │   │   ├── Models/
 │   │   ├── Services/
-│   │   ├── FSRS/             # Native Swift FSRS implementation
 │   │   └── SnapyApp.swift
 │   ├── Snapy.xcodeproj
 │   └── SnapyTests/
@@ -318,7 +314,6 @@ Repositories:
     │   │   │   ├── ui/
     │   │   │   ├── viewmodel/
     │   │   │   ├── data/
-    │   │   │   ├── fsrs/     # Native Kotlin FSRS implementation
     │   │   │   └── di/
     │   │   └── res/
     │   └── build.gradle.kts

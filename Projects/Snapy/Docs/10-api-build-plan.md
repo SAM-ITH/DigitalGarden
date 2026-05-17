@@ -930,19 +930,9 @@ type BatchReviewRequest struct {
 }
 
 type ReviewItem struct {
-    CardID      string    `json:"cardId" validate:"required,uuid"`
-    Rating      int16     `json:"rating" validate:"required,min=1,max=4"`
-    ReviewedAt  time.Time `json:"reviewedAt" validate:"required"`
-    SRSState    *SRSStateInput `json:"srsState"`
-}
-
-type SRSStateInput struct {
-    Stability      float32 `json:"stability"`
-    Difficulty     float32 `json:"difficulty"`
-    ElapsedDays    int32   `json:"elapsedDays"`
-    ScheduledDays  int32   `json:"scheduledDays"`
-    State          string  `json:"state"`
-    DueAt          time.Time `json:"dueAt"`
+    CardID     string    `json:"cardId" validate:"required,uuid"`
+    Rating     int16     `json:"rating" validate:"required,min=1,max=4"`
+    ReviewedAt time.Time `json:"reviewedAt" validate:"required"`
 }
 ```
 
@@ -951,7 +941,6 @@ type SRSStateInput struct {
 type BatchReviewResponse struct {
     Accepted    int              `json:"accepted"`
     Rejected    int              `json:"rejected"`
-    Corrections []CorrectionItem `json:"corrections,omitempty"`
 }
 
 type CorrectionItem struct {
@@ -987,18 +976,21 @@ type ReviewService interface {
 ```
 
 **SubmitBatch logic:**
-1. For each review item:
-   a. Insert into `card_reviews`
-   b. If SRSState provided, upsert `card_srs_state` with conflict resolution:
-      - If server `last_reviewed_at` is nil OR < client `reviewed_at`: accept client state
-      - Else: skip (reject as stale), add to corrections list
-   c. If SRSState not provided (new card), create initial SRS state with defaults
+1. For each review item (process in a **single database transaction**):
+   a. Insert into `card_reviews` (history log)
+   b. Get existing SRS state from `card_srs_state` (if any)
+   c. Run FSRS (go-fsrs) to compute new scheduling:
+      - If new card: use initial values (stability=0, difficulty=0, state="new")
+      - If existing card: use current state from database
+      - Input: current state + rating → Output: new stability, difficulty, state, due date
+   d. Upsert `card_srs_state` with FSRS-computed values
+   e. Update daily activity and streak
 2. Return accepted/rejected counts
 
 **GetDueCards logic:**
-1. Query `GetDueCards` from database
-2. Map to `DueCardsResponse`
-3. Default limit: 50
+1. Parse optional `limit` query param (default: 50)
+2. Query `GetDueCards(userID, limit)` — returns cards with `due_at <= NOW()`
+3. Map to `DueCardsResponse`
 
 ### Step 3.5 — Handler & routes
 

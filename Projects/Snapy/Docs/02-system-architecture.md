@@ -6,11 +6,8 @@
 ┌──────────────────┐     ┌──────────────────┐
 │   iOS App         │     │  Android App      │
 │   (Swift/SwiftUI) │     │  (Kotlin/Compose) │
-│                   │     │                   │
-│  ┌──────────────┐ │     │  ┌──────────────┐ │
-│  │ swift-fsrs   │ │     │  │ fsrs-kt      │ │
-│  │ (native FSRS)│ │     │  │ (native FSRS)│ │
-│  └──────────────┘ │     │  └──────────────┘ │
+│   (UI + cache     │     │  (UI + cache      │
+│    only)           │     │   only)           │
 └────────┬──────────┘     └────────┬──────────┘
          │           HTTPS          │
          └──────────┬───────────────┘
@@ -23,7 +20,7 @@
           ┌─────────▼──────────┐
           │   Backend API       │
           │   (Go / Chi)        │
-          │   go-fsrs           │
+          │   go-fsrs           │  ← FSRS runs ONLY here
           └───┬─────────┬──────┘
               │         │
     ┌─────────▼───┐ ┌───▼─────────┐
@@ -62,11 +59,11 @@ Both native apps handle:
 - Store JWT access and refresh tokens securely (Keychain on iOS, EncryptedSharedPreferences on Android)
 - Maintain active session state (current card index, answers, timer)
 
-### FSRS Algorithm (Native Per Platform)
-- Execute the FSRS spaced repetition algorithm on-device for instant scheduling feedback
-- iOS uses `swift-fsrs` (native Swift), Android uses `fsrs-kt` (native Kotlin)
-- Compute next review dates immediately after each card review
-- No network round-trip needed for scheduling decisions
+### Study Session Management
+- Manage active session state (current card index, answers, timer)
+- Display cards and collect user ratings (correct/incorrect)
+- Queue review results for batch upload to server
+- FSRS scheduling is handled entirely server-side — no client-side algorithm needed
 
 ### Offline Queue
 - Queue card review results when offline
@@ -94,11 +91,13 @@ Both native apps handle:
 - Support content versioning for cache invalidation
 - Content is read-only for regular users
 
-### User Progress Sync
-- Receive batched card review results from mobile apps
-- Store authoritative SRS state (stability, difficulty, due dates) in PostgreSQL
-- Resolve conflicts when offline reviews sync (server timestamp wins)
-- Serve "due cards" lists for quick review mode
+### FSRS Scheduling (Server-Side Only)
+- Run the FSRS spaced repetition algorithm on every review batch sync
+- Compute new stability, difficulty, and next due date for each reviewed card
+- Store authoritative SRS state in PostgreSQL (`card_srs_state` table)
+- Serve "due cards" lists based on server-computed due dates
+- Single source of truth — no client-side FSRS implementations needed
+- Eliminates cross-platform consistency concerns and conflict resolution
 
 ### Study Plan Engine
 - Generate study plans based on user goals, subjects, timeline, and daily availability
@@ -167,10 +166,11 @@ Client → HTTPS → Traefik (SSL termination) → Go API → PostgreSQL/Redis
 ```
 
 ### Optimistic Updates
-- After a card review, the client immediately updates local SRS state (via FSRS)
+- After a card review, the client records the result locally (card ID + rating + timestamp)
 - Review results are queued and sent to server in batches
-- Server stores the authoritative state
-- If server rejects (rare), client re-syncs from server
+- Server runs FSRS and stores the authoritative SRS state
+- Client does not compute any scheduling — it relies on the server for due dates
+- When the client needs to know which cards are due, it fetches from the server
 
 ---
 
@@ -182,57 +182,64 @@ Client → HTTPS → Traefik (SSL termination) → Go API → PostgreSQL/Redis
 - Cache is invalidated when server reports a newer content version
 
 ### Offline Study Sessions
-- Students can complete full study sessions without connectivity
-- FSRS runs locally — scheduling decisions don't require the server
-- Review results are stored in a local queue table
+- Students can study any cached unit without connectivity
+- The app shows all cards in the unit regardless of SRS state (since the server isn't reachable)
+- Review results (card ID + rating + timestamp) are stored in a local queue table
 
 ### Sync on Reconnect
 ```
 App detects connectivity restored
   → Read all queued review results from local DB
-  → POST /reviews (batch upload)
-  → Server processes and stores
-  → Server responds with any state corrections
-  → Client clears queue and applies corrections
+  → POST /reviews (batch upload with raw ratings only)
+  → Server runs FSRS for each review, computes and stores SRS state
+  → Server responds with updated due card counts
+  → Client clears queue
   → Sync indicator changes to "synced"
 ```
 
-### Conflict Resolution
-- Each card SRS state has a `lastReviewedAt` timestamp
-- On sync, if server has a newer timestamp than the queued review, server state wins
-- This handles the edge case where a user studies on two devices
+### Quick Review Offline Limitation
+- Quick Review (reviewing due cards across all subjects) **requires connectivity**
+- The server determines which cards are due — the phone cannot compute this locally
+- Offline study is limited to browsing and studying cached units
+- This is an intentional tradeoff for simpler architecture
 
 ---
 
-## FSRS Strategy: Native Per Platform
+## FSRS Strategy: Server-Side Only
 
 ### Approach
-Each platform implements FSRS natively using its own language:
+The FSRS algorithm runs exclusively on the Go backend. Mobile apps send raw review results (card ID + rating + timestamp) and the server computes all scheduling.
 
 ```
 ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
 │  iOS App     │  │ Android App  │  │  Go Backend  │
 │              │  │              │  │              │
-│ swift-fsrs   │  │  fsrs-kt     │  │  go-fsrs     │
-│ (Swift)      │  │  (Kotlin)    │  │  (Go)        │
-└──────────────┘  └──────────────┘  └──────────────┘
-       │                 │                 │
-       └─────────────────┼─────────────────┘
-                         │
-              Shared Test Vectors
-         (same inputs → same outputs)
+│  (UI only,   │  │  (UI only,   │  │  go-fsrs     │
+│   sends raw  │  │   sends raw  │  │  (FSRS runs  │
+│   ratings)   │  │   ratings)   │  │   here ONLY) │
+└──────┬───────┘  └──────┬───────┘  └──────────────┘
+       │                  │                 ▲
+       └──────────────────┘                 │
+              POST /reviews                 │
+         (cardId, rating, timestamp) ───────┘
+              Server computes:
+              - new stability
+              - new difficulty
+              - next due date
 ```
 
-- **iOS**: Uses `swift-fsrs` package or ~200 lines of native Swift implementation
-- **Android**: Uses `fsrs-kt` package or ~200 lines of native Kotlin implementation
-- **Backend**: Uses `go-fsrs` for server-side SRS state validation
+### Why Server-Only
+- **Single implementation**: One FSRS codebase in Go, no need for Swift or Kotlin versions
+- **No cross-platform consistency concerns**: No shared test vectors, no parity verification
+- **Single source of truth**: Server is the authority for all SRS state — no conflict resolution needed
+- **Simpler mobile code**: Apps just collect ratings and send them, no algorithm logic
+- **Easier to update**: Algorithm changes only need to be made in one place
+- **Reduced network payload**: No SRS state fields sent from client to server
 
-### Why Not a Shared Library (KMP)?
-- FSRS is a well-defined mathematical algorithm (~200 lines of core logic)
-- The algorithm is deterministic — same inputs always produce same outputs
-- Existing open-source implementations are available in all three languages
-- KMP would add significant complexity (build setup, SKIE bridging for iOS, separate repo, CI pipeline) for minimal benefit
-- Each implementation is verified with the same test vectors to ensure parity
+### Tradeoff
+- **Quick Review requires connectivity**: The phone cannot determine which cards are due without asking the server
+- **Offline study**: Works for browsing cached units, but due-date-based review requires internet
+- **Acceptable tradeoff**: Sri Lankan students typically have mobile data available most of the time
 
 ### What's Platform-Specific (Everything Else)
 - UI layer (SwiftUI vs Jetpack Compose)

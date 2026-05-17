@@ -4,6 +4,8 @@
 
 The spaced repetition engine is the core algorithm that powers Snapy's learning effectiveness. It determines **when** each flashcard should be shown again to maximize long-term retention with minimum review effort. Snapy uses the **FSRS (Free Spaced Repetition Scheduler)** algorithm — the most advanced open-source spaced repetition algorithm available.
 
+**Architecture decision:** FSRS runs **exclusively on the Go backend**. Mobile apps send raw review results (card ID + rating + timestamp) and the server computes all scheduling. This keeps one authoritative implementation, eliminates cross-platform consistency concerns, and simplifies the mobile apps.
+
 ---
 
 ## Why FSRS Over SM-2
@@ -139,225 +141,74 @@ These defaults work well out of the box for most students. Personalized paramete
 
 ---
 
-## Implementation
+## Implementation: Server-Side Only (Go)
 
-### Native Per Platform
+### Architecture
 
-FSRS is implemented natively on each platform rather than shared via a cross-platform layer. The algorithm is ~200 lines of deterministic math — simple enough to implement in each language, and existing open-source libraries are available.
+FSRS runs exclusively in the Go backend. The server is the single source of truth for all SRS state.
 
-| Platform | Library / Approach | Language |
-|----------|-------------------|---------|
-| **iOS** | `swift-fsrs` package or native implementation | Swift |
-| **Android** | `fsrs-kt` package or native implementation | Kotlin |
-| **Backend** | `go-fsrs` package | Go |
-
-### Why Not KMP (Kotlin Multiplatform)?
-KMP would share code across platforms, but the overhead outweighs the benefit for FSRS:
-- KMP adds complex build setup (Gradle multiplatform config)
-- SKIE bridging layer needed for iOS (additional dependency)
-- Separate repo + CI pipeline required
-- Debugging KMP/iOS interop issues adds friction
-- All of this to share ~200 lines of well-specified math
-
-Instead, each platform uses the same algorithm spec, and **shared test vectors** verify that all three implementations produce identical results.
-
-### Implementation Structure Per Platform
-
-**iOS** (`Snapy/FSRS/`):
 ```
-FSRS/
-├── FSRS.swift              # Main algorithm
-├── FSRSParameters.swift    # Algorithm parameters (w0-w18)
-├── CardState.swift         # State enum
-├── Rating.swift            # Rating enum
-└── ReviewResult.swift      # Output of a review
-```
-
-**Android** (`app/src/main/java/.../fsrs/`):
-```
-fsrs/
-├── FSRS.kt                 # Main algorithm
-├── FSRSParameters.kt       # Algorithm parameters (w0-w18)
-├── CardState.kt            # State enum
-├── Rating.kt               # Rating enum
-└── ReviewResult.kt         # Output of a review
+Mobile App                          Go Backend (Review Service)
+──────────                          ────────────────────────────
+Student answers card
+  │
+  ├── Records: { cardId, rating, timestamp }
+  │
+  └── Queues for sync
+       │
+       ▼
+POST /reviews (batch)
+  [{ cardId, rating, reviewedAt }, ...]
+                                     │
+                                     ▼
+                                   For each review:
+                                     1. Get current SRS state from DB
+                                        (or create new if first review)
+                                     2. Run FSRS:
+                                        input: current state + rating
+                                        output: new stability, difficulty, due date
+                                     3. Upsert card_srs_state
+                                     4. Insert card_reviews (history)
+                                     5. Update analytics (streak, activity)
+                                     │
+                                     ▼
+                                   Response: { accepted, rejected }
+  
+GET /reviews/due                     │
+  ◄──────────────────────────────────┘
+  Returns cards where due_at <= NOW()
+  (server-computed due dates)
 ```
 
-**Backend** (`internal/service/`):
-```
-service/
-└── fsrs.go                 # go-fsrs integration for server-side validation
-```
+### Why Server-Only
 
-### Core Types (Kotlin Reference — Swift and Go equivalents follow the same structure)
+| Factor | Client-Side FSRS | Server-Only FSRS |
+|--------|------------------|-------------------|
+| Implementations needed | 3 (Swift, Kotlin, Go) | **1 (Go only)** |
+| Cross-platform parity testing | Required (shared test vectors) | **Not needed** |
+| Conflict resolution | Needed (two devices) | **Not needed** |
+| Offline Quick Review | Works | **Requires connectivity** |
+| Offline unit study | Works | Works (cards cached, results queued) |
+| Code complexity on mobile | High (algorithm + local state) | **Low (just send ratings)** |
+| Network payload per review | Heavy (cardId + rating + full SRS state) | **Light (cardId + rating only)** |
+| Single source of truth | No (client + server) | **Yes (server only)** |
+| Easy to update algorithm | Must update 3 platforms | **Update 1 place** |
 
-```kotlin
-// Rating.kt
-enum class Rating(val value: Int) {
-    Again(1),
-    Hard(2),
-    Good(3),
-    Easy(4)
-}
+**The tradeoff:** Quick Review (studying due cards across all subjects) requires internet because only the server knows which cards are due. This is an acceptable tradeoff because:
+- Sri Lankan students typically have mobile data available
+- Offline unit study (the main use case) still works fine
+- The architecture is significantly simpler
 
-// CardState.kt
-enum class CardState {
-    New,
-    Learning,
-    Review,
-    Relearning
-}
+### Go Implementation
 
-// ReviewResult.kt
-data class ReviewResult(
-    val cardId: String,
-    val rating: Rating,
-    val reviewedAt: Long,          // epoch millis
-    val nextState: CardState,
-    val stability: Double,
-    val difficulty: Double,
-    val elapsedDays: Int,
-    val scheduledDays: Int,
-    val dueAt: Long                // epoch millis
-)
-
-// FSRSParameters.kt
-data class FSRSParameters(
-    val w: DoubleArray,            // 19 parameters
-    val desiredRetention: Double = 0.9  // 90% target recall
-) {
-    companion object {
-        val default = FSRSParameters(
-            w = doubleArrayOf(
-                0.40, 0.60, 2.40, 5.80, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14,
-                0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61, 0.00, 0.00
-            )
-        )
-    }
-}
-```
-
-### FSRS Algorithm (Kotlin Reference Implementation)
-
-```kotlin
-// FSRS.kt
-class FSRS(private val params: FSRSParameters = FSRSParameters.default) {
-    
-    /**
-     * Process a review and compute the next scheduling state.
-     */
-    fun review(
-        cardId: String,
-        currentState: CardState,
-        currentStability: Double,
-        currentDifficulty: Double,
-        elapsedDays: Int,
-        rating: Rating
-    ): ReviewResult {
-        val now = Clock.System.now().toEpochMilliseconds()
-        
-        val retrievability = if (currentState == CardState.Review && elapsedDays > 0) {
-            calculateRetrievability(elapsedDays.toDouble(), currentStability)
-        } else {
-            1.0 // Learning/New cards don't have meaningful retrievability
-        }
-        
-        val newDifficulty = nextDifficulty(currentDifficulty, rating)
-        val newStability = nextStability(
-            currentState, currentStability, newDifficulty, retrievability, rating
-        )
-        val newState = nextState(currentState, rating)
-        val scheduledDays = nextInterval(newStability)
-        val dueAt = now + (scheduledDays * 24L * 60 * 60 * 1000)
-        
-        return ReviewResult(
-            cardId = cardId,
-            rating = rating,
-            reviewedAt = now,
-            nextState = newState,
-            stability = newStability,
-            difficulty = newDifficulty,
-            elapsedDays = elapsedDays,
-            scheduledDays = scheduledDays,
-            dueAt = dueAt
-        )
-    }
-    
-    private fun calculateRetrievability(elapsed: Double, stability: Double): Double {
-        return (1.0 + elapsed / (9.0 * stability)).pow(-1.0)
-    }
-    
-    private fun nextDifficulty(d: Double, rating: Rating): Double {
-        val newD = d - params.w[6] * (rating.value - 3)
-        return newD.coerceIn(1.0, 10.0)
-    }
-    
-    private fun nextStability(
-        state: CardState,
-        s: Double,
-        d: Double,
-        r: Double,
-        rating: Rating
-    ): Double {
-        return when {
-            // First review (New card)
-            state == CardState.New -> params.w[rating.value - 1]
-            
-            // Lapse (Again on a Review card)
-            rating == Rating.Again -> {
-                params.w[11] * d.pow(-params.w[12]) * 
-                    ((s + 1).pow(params.w[13]) - 1) * 
-                    exp(params.w[14] * (1 - r))
-            }
-            
-            // Successful review (Hard/Good/Easy on Review card)
-            else -> {
-                s * (1 + exp(params.w[8]) * (11 - d) * 
-                    s.pow(-params.w[9]) * 
-                    (exp(params.w[10] * (1 - r)) - 1))
-            }
-        }.coerceAtLeast(0.01) // Minimum stability
-    }
-    
-    private fun nextState(current: CardState, rating: Rating): CardState {
-        return when (current) {
-            CardState.New -> if (rating == Rating.Again) CardState.Learning else CardState.Learning
-            CardState.Learning -> when (rating) {
-                Rating.Again -> CardState.Learning
-                Rating.Hard -> CardState.Learning
-                Rating.Good -> CardState.Review
-                Rating.Easy -> CardState.Review
-            }
-            CardState.Review -> when (rating) {
-                Rating.Again -> CardState.Relearning
-                else -> CardState.Review
-            }
-            CardState.Relearning -> when (rating) {
-                Rating.Again -> CardState.Relearning
-                Rating.Hard -> CardState.Relearning
-                Rating.Good -> CardState.Review
-                Rating.Easy -> CardState.Review
-            }
-        }
-    }
-    
-    private fun nextInterval(stability: Double): Int {
-        val interval = stability * 9.0 * (1.0 / params.desiredRetention - 1.0)
-        return maxOf(1, interval.roundToInt())  // Minimum 1 day
-    }
-}
-```
-
-### Server-Side Validation (Go)
-
-The backend uses the `go-fsrs` package for server-side validation. This verifies that the client's FSRS output is correct.
+The backend uses the `go-fsrs` package:
 
 ```go
 // internal/service/fsrs.go
 package service
 
 import (
-    "math"
+    "time"
     gofsrs "github.com/open-spaced-repetition/go-fsrs"
 )
 
@@ -372,34 +223,125 @@ func NewFSRSService() *FSRSService {
     }
 }
 
-func (s *FSRSService) ValidateSRSState(clientState ClientSRSState, rating int) (bool, ServerSRSState) {
-    // Server recomputes to validate client's FSRS output
-    // This catches bugs in mobile implementation or tampered data
+type SRSOutput struct {
+    Stability     float64
+    Difficulty    float64
+    State         string
+    DueAt         time.Time
+    ScheduledDays int
+    ElapsedDays   int
+    Reps          int
+    Lapses        int
+}
+
+// ProcessReview runs FSRS for a single card review.
+// If the card has no existing state (new card), initialState is used.
+func (s *FSRSService) ProcessReview(
+    currentStability float64,
+    currentDifficulty float64,
+    currentState string,
+    currentReps int,
+    currentLapses int,
+    currentDue time.Time,
+    rating int,
+    reviewedAt time.Time,
+) SRSOutput {
     card := gofsrs.Card{
-        Stability:  clientState.Stability,
-        Difficulty: clientState.Difficulty,
-        // ... map remaining fields
+        Stability:  currentStability,
+        Difficulty: currentDifficulty,
+        Reps:       currentReps,
+        Lapses:     currentLapses,
+        Due:        currentDue,
     }
-    
-    result := s.scheduler.Repeat(card, time.Now())
-    expected := result[gofsrs.Rating(rating)]
-    
-    // Allow small floating point differences
-    isValid := math.Abs(expected.Card.Stability-clientState.Stability) < 0.01 &&
-               math.Abs(expected.Card.Difficulty-clientState.Difficulty) < 0.01
-    
-    return isValid, ServerSRSState{
-        Stability:     expected.Card.Stability,
-        Difficulty:    expected.Card.Difficulty,
-        State:         expected.Card.State,
-        Due:           expected.Card.Due,
-        ScheduledDays: expected.Card.ScheduledDays,
-        ElapsedDays:   expected.Card.ElapsedDays,
-        Reps:          expected.Card.Reps,
-        Lapses:        expected.Card.Lapses,
+
+    // Map state string to go-fsrs state
+    switch currentState {
+    case "new":
+        card.State = gofsrs.New
+    case "learning":
+        card.State = gofsrs.Learning
+    case "review":
+        card.State = gofsrs.Review
+    case "relearning":
+        card.State = gofsrs.Relearning
+    }
+
+    results := s.scheduler.Repeat(card, reviewedAt)
+    result := results[gofsrs.Rating(rating)]
+
+    return SRSOutput{
+        Stability:     result.Card.Stability,
+        Difficulty:    result.Card.Difficulty,
+        State:         stateToString(result.Card.State),
+        DueAt:         result.Card.Due,
+        ScheduledDays: result.Card.ScheduledDays,
+        ElapsedDays:   result.Card.ElapsedDays,
+        Reps:          result.Card.Reps,
+        Lapses:        result.Card.Lapses,
+    }
+}
+
+func stateToString(state gofsrs.State) string {
+    switch state {
+    case gofsrs.New:
+        return "new"
+    case gofsrs.Learning:
+        return "learning"
+    case gofsrs.Review:
+        return "review"
+    case gofsrs.Relearning:
+        return "relearning"
+    default:
+        return "new"
     }
 }
 ```
+
+### Integration with Review Service
+
+When the Review Service receives a batch of reviews:
+
+```go
+// Pseudocode for batch processing
+for each review in batch:
+    // 1. Get existing SRS state (if any)
+    existingState := db.GetSRSState(userID, review.CardID)
+
+    var output SRSOutput
+    if existingState == nil {
+        // New card — use default initial values
+        output = fsrs.ProcessReview(
+            stability:  0,
+            difficulty: 0,
+            state:      "new",
+            reps:       0,
+            lapses:     0,
+            due:        time.Now(),
+            rating:     review.Rating,
+            reviewedAt: review.ReviewedAt,
+        )
+    } else {
+        // Existing card — use current state
+        output = fsrs.ProcessReview(
+            stability:  existingState.Stability,
+            difficulty: existingState.Difficulty,
+            state:      existingState.State,
+            reps:       existingState.Reps,
+            lapses:     existingState.Lapses,
+            due:        existingState.DueAt,
+            rating:     review.Rating,
+            reviewedAt: review.ReviewedAt,
+        )
+    }
+
+    // 2. Insert review history
+    db.CreateReview(userID, review.CardID, review.Rating, review.ReviewedAt)
+
+    // 3. Upsert SRS state with FSRS output
+    db.UpsertSRSState(userID, review.CardID, output)
+
+    // 4. Update analytics (daily activity, streak)
+    analytics.RecordActivity(userID, review)
 ```
 
 ---
@@ -416,18 +358,21 @@ WHERE user_id = $1 AND due_at <= NOW()
 ORDER BY due_at ASC;  -- Most overdue first
 ```
 
-The number of due cards is shown on the home screen as a badge.
+The number of due cards is shown on the home screen as a badge. **Requires connectivity** — the phone fetches this from the server.
 
 ### 2. Quick Review Mode
 Quick Review pulls due cards from **all subjects** and presents them in a time-limited session.
 
 ```
 User taps "Quick Review" → Select duration (5/10 min)
-  → Fetch all due cards (across all subjects)
-  → Sort by most overdue first
+  → App calls GET /reviews/due (requires internet)
+  → Server returns cards where due_at <= NOW()
   → Present cards until time runs out or all reviewed
-  → Sync results
+  → Send ratings batch to server
+  → Server runs FSRS for each card
 ```
+
+**Note:** Quick Review requires internet. This is the main tradeoff of server-only FSRS.
 
 ### 3. Weak Area Detection
 A card/unit is "weak" if:
@@ -456,12 +401,45 @@ When generating a study plan, the algorithm considers FSRS data:
 - Units with more **Relearning-state cards** are scheduled more frequently
 - Units with higher average **difficulty** get more daily time allocated
 
-### 5. Session Card Ordering
-Within a study session, cards are ordered by FSRS priority:
-1. **Relearning cards** (highest priority — recently forgotten)
-2. **Due review cards** (sorted by how overdue they are)
-3. **New cards** (not yet studied)
-4. **Learning cards** (in initial learning phase)
+### 5. Unit Study (Offline Compatible)
+When a student opens a cached unit:
+- All cards in the unit are shown regardless of SRS state
+- Student studies all cards in order
+- Results are queued locally: `{ cardId, rating, timestamp }`
+- When connectivity returns, batch is sent to server
+- Server runs FSRS for each queued review
+
+---
+
+## Mobile App Responsibilities (Regarding FSRS)
+
+Mobile apps do **NOT** run FSRS. Their responsibilities are limited to:
+
+### During a Study Session
+1. Display cards (from local cache or server)
+2. Collect the student's rating for each card:
+   - Classic: "Got it" (rating 3) or "Missed it" (rating 1)
+   - MCQ: Correct (rating 3) or Incorrect (rating 1)
+3. Record: `{ cardId, rating, reviewedAt }`
+4. Queue result for sync
+
+### Syncing Results
+1. When online, batch-upload queued reviews to `POST /reviews`
+2. Request body is simple — just ratings, no SRS state:
+   ```json
+   {
+     "reviews": [
+       { "cardId": "uuid-1", "rating": 3, "reviewedAt": "2026-05-01T10:30:00Z" },
+       { "cardId": "uuid-2", "rating": 1, "reviewedAt": "2026-05-01T10:31:00Z" }
+     ]
+   }
+   ```
+3. Server responds with `{ accepted, rejected }`
+
+### Fetching Due Cards
+1. Call `GET /reviews/due` when online
+2. Server returns cards with server-computed due dates
+3. Used for Quick Review mode and home screen badge
 
 ---
 
@@ -469,42 +447,33 @@ Within a study session, cards are ordered by FSRS priority:
 
 ```
 Day 1: Student first sees "What is photosynthesis?"
-  → State: New → Learning
-  → Rating: Good (3)
-  → Stability: 2.40 days
-  → Scheduled: 2 days → Due Day 3
+  → Sends: { cardId, rating: 3 (Good), reviewedAt }
+  → Server FSRS: New → Learning, stability = 2.40 days
+  → Due: Day 3
 
-Day 3: Card appears for review
-  → State: Review
-  → Student answers correctly: Good (3)
-  → Retrievability was ~90% (right on schedule)
-  → New Stability: 6.8 days
-  → Scheduled: 7 days → Due Day 10
+Day 3: Card appears for review (server says it's due)
+  → Student answers correctly: rating 3 (Good)
+  → Server FSRS: Review, stability grows to 6.8 days
+  → Due: Day 10
 
 Day 10: Card appears again
-  → State: Review
-  → Student answers correctly: Good (3)
-  → New Stability: 18.5 days
-  → Scheduled: 19 days → Due Day 29
+  → Student answers correctly: rating 3 (Good)
+  → Server FSRS: stability grows to 18.5 days
+  → Due: Day 29
 
 Day 29: Card appears
-  → State: Review
-  → Student forgets! Rating: Again (1)
-  → State: Review → Relearning
-  → New Stability: 1.2 days (drops dramatically)
-  → Scheduled: 1 day → Due Day 30
+  → Student forgets! rating 1 (Again)
+  → Server FSRS: Review → Relearning, stability drops to 1.2 days
+  → Due: Day 30
 
 Day 30: Card appears (quick relearn)
-  → State: Relearning
-  → Student answers correctly: Good (3)
-  → State: Relearning → Review
-  → New Stability: 3.5 days
-  → Scheduled: 4 days → Due Day 34
+  → Student answers correctly: rating 3 (Good)
+  → Server FSRS: Relearning → Review, stability = 3.5 days
+  → Due: Day 34
 
 Day 34: Card appears
-  → State: Review
-  → Student answers correctly: Good (3)
-  → New Stability: 9.1 days
+  → Student answers correctly: rating 3 (Good)
+  → Server FSRS: stability = 9.1 days
   → Continues growing from here...
 ```
 
@@ -531,89 +500,120 @@ The `desiredRetention` parameter controls the tradeoff between review frequency 
 
 ---
 
-## Unit Testing the Algorithm
+## Unit Testing the Algorithm (Server-Side Only)
 
-```kotlin
-// FSRSTest.kt
-class FSRSTest {
-    private val fsrs = FSRS(FSRSParameters.default)
+Since FSRS runs only in Go, testing is straightforward — no cross-platform parity testing needed.
+
+```go
+// internal/service/fsrs_test.go
+package service
+
+import (
+    "testing"
+    "time"
+)
+
+func TestNewCardRatedGood(t *testing.T) {
+    svc := NewFSRSService()
     
-    @Test
-    fun `new card rated Good should move to Learning with initial stability`() {
-        val result = fsrs.review(
-            cardId = "test-1",
-            currentState = CardState.New,
-            currentStability = 0.0,
-            currentDifficulty = 5.0,
-            elapsedDays = 0,
-            rating = Rating.Good
-        )
+    result := svc.ProcessReview(
+        0,          // stability (new card)
+        0,          // difficulty (new card)
+        "new",      // state
+        0,          // reps
+        0,          // lapses
+        time.Now(), // due
+        3,          // rating (Good)
+        time.Now(), // reviewedAt
+    )
+    
+    if result.State != "learning" {
+        t.Errorf("expected state 'learning', got '%s'", result.State)
+    }
+    if result.Stability < 2.0 {
+        t.Errorf("expected stability >= 2.0 for Good rating, got %f", result.Stability)
+    }
+    if result.ScheduledDays < 1 {
+        t.Errorf("expected at least 1 scheduled day, got %d", result.ScheduledDays)
+    }
+}
+
+func TestReviewCardRatedAgain(t *testing.T) {
+    svc := NewFSRSService()
+    now := time.Now()
+    
+    result := svc.ProcessReview(
+        10.0,       // stability
+        5.0,        // difficulty
+        "review",   // state
+        5,          // reps
+        0,          // lapses
+        now.AddDate(0, 0, -10), // due 10 days ago
+        1,          // rating (Again)
+        now,
+    )
+    
+    if result.State != "relearning" {
+        t.Errorf("expected state 'relearning', got '%s'", result.State)
+    }
+    if result.Stability >= 10.0 {
+        t.Errorf("expected stability to decrease after Again, got %f", result.Stability)
+    }
+    if result.Lapses != 1 {
+        t.Errorf("expected lapses=1, got %d", result.Lapses)
+    }
+}
+
+func TestSuccessfulReviewIncreasesStability(t *testing.T) {
+    svc := NewFSRSService()
+    now := time.Now()
+    
+    result := svc.ProcessReview(
+        5.0,        // stability
+        5.0,        // difficulty
+        "review",   // state
+        3,          // reps
+        0,          // lapses
+        now.AddDate(0, 0, -5), // due 5 days ago
+        3,          // rating (Good)
+        now,
+    )
+    
+    if result.State != "review" {
+        t.Errorf("expected state 'review', got '%s'", result.State)
+    }
+    if result.Stability <= 5.0 {
+        t.Errorf("expected stability to increase after Good, got %f", result.Stability)
+    }
+}
+
+func TestIntervalsGrowExponentially(t *testing.T) {
+    svc := NewFSRSService()
+    
+    stability := 0.0
+    difficulty := 0.0
+    state := "new"
+    reps := 0
+    lapses := 0
+    due := time.Now()
+    intervals := []int{}
+    
+    for i := 0; i < 5; i++ {
+        now := due
+        result := svc.ProcessReview(stability, difficulty, state, reps, lapses, due, 3, now)
         
-        assertEquals(CardState.Learning, result.nextState)
-        assertEquals(2.40, result.stability, 0.01)  // w[2] for Good
-        assertTrue(result.scheduledDays >= 1)
+        intervals = append(intervals, result.ScheduledDays)
+        stability = result.Stability
+        difficulty = result.Difficulty
+        state = result.State
+        reps = result.Reps
+        lapses = result.Lapses
+        due = result.DueAt
     }
     
-    @Test
-    fun `review card rated Again should move to Relearning with reduced stability`() {
-        val result = fsrs.review(
-            cardId = "test-2",
-            currentState = CardState.Review,
-            currentStability = 10.0,
-            currentDifficulty = 5.0,
-            elapsedDays = 10,
-            rating = Rating.Again
-        )
-        
-        assertEquals(CardState.Relearning, result.nextState)
-        assertTrue(result.stability < 10.0)  // Stability decreased
-        assertTrue(result.stability > 0.0)   // But not zero
-    }
-    
-    @Test
-    fun `successful review should increase stability`() {
-        val result = fsrs.review(
-            cardId = "test-3",
-            currentState = CardState.Review,
-            currentStability = 5.0,
-            currentDifficulty = 5.0,
-            elapsedDays = 5,
-            rating = Rating.Good
-        )
-        
-        assertEquals(CardState.Review, result.nextState)
-        assertTrue(result.stability > 5.0)  // Stability grew
-    }
-    
-    @Test
-    fun `intervals should grow exponentially with consistent Good ratings`() {
-        var stability = 0.0
-        var difficulty = 5.0
-        var state = CardState.New
-        var elapsedDays = 0
-        val intervals = mutableListOf<Int>()
-        
-        // Simulate 5 consecutive Good reviews
-        repeat(5) {
-            val result = fsrs.review(
-                cardId = "test-4",
-                currentState = state,
-                currentStability = stability,
-                currentDifficulty = difficulty,
-                elapsedDays = elapsedDays,
-                rating = Rating.Good
-            )
-            
-            intervals.add(result.scheduledDays)
-            stability = result.stability
-            difficulty = result.difficulty
-            state = result.nextState
-            elapsedDays = result.scheduledDays
-        }
-        
-        // Each interval should be longer than the last
-        for (i in 1 until intervals.size) {
-            assertTrue(intervals[i] >= intervals[i - 1])
+    for i := 1; i < len(intervals); i++ {
+        if intervals[i] < intervals[i-1] {
+            t.Errorf("intervals should grow: %d < %d at step %d", intervals[i], intervals[i-1], i)
         }
     }
 }
@@ -630,7 +630,7 @@ After a student accumulates **500+ reviews**, run the FSRS optimizer on their re
 - Collect all `(card_srs_state, card_reviews)` data for the user
 - Run the FSRS optimizer (gradient descent on the 19 parameters)
 - Store personalized `w` parameters in the user's profile
-- The app uses personalized parameters instead of defaults
+- The server uses personalized parameters instead of defaults
 
 **Benefits:**
 - 10-20% additional reduction in reviews compared to default parameters
@@ -647,8 +647,15 @@ Allow students to set different retention targets:
 - Exam mode: 95% for subjects with upcoming exams
 - Low-priority: 85% for subjects the student is already strong in
 
-### 3. FSRS v5+ Updates
-The FSRS algorithm is actively developed. As new versions are released with improved parameter training or formula updates, each platform's FSRS library can be updated independently. Since each implementation is just ~200 lines of well-specified math, updating all three platforms is straightforward.
+### 3. Cached Due Cards for Offline Quick Review (Future)
+If offline Quick Review becomes important:
+- When online, fetch and cache the due cards list locally
+- Allow reviewing cached due cards offline
+- Queue results for sync when connectivity returns
+- This is a lightweight enhancement that doesn't require running FSRS locally
+
+### 4. FSRS v5+ Updates
+The FSRS algorithm is actively developed. As new versions are released with improved parameter training or formula updates, only the Go implementation needs to be updated. Since there's only one implementation, updates are straightforward.
 
 ---
 

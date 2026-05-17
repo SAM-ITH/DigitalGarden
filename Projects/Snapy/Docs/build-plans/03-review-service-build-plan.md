@@ -21,7 +21,7 @@ If any prerequisite is missing, **stop and report back**.
 - `10-api-build-plan.md` — Phase 3 (Steps 3.1–3.7)
 - `08-database-design.md` — Tables: `card_reviews`, `card_srs_state`, `cards`, `units`
 - `09-spaced-repetition-engine.md` — FSRS algorithm, card states, rating system, server-side validation
-- `05-backend-system.md` — Review batch sync flow, SRS conflict resolution, FSRS validation
+- `05-backend-system.md` — Review batch sync flow, FSRS server-side computation
 
 ---
 
@@ -205,19 +205,9 @@ type BatchReviewRequest struct {
 }
 
 type ReviewItem struct {
-    CardID     string        `json:"cardId" validate:"required,uuid"`
-    Rating     int16         `json:"rating" validate:"required,min=1,max=4"`
-    ReviewedAt time.Time     `json:"reviewedAt" validate:"required"`
-    SRSState   *SRSStateInput `json:"srsState"`
-}
-
-type SRSStateInput struct {
-    Stability     float32 `json:"stability"`
-    Difficulty    float32 `json:"difficulty"`
-    ElapsedDays   int32   `json:"elapsedDays"`
-    ScheduledDays int32   `json:"scheduledDays"`
-    State         string  `json:"state"`
-    DueAt         time.Time `json:"dueAt"`
+    CardID     string    `json:"cardId" validate:"required,uuid"`
+    Rating     int16     `json:"rating" validate:"required,min=1,max=4"`
+    ReviewedAt time.Time `json:"reviewedAt" validate:"required"`
 }
 ```
 
@@ -227,14 +217,8 @@ type SRSStateInput struct {
 package model
 
 type BatchReviewResponse struct {
-    Accepted    int              `json:"accepted"`
-    Rejected    int              `json:"rejected"`
-    Corrections []CorrectionItem `json:"corrections,omitempty"`
-}
-
-type CorrectionItem struct {
-    CardID string `json:"cardId"`
-    Reason string `json:"reason"`
+    Accepted    int `json:"accepted"`
+    Rejected    int `json:"rejected"`
 }
 
 type DueCardsResponse struct {
@@ -268,7 +252,7 @@ type SRSStateOutput struct {
 
 ---
 
-## Step 5: FSRS Service (Server-Side Validation)
+## Step 5: FSRS Service (Server-Side Scheduling)
 
 ### `internal/service/fsrs.go`
 
@@ -276,6 +260,7 @@ type SRSStateOutput struct {
 package service
 
 import (
+    "time"
     gofsrs "github.com/open-spaced-repetition/go-fsrs"
 )
 
@@ -286,29 +271,23 @@ type FSRSService struct {
 func NewFSRSService() *FSRSService
 ```
 
-**Purpose:** Server-side FSRS recomputation to validate client-submitted SRS state.
+**Purpose:** Run FSRS for each review to compute scheduling (stability, difficulty, due date).
 
-**ValidateSRSState method:**
+**ProcessReview method:**
 
-1. Reconstruct a `gofsrs.Card` from the client's current SRS state (before this review)
-2. Call `scheduler.Repeat(card, now)` to get all rating outcomes
-3. Select the result matching the client's rating
-4. Compare server-computed values with client-submitted values:
-   - `stability` — tolerance ±0.5
-   - `difficulty` — tolerance ±0.5
-   - `scheduledDays` — must match exactly
-   - `state` — must match string
-5. If within tolerance: accept client state as-is (client is correct)
-6. If outside tolerance: use server-computed state instead (log warning)
+1. Reconstruct a `gofsrs.Card` from the existing SRS state (or defaults for new cards)
+2. Call `scheduler.Repeat(card, reviewedAt)` to get all rating outcomes
+3. Select the result matching the review's rating
+4. Return the computed values: stability, difficulty, state, due_at, scheduled_days, reps, lapses
 
-This catches mobile app bugs or tampered data without rejecting legitimate reviews.
-
-**FSRS default parameters (from `09-spaced-repetition-engine.md`):**
+**FSRS default parameters:**
 ```
 w = [0.40, 0.60, 2.40, 5.80, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14,
      0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61, 0.00, 0.00]
 desiredRetention = 0.9
 ```
+
+This is the ONLY FSRS implementation in the system. No client-side FSRS needed.
 
 ---
 
@@ -339,28 +318,22 @@ For each `ReviewItem` in the batch (process in a **single database transaction**
 1. **Insert review log:**
    - `CreateReview(userID, cardID, rating, reviewedAt)`
 
-2. **Handle SRS state:**
-   - **If `SRSState` is provided** (client computed FSRS):
-     a. Get current server state: `GetSRSState(userID, cardID)`
-     b. **Conflict resolution:**
-        - If server `last_reviewed_at` is nil OR `server.last_reviewed_at < client.reviewedAt`: **accept client state**
-        - If `server.last_reviewed_at >= client.reviewedAt`: **reject** (stale), add to corrections list, skip upsert
-     c. **Server-side validation** (if accepting):
-        - Run `FSRSService.ValidateSRSState()` to recompute
-        - If server disagrees significantly, use server-computed values
-     d. `UpsertSRSState(userID, cardID, ...)` with accepted values
-   - **If `SRSState` is nil** (new card, first review):
-     a. Compute initial SRS state using FSRS for the given rating
-     b. For rating 1 (Again): state="learning", stability=w[0], scheduled_days=1
-     c. For rating 2 (Hard): state="learning", stability=w[1], scheduled_days=1
-     d. For rating 3 (Good): state="review", stability=w[2], scheduled_days from interval calc
-     e. For rating 4 (Easy): state="review", stability=w[3], scheduled_days from interval calc
-     f. `UpsertSRSState(userID, cardID, initial_state...)`
+2. **Compute FSRS scheduling:**
+   - Get existing SRS state: `GetSRSState(userID, cardID)`
+   - **If no existing state** (new card):
+     a. Create `gofsrs.Card` with default values (stability=0, difficulty=0, state=New, reps=0, lapses=0)
+   - **If existing state:**
+     a. Create `gofsrs.Card` from stored values (stability, difficulty, state, reps, lapses, due)
+   - Call `FSRSService.ProcessReview(...)` with the rating
+   - Returns: new stability, difficulty, state, due_at, scheduled_days, reps, lapses
 
-3. **Return response:**
+3. **Upsert SRS state:**
+   - `UpsertSRSState(userID, cardID, computed_values...)`
+   - Server is the single source of truth — no client-submitted SRS state to conflict with
+
+4. **Return response:**
    - `accepted` = count of accepted reviews
-   - `rejected` = count of rejected (stale) reviews
-   - `corrections` = list of rejected card IDs with reasons
+   - `rejected` = count of rejected reviews (e.g., card doesn't exist)
 
 **Important:** Use `pgx` transaction (`pool.Begin(ctx)`) to ensure atomicity of the batch.
 
@@ -495,7 +468,7 @@ curl -s -X POST http://localhost:8083/batch \
       }
     ]
   }'
-# Expected: { "accepted": 1, "rejected": 0, "corrections": [] }
+# Expected: { "accepted": 1, "rejected": 0 }
 
 # Submit without SRS state (new card)
 curl -s -X POST http://localhost:8083/batch \
@@ -528,13 +501,12 @@ curl -s "http://localhost:8083/due?limit=10" \
 ## Acceptance Criteria
 
 - [ ] Service compiles and starts on port 8083
-- [ ] `POST /batch` stores reviews and updates SRS state
+- [ ] `POST /batch` stores reviews and server computes FSRS scheduling
 - [ ] Batch processing is atomic (all succeed or all fail)
 - [ ] SRS state upsert works (INSERT for new, UPDATE for existing)
-- [ ] Conflict resolution works: stale client state is rejected
-- [ ] Corrections list returned for rejected reviews
+- [ ] Server runs FSRS for each review to compute stability, difficulty, due date
 - [ ] New cards (no SRS state) get initial FSRS state computed
-- [ ] Server-side FSRS validation catches incorrect client computations
+- [ ] No client-submitted SRS state — server is single source of truth
 - [ ] `GET /due` returns cards with `due_at <= NOW()`
 - [ ] `GET /due?limit=N` respects the limit parameter
 - [ ] Due cards are sorted by `due_at` ASC (most overdue first)

@@ -9,7 +9,7 @@ Snapy helps O/L (Grade 10-11) and A/L (Grade 12-13) students prepare for exams u
 ## Features
 
 - **Flashcard Study Sessions** — Classic recall and multiple-choice (MCQ) modes, mixable within sessions
-- **Spaced Repetition (FSRS)** — Algorithm schedules reviews at optimal intervals for long-term retention
+- **Spaced Repetition (FSRS)** — Algorithm runs server-side, schedules reviews at optimal intervals for long-term retention
 - **Syllabus-Aligned Content** — Organized by grade, subject, term, and unit following the Sri Lankan curriculum
 - **Study Plans** — Goal-based plans (exam prep, catch-up) with daily task scheduling
 - **Analytics Dashboard** — Streak heatmap, accuracy trends, weak area identification
@@ -49,10 +49,10 @@ Read the docs in order for a complete understanding, or jump to specific topics.
 | # | Document | Description |
 |---|----------|-------------|
 | 5 | [Backend System](docs/05-backend-system.md) | API routes, auth flow, middleware, study plan algorithm, leaderboard |
-| 6 | [iOS App](docs/06-ios-app.md) | SwiftUI screens, MVVM architecture, animations, offline, native FSRS |
-| 7 | [Android App](docs/07-android-app.md) | Jetpack Compose screens, MVVM architecture, animations, offline, native FSRS |
+| 6 | [iOS App](docs/06-ios-app.md) | SwiftUI screens, MVVM architecture, animations, offline support |
+| 7 | [Android App](docs/07-android-app.md) | Jetpack Compose screens, MVVM architecture, animations, offline support |
 | 8 | [Database Design](docs/08-database-design.md) | PostgreSQL schema, Redis data structures, indexes, migrations |
-| 9 | [Spaced Repetition Engine](docs/09-spaced-repetition-engine.md) | FSRS algorithm, per-platform implementation, integration with app features |
+| 9 | [Spaced Repetition Engine](docs/09-spaced-repetition-engine.md) | FSRS algorithm, server-side implementation, integration with app features |
 
 ---
 

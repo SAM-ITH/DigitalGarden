@@ -70,11 +70,12 @@ Two modes of study, which can be mixed within a single session:
 - Provides variety and tests different cognitive skills (recall vs. recognition)
 
 ### 5. Spaced Repetition Engine (FSRS)
-- Uses the FSRS (Free Spaced Repetition Scheduler) algorithm
+- Uses the FSRS (Free Spaced Repetition Scheduler) algorithm running on the server
 - Cards the student struggles with appear more frequently
 - Cards the student knows well are scheduled further into the future
 - Scientifically optimized to achieve ~90% retention with minimum review effort
 - Adapts to each student's individual memory patterns over time
+- Server computes all scheduling — mobile apps send raw ratings only
 
 ### 6. Quick Review Mode
 - For students who want a fast memory refreshment
